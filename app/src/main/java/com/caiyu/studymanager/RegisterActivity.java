@@ -44,6 +44,7 @@ public class RegisterActivity extends Activity {
         passwordEt.setOnFocusChangeListener(new FocusChangeListener());
         repeatPasswordEt.setOnFocusChangeListener(new FocusChangeListener());
         registerBtn.setOnClickListener(new RegisterBtnClickListener());
+        registerBtn.setEnabled(false);
     }
 
     /**
@@ -87,7 +88,7 @@ public class RegisterActivity extends Activity {
             return false;
         if (!isPasswordValid())
             return false;
-        if (isRepeatPasswordValid())
+        if (!isRepeatPasswordValid())
             return false;
         return true;
     }
@@ -105,7 +106,9 @@ public class RegisterActivity extends Activity {
                 }
                 else {
                     if (!isUserNameValid()) {
-                        userNameErrorTv.setVisibility(View.VISIBLE);
+                        if (!editText.getText().toString().equals("")) {
+                            userNameErrorTv.setVisibility(View.VISIBLE);
+                        }
                         registerBtn.setEnabled(false);
                     }
                     else {
@@ -119,8 +122,10 @@ public class RegisterActivity extends Activity {
                 }
                 else {
                     if (!isPasswordValid()) {
-                        passwordErrorTv.setText("密码过短，至少6位");
-                        passwordErrorTv.setVisibility(View.VISIBLE);
+                        if (!editText.getText().toString().equals("")) {
+                            passwordErrorTv.setText("密码过短，至少6位");
+                            passwordErrorTv.setVisibility(View.VISIBLE);
+                        }
                         registerBtn.setEnabled(false);
                     }
                     else {
@@ -134,8 +139,10 @@ public class RegisterActivity extends Activity {
                 }
                 else {
                     if (!isRepeatPasswordValid()) {
-                        repeatPasswordErrorTv.setText("两次输入的密码不一致");
-                        repeatPasswordErrorTv.setVisibility(View.VISIBLE);
+                        if (!editText.getText().toString().equals("")) {
+                            repeatPasswordErrorTv.setText("两次输入的密码不一致");
+                            repeatPasswordErrorTv.setVisibility(View.VISIBLE);
+                        }
                         registerBtn.setEnabled(false);
                     }
                     else {

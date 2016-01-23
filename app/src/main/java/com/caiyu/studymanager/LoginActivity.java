@@ -30,6 +30,15 @@ public class LoginActivity extends Activity {
     }
 
     private void initViews() {
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isUserInfoCorrect()) {
+                    Intent intent = new Intent(LoginActivity.this, ClassTableActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
         registerTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,5 +46,11 @@ public class LoginActivity extends Activity {
                 startActivity(intent);
             }
         });
+    }
+
+    private boolean isUserInfoCorrect() {
+        String userNameStr = userNameEt.getText().toString();
+        String passwordStr = passwordEt.getText().toString();
+        return true;
     }
 }
