@@ -59,4 +59,14 @@
         android:textSize="15sp"
         android:textColor="@color/blue"
         android:text="注册新用户" />
+    <TextView
+        android:id="@+id/offlineUseTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/registerTv"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="15sp"
+        android:textColor="@color/blue"
+        android:text="我想单机使用" />
 </RelativeLayout>
