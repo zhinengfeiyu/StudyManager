@@ -3,33 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/selector_pressed">
     <TextView
         android:id="@+id/classNameTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:textSize="12sp"
-        android:text="课程名"/>
+        android:textSize="12sp" />
     <TextView
         android:id="@+id/classRoomTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:textSize="12sp"
-        android:text="上课地点"/>
+        android:textSize="12sp" />
     <TextView
         android:id="@+id/teacherTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:textSize="12sp"
-        android:text="教师"/>
+        android:textSize="12sp" />
     <TextView
         android:id="@+id/weeksTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:textSize="12sp"
-        android:text="第%1$d-%2$d周"/>
+        android:textSize="12sp" />
 </LinearLayout>

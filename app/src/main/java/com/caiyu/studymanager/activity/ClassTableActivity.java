@@ -1,6 +1,7 @@
 package com.caiyu.studymanager.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -11,8 +12,10 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.caiyu.entity.ClassTableEntity;
 import com.caiyu.studymanager.R;
-import com.caiyu.studymanager.bean.ClassDetailDO;
+import com.caiyu.studymanager.common.Verifier;
+import com.caiyu.studymanager.manager.ClassTableManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +25,11 @@ import java.util.List;
  */
 public class ClassTableActivity extends Activity {
 
+    private ClassTableManager tableManager = ClassTableManager.getInstance();
+
     private GridView tableGv;
 
-    private List<ClassDetailDO> classList;
+    private List<ClassTableEntity> classList;
 
     private int unitWidth;
     private int unitHeight;
@@ -40,7 +45,8 @@ public class ClassTableActivity extends Activity {
         int screenHeight = metrics.heightPixels;
         unitWidth = (screenWidth - tableGv.getPaddingLeft() - tableGv.getPaddingRight()) / 5;
         unitHeight = (screenHeight - tableGv.getPaddingTop() - tableGv.getPaddingBottom()) / 5;
-        getDefaultTableData();
+
+        classList = tableManager.getAll();
         initViews();
     }
 
@@ -89,12 +95,15 @@ public class ClassTableActivity extends Activity {
             else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            ClassDetailDO data = (ClassDetailDO) getItem(position);
-            holder.classNameTv.setText(data.getClassName());
-            holder.classRoomTv.setText(data.getClassRoom());
-            holder.teacherTv.setText(data.getTeacher());
-            String weeksFormatStr = "第%1$d-%2$d周";
-            holder.weeksTv.setText(String.format(weeksFormatStr, data.getStartWeek(), data.getEndWeek()));
+            ClassTableEntity data = (ClassTableEntity) getItem(position);
+            if (isEffectiveClass(data)) {
+                holder.classNameTv.setText(data.getClassName());
+                holder.classRoomTv.setText(data.getClassRoom());
+                holder.teacherTv.setText(data.getTeacher());
+                String weeksFormatStr = "第%1$d-%2$d周";
+                holder.weeksTv.setText(String.format(weeksFormatStr, data.getStartWeek(), data.getEndWeek()));
+            }
+            convertView.setOnClickListener(new ClickListener(data.getId()));
             return convertView;
         }
 
@@ -106,6 +115,19 @@ public class ClassTableActivity extends Activity {
         }
     }
 
+    private boolean isEffectiveClass(ClassTableEntity entity) {
+        if (!Verifier.isEffectiveStr(entity.getClassName()))
+            return false;
+        if (entity.getDayOfWeek() < 1 || entity.getDayOfWeek() > 5)
+            return false;
+        if (entity.getOrderOfDay() < 1 || entity.getOrderOfDay() > 5)
+            return false;
+        if (entity.getStartWeek() < 1 || entity.getEndWeek() < 1
+                || entity.getEndWeek() - entity.getStartWeek() < 0)
+            return false;
+        return true;
+    }
+
     private void getDefaultTableData() {
         if (classList == null) {
             classList = new ArrayList<>(45);
@@ -113,9 +135,9 @@ public class ClassTableActivity extends Activity {
         else {
             classList.clear();
         }
-        ClassDetailDO record;
+        ClassTableEntity record;
 
-        record = new ClassDetailDO();
+        record = new ClassTableEntity();
         record.setClassName("数据结构与算法");
         record.setClassRoom("同和405");
         record.setTeacher("刘斌");
@@ -123,7 +145,7 @@ public class ClassTableActivity extends Activity {
         record.setEndWeek(16);
         classList.add(record);
 
-        record = new ClassDetailDO();
+        record = new ClassTableEntity();
         record.setClassName("计算机组成原理");
         record.setClassRoom("厚学302");
         record.setTeacher("糜元根");
@@ -131,7 +153,7 @@ public class ClassTableActivity extends Activity {
         record.setEndWeek(14);
         classList.add(record);
 
-        record = new ClassDetailDO();
+        record = new ClassTableEntity();
         record.setClassName("计算机网络");
         record.setClassRoom("仁智208");
         record.setTeacher("张芃");
@@ -139,7 +161,7 @@ public class ClassTableActivity extends Activity {
         record.setEndWeek(12);
         classList.add(record);
 
-        record = new ClassDetailDO();
+        record = new ClassTableEntity();
         record.setClassName("软件工程导论");
         record.setClassRoom("厚学601");
         record.setTeacher("段江");
@@ -147,7 +169,7 @@ public class ClassTableActivity extends Activity {
         record.setEndWeek(10);
         classList.add(record);
 
-        record = new ClassDetailDO();
+        record = new ClassTableEntity();
         record.setClassName("计算机专业英语");
         record.setClassRoom("仁智408");
         record.setTeacher("曹磊");
@@ -155,7 +177,7 @@ public class ClassTableActivity extends Activity {
         record.setEndWeek(17);
         classList.add(record);
 
-        record = new ClassDetailDO();
+        record = new ClassTableEntity();
         record.setClassName("离散数学");
         record.setClassRoom("同和306");
         record.setTeacher("曹磊");
@@ -165,4 +187,17 @@ public class ClassTableActivity extends Activity {
 
     }
 
+    private class ClickListener implements View.OnClickListener {
+        private long id;
+
+        public ClickListener(long id) {
+            this.id = id;
+        }
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(ClassTableActivity.this, ClassSetActivity.class);
+
+            startActivity(intent);
+        }
+    }
 }

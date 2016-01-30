@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.caiyu.studymanager.R;
+import com.caiyu.studymanager.manager.DaoLoader;
 
 /**
  * Created by 渝 on 2016/1/23.
@@ -53,8 +54,10 @@ public class LoginActivity extends Activity {
         offlineUseTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DaoLoader.init(getApplicationContext(), 0);
                 Intent intent = new Intent(LoginActivity.this, ClassTableActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
