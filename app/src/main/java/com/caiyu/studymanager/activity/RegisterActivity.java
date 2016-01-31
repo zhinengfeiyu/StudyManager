@@ -11,46 +11,57 @@ import android.widget.Toast;
 
 import com.caiyu.studymanager.R;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Created by 渝 on 2016/1/23.
  */
-public class RegisterActivity extends Activity {
+public class RegisterActivity extends BaseActivity {
 
-    private EditText userNameEt;
-    private EditText passwordEt;
-    private EditText repeatPasswordEt;
-    private TextView userNameErrorTv;
-    private TextView passwordErrorTv;
-    private TextView repeatPasswordErrorTv;
-    private Button registerBtn;
+    @Bind(R.id.userNameEt)
+    EditText userNameEt;
+    @Bind(R.id.passwordEt)
+    EditText passwordEt;
+    @Bind(R.id.repeatPasswordEt)
+    EditText repeatPasswordEt;
+    @Bind(R.id.userNameErrorTv)
+    TextView userNameErrorTv;
+    @Bind(R.id.passwordErrorTv)
+    TextView passwordErrorTv;
+    @Bind(R.id.repeatPasswordErrorTv)
+    TextView repeatPasswordErrorTv;
+    @Bind(R.id.registerBtn)
+    Button registerBtn;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        userNameEt = (EditText) findViewById(R.id.userNameEt);
-        passwordEt = (EditText) findViewById(R.id.passwordEt);
-        repeatPasswordEt = (EditText) findViewById(R.id.repeatPasswordEt);
-        userNameErrorTv = (TextView) findViewById(R.id.userNameErrorTv);
-        passwordErrorTv = (TextView) findViewById(R.id.passwordErrorTv);
-        repeatPasswordErrorTv = (TextView) findViewById(R.id.repeatPasswordErrorTv);
-        registerBtn = (Button) findViewById(R.id.registerBtn);
-        initViews();
+    public int getContentViewId() {
+        return R.layout.activity_register;
     }
 
-    private void initViews() {
+    @Override
+    public void afterViewCreated() {
         userNameEt.setFilters(new InputFilter[]{new InputFilter.LengthFilter(12)});
         passwordEt.setFilters(new InputFilter[]{new InputFilter.LengthFilter(18)});
         repeatPasswordEt.setFilters(new InputFilter[]{new InputFilter.LengthFilter(18)});
         userNameEt.setOnFocusChangeListener(new FocusChangeListener());
         passwordEt.setOnFocusChangeListener(new FocusChangeListener());
         repeatPasswordEt.setOnFocusChangeListener(new FocusChangeListener());
-        registerBtn.setOnClickListener(new RegisterBtnClickListener());
         registerBtn.setEnabled(false);
+    }
+
+    @OnClick(R.id.registerBtn)
+    void click_register() {
+        if (isAllInfoValid()) {
+            Toast.makeText(getApplicationContext(), "注册成功", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     /**
      * 验证用户名
+     *
      * @return
      */
     private boolean isUserNameValid() {
@@ -59,6 +70,7 @@ public class RegisterActivity extends Activity {
 
     /**
      * 验证密码
+     *
      * @return
      */
     private boolean isPasswordValid() {
@@ -71,6 +83,7 @@ public class RegisterActivity extends Activity {
 
     /**
      * 验证二次输入的密码
+     *
      * @return
      */
     private boolean isRepeatPasswordValid() {
@@ -83,6 +96,7 @@ public class RegisterActivity extends Activity {
 
     /**
      * 验证所有信息
+     *
      * @return
      */
     private boolean isAllInfoValid() {
@@ -98,56 +112,48 @@ public class RegisterActivity extends Activity {
     private class FocusChangeListener implements View.OnFocusChangeListener {
 
         @Override
-        public void onFocusChange(View v, boolean hasFocus){
+        public void onFocusChange(View v, boolean hasFocus) {
 
             EditText editText = (EditText) v;
 
             if (editText == userNameEt) {
                 if (hasFocus) {
                     userNameErrorTv.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     if (!isUserNameValid()) {
                         if (!editText.getText().toString().equals("")) {
                             userNameErrorTv.setVisibility(View.VISIBLE);
                         }
                         registerBtn.setEnabled(false);
-                    }
-                    else {
+                    } else {
                         registerBtn.setEnabled(isAllInfoValid());
                     }
                 }
-            }
-            else if (editText == passwordEt) {
+            } else if (editText == passwordEt) {
                 if (hasFocus) {
                     passwordErrorTv.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     if (!isPasswordValid()) {
                         if (!editText.getText().toString().equals("")) {
                             passwordErrorTv.setText("密码过短，至少6位");
                             passwordErrorTv.setVisibility(View.VISIBLE);
                         }
                         registerBtn.setEnabled(false);
-                    }
-                    else {
+                    } else {
                         registerBtn.setEnabled(isAllInfoValid());
                     }
                 }
-            }
-            else if (editText == repeatPasswordEt) {
+            } else if (editText == repeatPasswordEt) {
                 if (hasFocus) {
                     repeatPasswordErrorTv.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     if (!isRepeatPasswordValid()) {
                         if (!editText.getText().toString().equals("")) {
                             repeatPasswordErrorTv.setText("两次输入的密码不一致");
                             repeatPasswordErrorTv.setVisibility(View.VISIBLE);
                         }
                         registerBtn.setEnabled(false);
-                    }
-                    else {
+                    } else {
                         registerBtn.setEnabled(isAllInfoValid());
                     }
                 }
@@ -155,13 +161,4 @@ public class RegisterActivity extends Activity {
         }
     }
 
-    private class RegisterBtnClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            if (isAllInfoValid()) {
-                Toast.makeText(getApplicationContext(), "注册成功", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        }
-    }
 }

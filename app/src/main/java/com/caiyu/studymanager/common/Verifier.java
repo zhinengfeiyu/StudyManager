@@ -14,4 +14,15 @@ public class Verifier {
     public static boolean isEffectiveStr(String str) {
         return str != null && !str.equals("");
     }
+
+    /**
+     * 测试字符串是否表示非负整数
+     */
+    public static boolean isEffectiveUnsignedInt(String str) {
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) < '0' || str.charAt(i) > '9')
+                return false;
+        }
+        return true;
+    }
 }

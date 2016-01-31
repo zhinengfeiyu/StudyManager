@@ -19,7 +19,8 @@
         android:layout_alignBaseline="@id/dayOfWeekTv"
         android:hint="输入1-5"
         android:textSize="14sp"
-        android:inputType="number"/>
+        android:inputType="number"
+        android:focusable="false"/>
 
     <TextView
         android:id="@+id/orderOfDayTv"
@@ -38,7 +39,8 @@
         android:layout_alignBaseline="@id/orderOfDayTv"
         android:hint="输入1-5"
         android:textSize="14sp"
-        android:inputType="number"/>
+        android:inputType="number"
+        android:focusable="false"/>
 
     <TextView
         android:id="@+id/classNameTv"
@@ -133,7 +135,7 @@
         android:inputType="number"/>
 
     <Button
-        android:id="@+id/Btn"
+        android:id="@+id/confirmBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

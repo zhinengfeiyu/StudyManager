@@ -95,6 +95,11 @@ public class ClassTableManager implements IDaoManager<ClassTableEntity>{
         }
     }
 
+    public void update(ClassTableEntity entity) {
+        if (classTableDao != null)
+            classTableDao.update(entity);
+    }
+
     private void fixDao() {
         if (getTotalCount() != 25) {
             deleteAll();
