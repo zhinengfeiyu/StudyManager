@@ -121,6 +121,55 @@ public class ClassTableManager implements IDaoManager<ClassTableEntity>{
         }
     }
 
+
+    public String getShowWeekday(int weekday) {
+        String showStr;
+        switch (weekday) {
+            case 1:
+                showStr = "星期一";
+                break;
+            case 2:
+                showStr = "星期二";
+                break;
+            case 3:
+                showStr = "星期三";
+                break;
+            case 4:
+                showStr = "星期四";
+                break;
+            case 5:
+                showStr = "星期五";
+                break;
+            default:
+                showStr = "";
+        }
+        return showStr;
+    }
+
+    public String getShowOrder(int order) {
+        String showStr;
+        switch (order) {
+            case 1:
+                showStr = "上午第一二节";
+                break;
+            case 2:
+                showStr = "上午第三四节";
+                break;
+            case 3:
+                showStr = "下午第一二节";
+                break;
+            case 4:
+                showStr = "下午第三四节";
+                break;
+            case 5:
+                showStr = "晚上第一二节";
+                break;
+            default:
+                showStr = "";
+        }
+        return showStr;
+    }
+
 //    public void testQueryBy() {
 //        List joes = classTableDao.queryBuilder()
 //                .where(ClassTableDao.Properties.Phone.eq("Joe"))

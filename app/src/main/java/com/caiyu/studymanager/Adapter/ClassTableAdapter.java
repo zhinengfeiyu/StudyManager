@@ -93,6 +93,12 @@ public class ClassTableAdapter extends BaseAdapter {
             String weeksFormatStr = "第%1$d-%2$d周";
             holder.weeksTv.setText(String.format(weeksFormatStr, data.getStartWeek(), data.getEndWeek()));
         }
+        else {
+            holder.classNameTv.setText("");
+            holder.classRoomTv.setText("");
+            holder.teacherTv.setText("");
+            holder.weeksTv.setText("");
+        }
         convertView.setOnClickListener(new ClickListener(data.getId()));
         return convertView;
     }

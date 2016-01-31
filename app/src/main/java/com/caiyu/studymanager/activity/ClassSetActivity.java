@@ -1,6 +1,8 @@
 package com.caiyu.studymanager.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +38,8 @@ public class ClassSetActivity extends BaseActivity{
     EditText endWeekEt;
     @Bind(R.id.confirmBtn)
     Button confirmBtn;
+    @Bind(R.id.deleteBtn)
+    Button deleteBtn;
 
     private ClassTableManager tableManager = ClassTableManager.getInstance();
 
@@ -56,13 +60,15 @@ public class ClassSetActivity extends BaseActivity{
             finish();
             return;
         }
-        dayOfWeekEt.setText(getShowWeekday(classEntity.getDayOfWeek()));
-        orderOfDayEt.setText(getShowOrder(classEntity.getOrderOfDay()));
+        dayOfWeekEt.setText(tableManager.getShowWeekday(classEntity.getDayOfWeek()));
+        orderOfDayEt.setText(tableManager.getShowOrder(classEntity.getOrderOfDay()));
         classNameEt.setText(classEntity.getClassName());
         classRoomEt.setText(classEntity.getClassRoom());
         teacherEt.setText(classEntity.getTeacher());
         startWeekEt.setText(classEntity.getStartWeek() + "");
         endWeekEt.setText(classEntity.getEndWeek() + "");
+        if (classEntity.getClassName().equals(""))
+            deleteBtn.setEnabled(false);
     }
 
     @Override
@@ -90,6 +96,29 @@ public class ClassSetActivity extends BaseActivity{
         tableManager.update(classEntity);
         setResult(Activity.RESULT_OK);
         finish();
+    }
+
+    @OnClick(R.id.deleteBtn)
+    void click_delete() {
+        new AlertDialog.Builder(this)
+            .setMessage("确认删除该课程？")
+            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    classEntity.setClassName("");
+                    classEntity.setClassRoom("");
+                    classEntity.setTeacher("");
+                    classEntity.setStartWeek(0);
+                    classEntity.setEndWeek(0);
+                    tableManager.update(classEntity);
+                    setResult(Activity.RESULT_OK);
+                    finish();
+                    showToast("该课程已被删除");
+                }
+            })
+            .setNegativeButton("取消", null)
+            .create()
+            .show();
     }
 
     private boolean verifyInput() {
@@ -133,51 +162,4 @@ public class ClassSetActivity extends BaseActivity{
         return true;
     }
 
-    private String getShowWeekday(int weekday) {
-        String showStr;
-        switch (weekday) {
-            case 1:
-                showStr = "星期一";
-                break;
-            case 2:
-                showStr = "星期二";
-                break;
-            case 3:
-                showStr = "星期三";
-                break;
-            case 4:
-                showStr = "星期四";
-                break;
-            case 5:
-                showStr = "星期五";
-                break;
-            default:
-                showStr = "";
-        }
-        return showStr;
-    }
-
-    private String getShowOrder(int order) {
-        String showStr;
-        switch (order) {
-            case 1:
-                showStr = "上午第一二节";
-                break;
-            case 2:
-                showStr = "上午第三四节";
-                break;
-            case 3:
-                showStr = "下午第一二节";
-                break;
-            case 4:
-                showStr = "下午第三四节";
-                break;
-            case 5:
-                showStr = "晚上第一二节";
-                break;
-            default:
-                showStr = "";
-        }
-        return showStr;
-    }
 }
