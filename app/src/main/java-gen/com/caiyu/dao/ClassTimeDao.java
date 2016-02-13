@@ -83,12 +83,12 @@ public class ClassTimeDao extends AbstractDao<ClassTimeEntity, Long> {
 
         Integer endHour = entity.getEndHour();
         if (endHour != null) {
-            stmt.bindLong(7, endHour);
+            stmt.bindLong(4, endHour);
         }
 
         Integer endMinute = entity.getEndMinute();
         if (endMinute != null) {
-            stmt.bindLong(8, endMinute);
+            stmt.bindLong(5, endMinute);
         }
     }
 

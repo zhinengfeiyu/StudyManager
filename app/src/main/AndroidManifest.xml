@@ -24,6 +24,7 @@
         <activity android:name=".activity.NoteActivity" />
         <activity android:name=".activity.SettingsActivity" />
         <activity android:name=".activity.ClassSetActivity" />
+        <activity android:name=".activity.ClassTimeSetActivity" />
 
     </application>
 

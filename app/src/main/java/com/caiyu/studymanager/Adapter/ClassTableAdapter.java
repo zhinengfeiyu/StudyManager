@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.caiyu.entity.ClassTableEntity;
 import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.activity.ClassSetActivity;
+import com.caiyu.studymanager.activity.ClassTableActivity;
 import com.caiyu.studymanager.common.Verifier;
 import com.caiyu.studymanager.constant.ExtraKeys;
 
@@ -127,7 +128,7 @@ public class ClassTableAdapter extends BaseAdapter {
         public void onClick(View v) {
             Intent intent = new Intent(activity, ClassSetActivity.class);
             intent.putExtra(ExtraKeys.CLASS_TABLE_ENTITY_ID, id);
-            activity.startActivityForResult(intent, 0);
+            activity.startActivityForResult(intent, ClassTableActivity.REQ_TABLE);
         }
     }
 }
