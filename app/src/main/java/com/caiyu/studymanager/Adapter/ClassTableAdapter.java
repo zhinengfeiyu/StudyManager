@@ -1,6 +1,8 @@
 package com.caiyu.studymanager.Adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import com.caiyu.entity.ClassTableEntity;
 import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.activity.ClassSetActivity;
 import com.caiyu.studymanager.activity.ClassTableActivity;
+import com.caiyu.studymanager.activity.NoteActivity;
 import com.caiyu.studymanager.common.Verifier;
 import com.caiyu.studymanager.constant.ExtraKeys;
 
@@ -100,7 +103,7 @@ public class ClassTableAdapter extends BaseAdapter {
             holder.teacherTv.setText("");
             holder.weeksTv.setText("");
         }
-        convertView.setOnClickListener(new ClickListener(data.getId()));
+        convertView.setOnClickListener(new ClickListener(data));
         return convertView;
     }
 
@@ -117,18 +120,52 @@ public class ClassTableAdapter extends BaseAdapter {
         TextView weeksTv;
     }
 
-    private class ClickListener implements View.OnClickListener {
-        private long id;
+    private void showDialog(final ClassTableEntity tableEntity) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("请选择操作");
+        CharSequence[] items;
+        if (tableEntity.getSubjectId() != -1L)
+            items = new CharSequence[]{"编辑课表项", "查看笔记"};
+        else
+            items = new CharSequence[]{"编辑课表项"};
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        editClassDetail(tableEntity.getId());
+                        break;
+                    case 1:
+                        editNote(tableEntity.getSubjectId());
+                        break;
+                }
+            }
+        });
+        builder.show();
+    }
 
-        public ClickListener(long id) {
-            this.id = id;
+    private void editClassDetail(long id) {
+        Intent intent = new Intent(activity, ClassSetActivity.class);
+        intent.putExtra(ExtraKeys.CLASS_TABLE_ENTITY_ID, id);
+        activity.startActivityForResult(intent, ClassTableActivity.REQ_TABLE);
+    }
+
+    private void editNote(long subjectId) {
+        Intent intent = new Intent(activity, NoteActivity.class);
+        intent.putExtra(ExtraKeys.SUBJECT_ID, subjectId);
+        activity.startActivity(intent);
+    }
+
+    private class ClickListener implements View.OnClickListener {
+        private ClassTableEntity tableEntity;
+
+        public ClickListener(ClassTableEntity entity) {
+            this.tableEntity = entity;
         }
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(activity, ClassSetActivity.class);
-            intent.putExtra(ExtraKeys.CLASS_TABLE_ENTITY_ID, id);
-            activity.startActivityForResult(intent, ClassTableActivity.REQ_TABLE);
+            showDialog(tableEntity);
         }
     }
 }

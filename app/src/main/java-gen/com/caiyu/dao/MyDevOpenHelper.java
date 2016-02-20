@@ -18,10 +18,19 @@ public class MyDevOpenHelper extends DaoMaster.OpenHelper {
             case 2:
                 //创建新表，注意createTable()是静态方法
                 ClassTimeDao.createTable(db, true);
-
+                db.execSQL("ALTER TABLE 'class_table' ADD 'SUBJECT_ID' INTEGER");
+                SubjectDao.createTable(db, true);
+                NoteDao.createTable(db, true);
+                TeacherDao.createTable(db, true);
                 // 加入新字段
                 // db.execSQL("ALTER TABLE 'moments' ADD 'audio_path' TEXT;");
 
+                break;
+            case 3:
+                db.execSQL("ALTER TABLE 'class_table' ADD 'SUBJECT_ID' INTEGER");
+                SubjectDao.createTable(db, true);
+                NoteDao.createTable(db, true);
+                TeacherDao.createTable(db, true);
                 break;
         }
     }

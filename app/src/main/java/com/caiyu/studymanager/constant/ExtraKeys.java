@@ -5,5 +5,7 @@ package com.caiyu.studymanager.constant;
  */
 public interface ExtraKeys {
 
-    String CLASS_TABLE_ENTITY_ID = "class_table_entity_id";
+    String CLASS_TABLE_ENTITY_ID = "class_table_entity_id"; //课程表ID
+
+    String SUBJECT_ID = "subject_id";   //科目表ID
 }

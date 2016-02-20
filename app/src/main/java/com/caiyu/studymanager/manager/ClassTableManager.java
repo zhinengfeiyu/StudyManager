@@ -2,6 +2,7 @@ package com.caiyu.studymanager.manager;
 
 import com.caiyu.dao.ClassTableDao;
 import com.caiyu.entity.ClassTableEntity;
+import com.caiyu.entity.SubjectEntity;
 import com.caiyu.studymanager.common.Verifier;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class ClassTableManager implements IDaoManager<ClassTableEntity>{
     @Override
     public void addData(ClassTableEntity entity) {
         if (classTableDao != null && entity != null) {
-            classTableDao.insertOrReplace(entity);
+            classTableDao.insertOrReplaceInTx(entity);
         }
     }
 
@@ -96,8 +97,17 @@ public class ClassTableManager implements IDaoManager<ClassTableEntity>{
     }
 
     public void update(ClassTableEntity entity) {
-        if (classTableDao != null)
+        if (classTableDao != null) {
+            String subjectName = entity.getClassName();
+            SubjectManager sm = SubjectManager.getInstance();
+            long subjectId = sm.getIdByName(subjectName);
+            if (subjectId == -1) {
+                sm.addData(new SubjectEntity(null, subjectName));
+                subjectId = sm.getIdByName(subjectName);
+            }
+            entity.setSubjectId(subjectId);
             classTableDao.update(entity);
+        }
     }
 
     private void fixDao() {
@@ -115,6 +125,7 @@ public class ClassTableManager implements IDaoManager<ClassTableEntity>{
                     entity.setTeacher("");
                     entity.setStartWeek(0);
                     entity.setEndWeek(0);
+                    entity.setSubjectId(-1L);
                     addData(entity);
                 }
             }

@@ -31,6 +31,7 @@ public class ClassTableDao extends AbstractDao<ClassTableEntity, Long> {
         public final static Property Teacher = new Property(5, String.class, "teacher", false, "TEACHER");
         public final static Property Start_week = new Property(6, Integer.class, "start_week", false, "START_WEEK");
         public final static Property End_week = new Property(7, Integer.class, "end_week", false, "END_WEEK");
+        public final static Property Subject_id = new Property(8, Long.class, "subject_id", false, "SUBJECT_ID");
     };
 
 
@@ -53,7 +54,8 @@ public class ClassTableDao extends AbstractDao<ClassTableEntity, Long> {
                 "'CLASS_ROOM' TEXT," + // 4: class_room
                 "'TEACHER' TEXT," + // 5: teacher
                 "'START_WEEK' INTEGER," + // 6: start_week
-                "'END_WEEK' INTEGER);"); // 7: end_week
+                "'END_WEEK' INTEGER," + // 7: end_week
+                "'SUBJECT_ID' INTEGER);"); // 8: subject_id
     }
 
     /** Drops the underlying database table. */
@@ -106,6 +108,11 @@ public class ClassTableDao extends AbstractDao<ClassTableEntity, Long> {
         if (end_week != null) {
             stmt.bindLong(8, end_week);
         }
+
+        Long subject_id = entity.getSubjectId();
+        if (subject_id != null) {
+            stmt.bindLong(9, subject_id);
+        }
     }
 
     /** @inheritdoc */
@@ -125,7 +132,8 @@ public class ClassTableDao extends AbstractDao<ClassTableEntity, Long> {
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // class_room
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // teacher
             cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6), // start_week
-            cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7) // end_week
+            cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7), // end_week
+            cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8) //subject_id
         );
         return entity;
     }
@@ -141,6 +149,7 @@ public class ClassTableDao extends AbstractDao<ClassTableEntity, Long> {
         entity.setTeacher(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setStartWeek(cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6));
         entity.setEndWeek(cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7));
+        entity.setSubjectId(cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8));
      }
     
     /** @inheritdoc */

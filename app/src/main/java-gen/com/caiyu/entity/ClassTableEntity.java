@@ -14,6 +14,7 @@ public class ClassTableEntity {
     private String teacher;
     private Integer start_week;
     private Integer end_week;
+    private Long subject_id;
 
     public ClassTableEntity() {
     }
@@ -22,7 +23,7 @@ public class ClassTableEntity {
         this.id = id;
     }
 
-    public ClassTableEntity(Long id, Integer day_of_week, Integer order_of_day, String class_name, String class_room, String teacher, Integer start_week, Integer end_week) {
+    public ClassTableEntity(Long id, Integer day_of_week, Integer order_of_day, String class_name, String class_room, String teacher, Integer start_week, Integer end_week, Long subject_id) {
         this.id = id;
         this.day_of_week = day_of_week;
         this.order_of_day = order_of_day;
@@ -31,6 +32,7 @@ public class ClassTableEntity {
         this.teacher = teacher;
         this.start_week = start_week;
         this.end_week = end_week;
+        this.subject_id = subject_id;
     }
 
     public Long getId() {
@@ -97,4 +99,11 @@ public class ClassTableEntity {
         this.end_week = end_week;
     }
 
+    public Long getSubjectId() {
+        return subject_id;
+    }
+
+    public void setSubjectId(Long subject_id) {
+        this.subject_id = subject_id;
+    }
 }
