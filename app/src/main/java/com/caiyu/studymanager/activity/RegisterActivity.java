@@ -9,7 +9,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.caiyu.studymanager.R;
+import com.caiyu.studymanager.constant.Server;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -54,8 +65,35 @@ public class RegisterActivity extends BaseActivity {
     @OnClick(R.id.registerBtn)
     void click_register() {
         if (isAllInfoValid()) {
-            Toast.makeText(getApplicationContext(), "注册成功", Toast.LENGTH_SHORT).show();
-            finish();
+            StringRequest request = new StringRequest(Request.Method.POST, Server.REGISTER_URL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            if ("success".equals(response)) {
+                                showToast("注册成功");
+                                finish();
+                            }
+                            else {
+                                showToast(response);
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            showToast("网络错误");
+                        }
+                    }){
+                @Override
+                public Map<String, String> getParams() {
+                    Map<String, String> map = new HashMap<>();
+                    map.put(Server.REQ_USER_NAME, userNameEt.getText().toString());
+                    map.put(Server.REQ_PSW, passwordEt.getText().toString());
+                    return map;
+                }
+            };
+            request.setTag("register");
+            MyApplication.getRequestQueue().add(request);
         }
     }
 
