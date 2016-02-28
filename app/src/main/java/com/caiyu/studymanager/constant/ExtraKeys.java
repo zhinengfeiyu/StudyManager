@@ -8,4 +8,12 @@ public interface ExtraKeys {
     String CLASS_TABLE_ENTITY_ID = "class_table_entity_id"; //课程表ID
 
     String SUBJECT_ID = "subject_id";   //科目表ID
+
+    String TOPIC_ID = "topic_id";   //主题ID
+
+    String TOPIC_TITLE = "topic_title"; //主题标题
+
+    String TOPIC_AUTHOR = "topic_author";   //主题作者
+
+    String TOPIC_TIME = "topic_time";   //主题创建时间
 }

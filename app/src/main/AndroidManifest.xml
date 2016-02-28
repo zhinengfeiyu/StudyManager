@@ -21,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.TabActivity" />
         <activity android:name=".activity.ClassDetailActivity" />
         <activity android:name=".activity.ClassTableActivity" />
         <activity android:name=".activity.RegisterActivity" />
@@ -28,7 +29,8 @@
         <activity android:name=".activity.SettingsActivity" />
         <activity android:name=".activity.ClassSetActivity" />
         <activity android:name=".activity.ClassTimeSetActivity" />
-
+        <activity android:name=".activity.CreateTopicActivity" />
+        <activity android:name=".activity.DiscussActivity" />
     </application>
 
 </manifest>

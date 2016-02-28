@@ -14,6 +14,10 @@ public class MyApplication extends Application {
 
     public static int userId;
 
+    public static String userName;
+
+    public static String password;
+
     @Override
     public void onCreate() {
         super.onCreate();

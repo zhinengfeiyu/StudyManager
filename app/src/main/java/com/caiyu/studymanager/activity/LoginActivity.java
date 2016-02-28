@@ -56,6 +56,8 @@ public class LoginActivity extends BaseActivity {
     @OnClick(R.id.loginBtn)
     void click_login() {
         if (isUserInfoCorrect()) {
+            final String userName = userNameEt.getText().toString();
+            final String password = passwordEt.getText().toString();
             StringRequest request = new StringRequest(Request.Method.POST, Server.LOGIN_URL,
                     new Response.Listener<String>() {
                         @Override
@@ -69,6 +71,8 @@ public class LoginActivity extends BaseActivity {
                                 else {
                                     showToast("登录成功");
                                     MyApplication.userId = jsonObject.getInt(Server.RES_USER_ID);
+                                    MyApplication.userName = userName;
+                                    MyApplication.password = password;
                                     enter();
                                 }
                             } catch (JSONException e) {
@@ -85,8 +89,8 @@ public class LoginActivity extends BaseActivity {
                 @Override
                 public Map<String, String> getParams() {
                     Map<String, String> map = new HashMap<>();
-                    map.put(Server.REQ_USER_NAME, userNameEt.getText().toString());
-                    map.put(Server.REQ_PSW, passwordEt.getText().toString());
+                    map.put(Server.REQ_USER_NAME, userName);
+                    map.put(Server.REQ_PSW, password);
                     return map;
                 }
             };
@@ -117,7 +121,7 @@ public class LoginActivity extends BaseActivity {
 
     private void enter() {
         DaoLoader.init(getApplicationContext(), MyApplication.userId);
-        Intent intent = new Intent(this, ClassTableActivity.class);
+        Intent intent = new Intent(this, TabActivity.class);
         startActivity(intent);
         finish();
     }

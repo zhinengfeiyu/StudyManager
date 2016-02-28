@@ -29,4 +29,8 @@ public abstract class BaseActivity extends Activity {
     public void showToast(String msg) {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
+
+    protected void showLongToast(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+    }
 }
