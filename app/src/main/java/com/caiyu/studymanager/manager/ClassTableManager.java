@@ -1,11 +1,28 @@
 package com.caiyu.studymanager.manager;
 
+import android.util.Log;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.caiyu.dao.ClassTableDao;
 import com.caiyu.entity.ClassTableEntity;
 import com.caiyu.entity.SubjectEntity;
+import com.caiyu.studymanager.activity.MyApplication;
+import com.caiyu.studymanager.bean.ClassBean;
+import com.caiyu.studymanager.bean.TopicBean;
 import com.caiyu.studymanager.common.Verifier;
+import com.caiyu.studymanager.constant.Server;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.greenrobot.dao.query.QueryBuilder;
 
@@ -23,6 +40,10 @@ public class ClassTableManager implements IDaoManager<ClassTableEntity>{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void resetDao() {
+        classTableDao = DaoLoader.getDaoSession().getClassTableDao();
     }
 
     public static ClassTableManager getInstance() {
@@ -58,10 +79,6 @@ public class ClassTableManager implements IDaoManager<ClassTableEntity>{
         List<ClassTableEntity> list;
         if(classTableDao != null) {
             list = classTableDao.loadAll();
-            if (!Verifier.isEffectiveList(list) || list.size() != 25) {
-                fixDao();
-                list = classTableDao.loadAll();
-            }
             return list;
         }
         return null;
@@ -110,7 +127,7 @@ public class ClassTableManager implements IDaoManager<ClassTableEntity>{
         }
     }
 
-    private void fixDao() {
+    public void fixDao() {
         if (getTotalCount() != 25) {
             deleteAll();
             long id = 0;
@@ -181,18 +198,5 @@ public class ClassTableManager implements IDaoManager<ClassTableEntity>{
         return showStr;
     }
 
-//    public void testQueryBy() {
-//        List joes = classTableDao.queryBuilder()
-//                .where(ClassTableDao.Properties.Phone.eq("Joe"))
-//                .orderAsc(ClassTableDao.Properties.Phone)
-//                .list();
-//
-//        QueryBuilder<ClassTableEntity> qb = classTableDao.queryBuilder();
-//        qb.where(qb.or(ClassTableDao.Properties.Phone.gt(10698.85),
-//                qb.and(ClassTableDao.Properties.Phone.eq("id"),
-//                        ClassTableDao.Properties.Phone.eq("xx"))));
-//
-//        qb.orderAsc(ClassTableDao.Properties.Id);// 排序依据
-//        qb.list();
-//    }
+
 }

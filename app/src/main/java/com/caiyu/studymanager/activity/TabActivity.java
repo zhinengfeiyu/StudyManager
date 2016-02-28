@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
@@ -55,6 +57,13 @@ public class TabActivity extends FragmentActivity {
         initView();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
     /**
      * 初始化组件
      */
@@ -74,7 +83,7 @@ public class TabActivity extends FragmentActivity {
             mTabHost.addTab(tabSpec, mFragmentArray[i], null);
             // 设置Tab按钮的背景
             mTabHost.getTabWidget().getChildAt(i)
-                    .setBackgroundResource(R.color.blue);
+                    .setBackgroundResource(R.color.gray_light);
         }
     }
 
@@ -84,8 +93,8 @@ public class TabActivity extends FragmentActivity {
      */
     private View getTabItemView(int index) {
         View view = mLayoutInflater.inflate(R.layout.item_tab, null);
-        ImageView imageView = (ImageView) view.findViewById(R.id.image);
-        imageView.setImageResource(mImageArray[index]);
+//        ImageView imageView = (ImageView) view.findViewById(R.id.image);
+//        imageView.setImageResource(mImageArray[index]);
         TextView textView = (TextView) view.findViewById(R.id.text);
         textView.setText(mTextArray[index]);
         return view;

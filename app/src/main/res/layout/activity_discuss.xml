@@ -10,21 +10,31 @@
             android:id="@+id/topicAuthorTimeTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:textColor="@color/red"
             android:textSize="14sp"/>
         <TextView
             android:id="@+id/topicTitleTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
             android:textSize="16sp"/>
         <TextView
             android:id="@+id/topicContentTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:textSize="14sp"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
+            android:layout_marginTop="5dp"
             android:background="@color/gray_33" />
         <ListView
             android:id="@+id/discussList"
@@ -42,22 +52,32 @@
         android:id="@+id/inputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
         android:visibility="gone"
-        android:background="@color/white">
+        android:background="@color/gray_cc">
         <TextView
             android:id="@+id/hintTv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:textSize="16sp" />
         <EditText
             android:id="@+id/contentEt"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"/>
         <Button
             android:id="@+id/confirmInputBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
             android:text="发送"/>
     </LinearLayout>
 </FrameLayout>

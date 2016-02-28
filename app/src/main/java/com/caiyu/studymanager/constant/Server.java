@@ -14,7 +14,8 @@ public class Server {
     public static final String CREATE_TOPIC_URL = BASE_URL + "/createTopic";
     public static final String SEND_DISCUSS_URL = BASE_URL + "/sendDiscuss";
     public static final String SHOW_TOPIC_DETAIL_URL = BASE_URL + "/getTopicDetail";
-    public static final String GET_CLASS_URL = "/getClasses";
+    public static final String GET_CLASS_URL = BASE_URL + "/getClasses";
+    public static final String USER_INFO_URL = BASE_URL + "/userInfo";
 
     public static final String REQ_USER_NAME = "user_name";
     public static final String REQ_PSW = "psw";
@@ -40,4 +41,9 @@ public class Server {
     public static final String RES_TEACHER = "teacher";
     public static final String RES_START_WEEK = "start_week";
     public static final String RES_END_WEEK = "end_week";
+    public static final String RES_REAL_NAME = "real_name";
+    public static final String RES_STUDY_NO = "study_no";
+    public static final String RES_USER_NAME = "user_name";
+    public static final String RES_SEX = "sex";
+    public static final String RES_PROFESSION = "profession";
 }

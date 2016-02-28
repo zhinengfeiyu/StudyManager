@@ -19,7 +19,16 @@ public class DaoLoader {
         MyDevOpenHelper helper = new MyDevOpenHelper(context, String.format(DATABASE_NAME, userId), null);
         SQLiteDatabase db = helper.getWritableDatabase();
         DaoMaster daoMaster = new DaoMaster(db);
-        daoSession = daoMaster.newSession();
+        if (daoSession == null) {
+            daoSession = daoMaster.newSession();
+        }
+        else {
+            daoSession = daoMaster.newSession();
+            ClassTableManager.getInstance().resetDao();
+            ClassTimeManager.getInstance().resetDao();
+            NoteManager.getInstance().resetDao();
+            SubjectManager.getInstance().resetDao();
+        }
     }
 
     public static DaoSession getDaoSession() {

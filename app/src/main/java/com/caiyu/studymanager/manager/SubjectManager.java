@@ -24,6 +24,10 @@ public class SubjectManager implements IDaoManager<SubjectEntity>{
         }
     }
 
+    public void resetDao() {
+        subjectDao = DaoLoader.getDaoSession().getSubjectDao();
+    }
+
     public static SubjectManager getInstance() {
         if (instance == null)
             instance = new SubjectManager();

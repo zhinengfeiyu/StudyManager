@@ -24,6 +24,10 @@ public class NoteManager implements IDaoManager<NoteEntity>{
         }
     }
 
+    public void resetDao() {
+        noteDao = DaoLoader.getDaoSession().getNoteDao();
+    }
+
     public static NoteManager getInstance() {
         if (instance == null)
             instance = new NoteManager();

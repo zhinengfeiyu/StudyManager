@@ -25,6 +25,10 @@ public class ClassTimeManager implements IDaoManager<ClassTimeEntity>{
         }
     }
 
+    public void resetDao() {
+        classTimeDao = DaoLoader.getDaoSession().getClassTimeDao();
+    }
+
     public static ClassTimeManager getInstance() {
         if (instance == null)
             instance = new ClassTimeManager();
@@ -119,10 +123,11 @@ public class ClassTimeManager implements IDaoManager<ClassTimeEntity>{
     private void fixDao() {
         if (getTotalCount() != 5) {
             deleteAll();
-            for (long id = 1; id <= 5; id++) {
-                ClassTimeEntity entity = new ClassTimeEntity(id, 0, 0, 0, 0);
-                addData(entity);
-            }
+            addData(new ClassTimeEntity(1, 8, 10, 9, 50));
+            addData(new ClassTimeEntity(2, 10, 20, 12, 0));
+            addData(new ClassTimeEntity(3, 13, 30, 15, 10));
+            addData(new ClassTimeEntity(4, 15, 40, 17, 10));
+            addData(new ClassTimeEntity(5, 18, 0, 19, 40));
         }
     }
 

@@ -2,6 +2,8 @@ package com.caiyu.studymanager.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -59,6 +61,7 @@ public class DiscussActivity extends BaseActivity {
     Button confirmBtn;
 
     private DiscussAdapter adapter;
+
     private int topicId;
 
     @Override
@@ -81,6 +84,13 @@ public class DiscussActivity extends BaseActivity {
             inputLayout.setVisibility(View.GONE);
         else
             finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_forum_discuss, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @OnClick(R.id.sendDiscussBtn)

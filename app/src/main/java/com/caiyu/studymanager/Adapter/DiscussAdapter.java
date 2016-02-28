@@ -69,10 +69,14 @@ public class DiscussAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         DiscussBean discussBean = (DiscussBean) getItem(position);
-        if (Verifier.isEffectiveStr(discussBean.getReplyTo()))
+        if (Verifier.isEffectiveStr(discussBean.getReplyTo())) {
+            holder.replyToTv.setVisibility(View.VISIBLE);
             holder.replyToTv.setText(String.format("回复%1$s：", discussBean.getReplyTo()));
-        else
+        }
+        else {
             holder.replyToTv.setText("");
+            holder.replyToTv.setVisibility(View.GONE);
+        }
         holder.contentTv.setText(discussBean.getContent());
         holder.authorTv.setText(discussBean.getAuthor());
         holder.timeTv.setText("1月1日");

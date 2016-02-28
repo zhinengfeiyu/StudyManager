@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@drawable/selector_pressed">
+    android:background="@drawable/selector_pressed"
+    android:clickable="true">
     <TextView
         android:id="@+id/classNameTv"
         android:layout_width="match_parent"

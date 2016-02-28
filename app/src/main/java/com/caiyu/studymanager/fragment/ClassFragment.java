@@ -3,20 +3,36 @@ package com.caiyu.studymanager.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.caiyu.entity.ClassTableEntity;
 import com.caiyu.studymanager.Adapter.ClassTableAdapter;
 import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.activity.ClassTimeSetActivity;
+import com.caiyu.studymanager.activity.MyApplication;
+import com.caiyu.studymanager.bean.ClassBean;
+import com.caiyu.studymanager.common.Verifier;
+import com.caiyu.studymanager.constant.Server;
 import com.caiyu.studymanager.manager.ClassTableManager;
 import com.caiyu.studymanager.manager.ClassTimeManager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -125,6 +141,11 @@ public class ClassFragment extends BaseFragment {
 
     private void refreshShowTable() {
         List<ClassTableEntity> classList = tableManager.getAll();
+        if (!Verifier.isEffectiveList(classList) || classList.size() != 25) {
+            tableManager.fixDao();
+            classList = tableManager.getAll();
+            loadFromServer();
+        }
         if (tableGv.getAdapter() == null) {
             int classContentWidth = tableWidth - timeLayout.getLayoutParams().width;
             int classContentHeight = tableHeight - titleLayout.getLayoutParams().height;
@@ -137,4 +158,71 @@ public class ClassFragment extends BaseFragment {
         }
     }
 
+    private void loadFromServer() {
+        StringRequest request = new StringRequest(Request.Method.POST, Server.GET_CLASS_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+//                            showLongToast(response);
+                            List<ClassBean> classList = new ArrayList<>();
+                            JSONArray jsonArray = new JSONArray(response);
+                            for (int i=0;i<jsonArray.length();i++) {
+                                ClassBean classBean = new ClassBean();
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                if (!"".equals(jsonObject.getString(Server.RES_CLASS_NAME))) {
+                                    classBean.setClassName(jsonObject.getString(Server.RES_CLASS_NAME));
+                                    classBean.setClassRoom(jsonObject.getString(Server.RES_CLASS_ROOM));
+                                    classBean.setTeacher(jsonObject.getString(Server.RES_TEACHER));
+                                    classBean.setStartWeek(jsonObject.getInt(Server.RES_START_WEEK));
+                                    classBean.setEndWeek(jsonObject.getInt(Server.RES_END_WEEK));
+                                }
+                                classList.add(classBean);
+                            }
+                            saveToLocal(classList);
+                            refreshShowTable();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Error", "网络错误");
+                    }
+                }){
+            @Override
+            public Map<String, String> getParams() {
+                Map<String, String> map = new HashMap<>();
+                map.put(Server.REQ_USER_ID, MyApplication.userId + "");
+                return map;
+            }
+        };
+        request.setTag("getClass");
+        MyApplication.getRequestQueue().add(request);
+    }
+
+    private void saveToLocal(List<ClassBean> beanList) {
+        List<ClassTableEntity> entityList = tableManager.getAll();
+        for (int i=0;i<beanList.size();i++) {
+            ClassTableEntity entity = entityList.get(i);
+            if (Verifier.isEffectiveStr(beanList.get(i).getClassName())) {
+                entity.setClassName(beanList.get(i).getClassName());
+                entity.setClassRoom(beanList.get(i).getClassRoom());
+                entity.setTeacher(beanList.get(i).getTeacher());
+                entity.setStartWeek(beanList.get(i).getStartWeek());
+                entity.setEndWeek(beanList.get(i).getEndWeek());
+                tableManager.update(entity);
+            }
+            else {
+                entity.setClassName("");
+                entity.setClassRoom("");
+                entity.setTeacher("");
+                entity.setStartWeek(0);
+                entity.setEndWeek(0);
+                tableManager.update(entity);
+            }
+        }
+    }
 }
