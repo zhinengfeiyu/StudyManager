@@ -115,14 +115,14 @@ public class ClassTableManager implements IDaoManager<ClassTableEntity>{
 
     public void update(ClassTableEntity entity) {
         if (classTableDao != null) {
-            String subjectName = entity.getClassName();
-            SubjectManager sm = SubjectManager.getInstance();
-            long subjectId = sm.getIdByName(subjectName);
-            if (subjectId == -1) {
-                sm.addData(new SubjectEntity(null, subjectName));
-                subjectId = sm.getIdByName(subjectName);
-            }
-            entity.setSubjectId(subjectId);
+//            String subjectName = entity.getClassName();
+//            SubjectManager sm = SubjectManager.getInstance();
+//            long subjectId = sm.getIdByName(subjectName);
+//            if (subjectId == 0) {
+//                sm.addData(new SubjectEntity(null, subjectName));
+//                subjectId = sm.getIdByName(subjectName);
+//            }
+//            entity.setSubjectId(subjectId);
             classTableDao.update(entity);
         }
     }
@@ -142,7 +142,7 @@ public class ClassTableManager implements IDaoManager<ClassTableEntity>{
                     entity.setTeacher("");
                     entity.setStartWeek(0);
                     entity.setEndWeek(0);
-                    entity.setSubjectId(-1L);
+                    entity.setSubjectId(0L);
                     addData(entity);
                 }
             }

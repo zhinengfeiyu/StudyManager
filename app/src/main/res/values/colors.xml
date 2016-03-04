@@ -7,12 +7,17 @@
     <color name="black">#000000</color>
     <color name="red">#ff0000</color>
     <color name="blue">#0000ff</color>
+    <color name="yellow">#ffff00</color>
     <color name="indigo">#00ffff</color>
-    <color name="selector_common">#33000000</color>
+    <color name="sky_blue">#33ccff</color>
     <color name="gray_33">#333333</color>
     <color name="gray_99">#999999</color>
     <color name="gray_cc">#cccccc</color>
+
+    <color name="selector_common">#33000000</color>
     <color name="gray_light">#22333333</color>
     <color name="red_light">#33ff0000</color>
     <color name="green_light">#3300ff00</color>
+    <color name="table_color_1">#33ffcc00</color>
+    <color name="table_color_2">#33ff9900</color>
 </resources>

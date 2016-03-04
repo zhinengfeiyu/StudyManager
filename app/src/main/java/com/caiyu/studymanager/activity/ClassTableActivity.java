@@ -2,12 +2,9 @@ package com.caiyu.studymanager.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -131,7 +128,7 @@ public class ClassTableActivity extends BaseActivity {
         if (tableGv.getAdapter() == null) {
             int classContentWidth = tableWidth - timeLayout.getLayoutParams().width;
             int classContentHeight = tableHeight - titleLayout.getLayoutParams().height;
-            tableGv.setAdapter(new ClassTableAdapter(this, classList, classContentWidth, classContentHeight));
+//            tableGv.setAdapter(new ClassTableAdapter(this, classList,classContentWidth, classContentHeight));
         }
         else {
             ClassTableAdapter adapter = (ClassTableAdapter) tableGv.getAdapter();

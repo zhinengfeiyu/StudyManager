@@ -1,8 +1,15 @@
 package com.caiyu.studymanager.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.caiyu.studymanager.R;
+import com.caiyu.studymanager.constant.PrefKeys;
 import com.caiyu.studymanager.constant.Server;
 import com.caiyu.studymanager.manager.DaoLoader;
 
@@ -53,6 +61,14 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void afterViewCreated() {
+        SharedPreferences pref = getSharedPreferences(PrefKeys.TABLE_USER, 0);
+        userNameEt.setText(pref.getString(PrefKeys.LAST_LOGIN_NAME, ""));
+        passwordEt.setText(pref.getString(PrefKeys.LAST_LOGIN_PSW, ""));
+        userNameEt.setSelection(userNameEt.getText().length());
+    }
+
     @OnClick(R.id.loginBtn)
     void click_login() {
         if (isUserInfoCorrect()) {
@@ -71,7 +87,7 @@ public class LoginActivity extends BaseActivity {
                                 else {
                                     showToast("登录成功");
                                     MyApplication.userId = jsonObject.getInt(Server.RES_USER_ID);
-                                    MyApplication.userName = userName;
+                                    MyApplication.userName = jsonObject.getString(Server.RES_USER_NAME);
                                     MyApplication.password = password;
                                     enter();
                                 }
@@ -107,10 +123,46 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.offlineUseTv)
     void click_offline() {
-        DaoLoader.init(getApplicationContext(), 0);
-        Intent intent = new Intent(LoginActivity.this, ClassTableActivity.class);
+        SharedPreferences pref = getSharedPreferences(PrefKeys.TABLE_USER, 0);
+        int lastLoginId = pref.getInt(PrefKeys.LAST_LOGIN_ID, 0);
+        DaoLoader.init(getApplicationContext(), lastLoginId);
+        Intent intent = new Intent(LoginActivity.this, TabActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @OnClick(R.id.changeIpTv)
+    void click_ip() {
+        final View ipInputView = LayoutInflater.from(this).inflate(R.layout.view_ip_address, null);
+        ((ViewGroup) findViewById(R.id.loginContentView)).addView(ipInputView);
+        Button cancelBtn = (Button) ipInputView.findViewById(R.id.cancelBtn);
+        Button confirmBtn = (Button) ipInputView.findViewById(R.id.confirmIpBtn);
+        final EditText ipEt = (EditText) ipInputView.findViewById(R.id.ipEt);
+        ipEt.setText(Server.IP);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0); //强制隐藏键盘
+                ((ViewGroup) findViewById(R.id.loginContentView)).removeView(ipInputView);
+            }
+        });
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String input = ipEt.getText().toString().trim();
+                if (!input.equals(Server.IP)) {
+                    SharedPreferences.Editor editor = getSharedPreferences(PrefKeys.TABLE_USER, 0).edit();
+                    editor.putString(PrefKeys.SERVER_IP, input);
+                    editor.commit();
+                    Server.initURLs(LoginActivity.this);
+                    showToast("IP地址修改成功");
+                }
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0); //强制隐藏键盘
+                ((ViewGroup) findViewById(R.id.loginContentView)).removeView(ipInputView);
+            }
+        });
     }
 
     private boolean isUserInfoCorrect() {
@@ -121,6 +173,12 @@ public class LoginActivity extends BaseActivity {
 
     private void enter() {
         DaoLoader.init(getApplicationContext(), MyApplication.userId);
+        SharedPreferences pref = getSharedPreferences(PrefKeys.TABLE_USER, 0);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt(PrefKeys.LAST_LOGIN_ID, MyApplication.userId);
+        editor.putString(PrefKeys.LAST_LOGIN_NAME, MyApplication.userName);
+        editor.putString(PrefKeys.LAST_LOGIN_PSW, MyApplication.password);
+        editor.commit();
         Intent intent = new Intent(this, TabActivity.class);
         startActivity(intent);
         finish();

@@ -1,9 +1,9 @@
 package com.caiyu.studymanager.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -18,7 +18,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.caiyu.studymanager.Adapter.DiscussAdapter;
 import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.bean.DiscussBean;
-import com.caiyu.studymanager.bean.TopicBean;
 import com.caiyu.studymanager.common.Verifier;
 import com.caiyu.studymanager.constant.ExtraKeys;
 import com.caiyu.studymanager.constant.Server;
@@ -49,8 +48,6 @@ public class DiscussActivity extends BaseActivity {
     TextView topicContentTv;
     @Bind(R.id.discussList)
     ListView listView;
-    @Bind(R.id.sendDiscussBtn)
-    Button sendDiscussBtn;
     @Bind(R.id.inputLayout)
     View inputLayout;
     @Bind(R.id.hintTv)
@@ -93,12 +90,18 @@ public class DiscussActivity extends BaseActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @OnClick(R.id.sendDiscussBtn)
-    void click_discuss() {
-        inputLayout.setVisibility(View.VISIBLE);
-        contentEt.setText("");
-        hintTv.setText("跟帖：");
-        confirmBtn.setOnClickListener(new ClickSendListener());
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.sendDiscuss:
+                startDiscuss();
+                break;
+            case R.id.refresh:
+                DiscussBean bean = new DiscussBean();
+                bean.setTopicId(topicId);
+                requestShowDiscuss(bean);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @OnItemClick(R.id.discussList)
@@ -118,6 +121,13 @@ public class DiscussActivity extends BaseActivity {
             contentEt.setText("");
             confirmBtn.setOnClickListener(new ClickSendListener(bean.getId()));
         }
+    }
+
+    private void startDiscuss() {
+        inputLayout.setVisibility(View.VISIBLE);
+        contentEt.setText("");
+        hintTv.setText("跟帖：");
+        confirmBtn.setOnClickListener(new ClickSendListener());
     }
 
     private void showTopic() {
@@ -164,7 +174,6 @@ public class DiscussActivity extends BaseActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
- //                           showLongToast(response);
                             List<DiscussBean> discussList = new ArrayList<>();
                             JSONArray jsonArray = new JSONArray(response);
                             for (int i=0;i<jsonArray.length();i++) {
@@ -177,7 +186,7 @@ public class DiscussActivity extends BaseActivity {
                                 bean.setTime(jsonObject.getLong(Server.RES_TIME));
                                 discussList.add(bean);
                             }
-//                            showLongToast("测一下:"+discussList.get(0).getContent()+"   "+discussList.get(0).getReplyTo());
+
                             refreshShowList(discussList);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -202,7 +211,6 @@ public class DiscussActivity extends BaseActivity {
     }
 
     private void requestSendDiscuss(final DiscussBean discussBean) {
- //       showLongToast(discussBean.getId()+"");
         StringRequest request = new StringRequest(Request.Method.POST, Server.SEND_DISCUSS_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -255,7 +263,6 @@ public class DiscussActivity extends BaseActivity {
 
         @Override
         public void onClick(View v) {
-//            showLongToast("discussId" + discussId);
             String input = contentEt.getText().toString();
             if (!Verifier.isEffectiveStr(input)) {
                 showToast("内容不能为空");

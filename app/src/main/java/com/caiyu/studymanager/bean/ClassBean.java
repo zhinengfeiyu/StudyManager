@@ -7,6 +7,8 @@ public class ClassBean {
 
     private String className;
 
+    private int subjectId;
+
     private String classRoom;
 
     private String teacher;
@@ -21,6 +23,14 @@ public class ClassBean {
 
     public void setClassName(String className) {
         this.className = className;
+    }
+
+    public int getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(int subjectId) {
+        this.subjectId = subjectId;
     }
 
     public String getClassRoom() {

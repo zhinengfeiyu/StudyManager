@@ -1,21 +1,40 @@
 package com.caiyu.studymanager.constant;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 /**
  * Created by 渝 on 2016/2/21.
  */
 public class Server {
 
-    public static final String BASE_URL = "http://192.168.31.131:8080/StudyManager";
+    public static String IP;
+    public static String BASE_URL;
 
-    public static final String LOGIN_URL = BASE_URL + "/login";
-    public static final String REGISTER_URL = BASE_URL + "/register";
-    public static final String SHOW_TOPICS_URL = BASE_URL + "/showTopics";
-    public static final String SHOW_DISCUSS_URL = BASE_URL + "/showDiscuss";
-    public static final String CREATE_TOPIC_URL = BASE_URL + "/createTopic";
-    public static final String SEND_DISCUSS_URL = BASE_URL + "/sendDiscuss";
-    public static final String SHOW_TOPIC_DETAIL_URL = BASE_URL + "/getTopicDetail";
-    public static final String GET_CLASS_URL = BASE_URL + "/getClasses";
-    public static final String USER_INFO_URL = BASE_URL + "/userInfo";
+    public static String LOGIN_URL;
+    public static String REGISTER_URL;
+    public static String SHOW_TOPICS_URL;
+    public static String SHOW_DISCUSS_URL;
+    public static String CREATE_TOPIC_URL;
+    public static String SEND_DISCUSS_URL;
+    public static String SHOW_TOPIC_DETAIL_URL;
+    public static String GET_CLASS_URL;
+    public static String USER_INFO_URL;
+
+    public static void initURLs(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PrefKeys.TABLE_USER, 0);
+        IP = prefs.getString(PrefKeys.SERVER_IP, "10.1.81.88");
+        BASE_URL = "http://" + IP + ":8080/StudyManager";
+        LOGIN_URL = BASE_URL + "/login";
+        REGISTER_URL = BASE_URL + "/register";
+        SHOW_TOPICS_URL = BASE_URL + "/showTopics";
+        SHOW_DISCUSS_URL = BASE_URL + "/showDiscuss";
+        CREATE_TOPIC_URL = BASE_URL + "/createTopic";
+        SEND_DISCUSS_URL = BASE_URL + "/sendDiscuss";
+        SHOW_TOPIC_DETAIL_URL = BASE_URL + "/getTopicDetail";
+        GET_CLASS_URL = BASE_URL + "/getClasses";
+        USER_INFO_URL = BASE_URL + "/userInfo";
+    }
 
     public static final String REQ_USER_NAME = "user_name";
     public static final String REQ_PSW = "psw";
@@ -31,6 +50,7 @@ public class Server {
     public static final String RES_USER_ID = "user_id";
     public static final String RES_TOPIC_ID = "topic_id";
     public static final String RES_DISCUSS_ID = "discuss_id";
+    public static final String RES_SUBJECT_ID = "subject_id";
     public static final String RES_TITLE = "title";
     public static final String RES_AUTHOR = "author";
     public static final String RES_TIME = "time";

@@ -31,12 +31,17 @@ public class ClassTableAdapter extends BaseAdapter {
 
     private Activity activity;
     private List<ClassTableEntity> classList;
+    private int currentClassShowPosition;
+    private boolean isInClass;
     private int itemWidth;
     private int itemHeight;
 
-    public ClassTableAdapter(Activity activity, List<ClassTableEntity> list, int totalWidth, int totalHeight) {
+    public ClassTableAdapter(Activity activity, List<ClassTableEntity> list, int curId, boolean isInClass,
+                             int totalWidth, int totalHeight) {
         this.activity = activity;
         this.classList = list;
+        this.currentClassShowPosition = (curId - 1) % ROW_COUNT * COLUMN_COUNT + (curId - 1) / ROW_COUNT;
+        this.isInClass = isInClass;
         this.itemWidth = totalWidth / COLUMN_COUNT;
         this.itemHeight = totalHeight / ROW_COUNT;
     }
@@ -47,6 +52,11 @@ public class ClassTableAdapter extends BaseAdapter {
 
     public void setData(List<ClassTableEntity> list) {
         this.classList = list;
+    }
+
+    public void setCurrentClass(int curId, boolean isInClass) {
+        this.currentClassShowPosition = curId % ROW_COUNT * COLUMN_COUNT + curId / ROW_COUNT;
+        this.isInClass = isInClass;
     }
 
     @Override
@@ -75,10 +85,16 @@ public class ClassTableAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(activity).inflate(R.layout.item_class_table, null);
             AbsListView.LayoutParams params = new AbsListView.LayoutParams(itemWidth, itemHeight);
             convertView.setLayoutParams(params);
-            if (position % 2 == 0)
-                convertView.setBackgroundColor(activity.getResources().getColor(R.color.red_light));
+            if (position == currentClassShowPosition) {
+                if (isInClass)
+                    convertView.setBackgroundColor(activity.getResources().getColor(R.color.green_light));
+                else
+                    convertView.setBackgroundColor(activity.getResources().getColor(R.color.red_light));
+            }
+            else if (position % 2 == 0)
+                convertView.setBackgroundColor(activity.getResources().getColor(R.color.table_color_1));
             else
-                convertView.setBackgroundColor(activity.getResources().getColor(R.color.green_light));
+                convertView.setBackgroundColor(activity.getResources().getColor(R.color.table_color_2));
             holder = new ViewHolder();
             holder.classNameTv = (TextView) convertView.findViewById(R.id.classNameTv);
             holder.classRoomTv = (TextView) convertView.findViewById(R.id.classRoomTv);

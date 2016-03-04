@@ -12,6 +12,8 @@ import com.caiyu.studymanager.bean.DiscussBean;
 import com.caiyu.studymanager.bean.TopicBean;
 import com.caiyu.studymanager.common.Verifier;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,9 +25,12 @@ public class DiscussAdapter extends BaseAdapter {
 
     private List<DiscussBean> discussList;
 
+    private SimpleDateFormat sdf;
+
     public DiscussAdapter(Context context, List<DiscussBean> discussList) {
         this.context = context;
         this.discussList = discussList;
+        sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     }
 
     public List<DiscussBean> getData() {
@@ -79,7 +84,7 @@ public class DiscussAdapter extends BaseAdapter {
         }
         holder.contentTv.setText(discussBean.getContent());
         holder.authorTv.setText(discussBean.getAuthor());
-        holder.timeTv.setText("1月1日");
+        holder.timeTv.setText(sdf.format(new Date(discussBean.getTime())));
         return convertView;
     }
 

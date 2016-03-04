@@ -31,10 +31,27 @@
         android:text="用户名已存在"
         android:visibility="gone"/>
     <TextView
-        android:id="@+id/passwordTv"
+        android:id="@+id/studyNoTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/userNameTv"
+        android:layout_marginTop="40dp"
+        android:layout_alignRight="@id/userNameTv"
+        android:textSize="16sp"
+        android:text="学号："/>
+    <EditText
+        android:id="@+id/studyNoEt"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/userNameEt"
+        android:layout_alignBaseline="@id/studyNoTv"
+        android:hint="例如：1405120201"
+        android:textSize="14sp" />
+    <TextView
+        android:id="@+id/passwordTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/studyNoTv"
         android:layout_marginTop="40dp"
         android:layout_alignRight="@id/userNameTv"
         android:textSize="16sp"

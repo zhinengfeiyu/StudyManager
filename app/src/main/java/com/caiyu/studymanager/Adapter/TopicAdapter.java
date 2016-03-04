@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.bean.TopicBean;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,9 +23,12 @@ public class TopicAdapter extends BaseAdapter {
 
     private List<TopicBean> topicList;
 
+    private SimpleDateFormat sdf;
+
     public TopicAdapter(Context context, List<TopicBean> topicList) {
         this.context = context;
         this.topicList = topicList;
+        sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     }
 
     public List<TopicBean> getData() {
@@ -68,7 +73,7 @@ public class TopicAdapter extends BaseAdapter {
         TopicBean topicBean = (TopicBean) getItem(position);
         holder.titleTv.setText(topicBean.getTitle());
         holder.authorTv.setText(topicBean.getAuthor());
-        holder.timeTv.setText("1月1日");
+        holder.timeTv.setText(sdf.format(new Date(topicBean.getTime())));
         return convertView;
     }
 

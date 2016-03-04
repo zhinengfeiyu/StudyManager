@@ -24,4 +24,15 @@
 
     <style name="MyTheme" parent="android:style/Theme.Holo.Light" />
 
+    <style name="EditBg">
+        <item name="android:background">@drawable/selector_edit_text</item>
+        <item name="android:textColorHint">@color/gray_cc</item>
+        <item name="android:textColor">@color/gray_33</item>
+    </style>
+
+    <style name="ClickableBg">
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/selector_pressed</item>
+    </style>
+
 </resources>

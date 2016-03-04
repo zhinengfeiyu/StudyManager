@@ -15,6 +15,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.caiyu.entity.ClassTableEntity;
+import com.caiyu.entity.ClassTimeEntity;
+import com.caiyu.entity.SubjectEntity;
 import com.caiyu.studymanager.Adapter.ClassTableAdapter;
 import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.activity.ClassTimeSetActivity;
@@ -24,12 +26,14 @@ import com.caiyu.studymanager.common.Verifier;
 import com.caiyu.studymanager.constant.Server;
 import com.caiyu.studymanager.manager.ClassTableManager;
 import com.caiyu.studymanager.manager.ClassTimeManager;
+import com.caiyu.studymanager.manager.SubjectManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,12 +55,17 @@ public class ClassFragment extends BaseFragment {
 
     private ClassTableManager tableManager = ClassTableManager.getInstance();
     private ClassTimeManager timeManager = ClassTimeManager.getInstance();
+    private SubjectManager subjectManager = SubjectManager.getInstance();
 
     public static int REQ_TIME = 1;
     public static int REQ_TABLE = 2;
 
     private int tableWidth;
     private int tableHeight;
+
+    private List<ClassTableEntity> classList;
+    private int currentClassId;
+    private boolean isInClass;
 
     @Override
     public int getContentViewId() {
@@ -90,6 +99,12 @@ public class ClassFragment extends BaseFragment {
         tableHeight = screenHeight - statusBarHeight;
         initWeekdayTitle();
         refreshShowTime();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshCurrentClass();
         refreshShowTable();
     }
 
@@ -97,6 +112,39 @@ public class ClassFragment extends BaseFragment {
     void click_class_time() {
         Intent intent = new Intent(getActivity(), ClassTimeSetActivity.class);
         startActivityForResult(intent, REQ_TIME);
+    }
+
+    private void refreshCurrentClass() {
+        Calendar calendar = Calendar.getInstance();
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) {
+            currentClassId = 1;
+            isInClass = false;
+            return;
+        }
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        List<ClassTimeEntity> timeList = timeManager.getAll();
+        int order;
+        int curMinutes = hour * 60 + minute;
+        for (ClassTimeEntity timeEntity : timeList) {
+            int startMinutes = timeEntity.getStartHour() * 60 + timeEntity.getStartMinute();
+            int endMinutes = timeEntity.getEndHour() * 60 + timeEntity.getEndMinute();
+            if (curMinutes < startMinutes) {
+                order = (int) timeEntity.getOrder();
+                isInClass = false;
+                currentClassId = (dayOfWeek - Calendar.MONDAY) * 5 + order;
+                return;
+            }
+            else if (startMinutes <= curMinutes && curMinutes <= endMinutes) {
+                order = (int) timeEntity.getOrder();
+                isInClass = true;
+                currentClassId = (dayOfWeek - Calendar.MONDAY) * 5 + order;
+                return;
+            }
+        }
+        isInClass = false;
+        currentClassId = (dayOfWeek + 1 - Calendar.MONDAY) * 5 + 1;
     }
 
     private void initWeekdayTitle() {
@@ -111,9 +159,9 @@ public class ClassFragment extends BaseFragment {
             textView.setTextSize(12);
             textView.setText(tableManager.getShowWeekday(i + 1));
             if (i % 2 == 0)
-                textView.setBackgroundColor(getResources().getColor(R.color.green_light));
+                textView.setBackgroundColor(getResources().getColor(R.color.table_color_2));
             else
-                textView.setBackgroundColor(getResources().getColor(R.color.red_light));
+                textView.setBackgroundColor(getResources().getColor(R.color.table_color_1));
             titleLayout.addView(textView);
         }
     }
@@ -132,15 +180,15 @@ public class ClassFragment extends BaseFragment {
             textView.setTextSize(12);
             textView.setText(timeList.get(i * 2) + "\n-\n" + timeList.get(i * 2 + 1));
             if (i % 2 == 0)
-                textView.setBackgroundColor(getResources().getColor(R.color.green_light));
+                textView.setBackgroundColor(getResources().getColor(R.color.table_color_2));
             else
-                textView.setBackgroundColor(getResources().getColor(R.color.red_light));
+                textView.setBackgroundColor(getResources().getColor(R.color.table_color_1));
             timeLayout.addView(textView);
         }
     }
 
     private void refreshShowTable() {
-        List<ClassTableEntity> classList = tableManager.getAll();
+        classList = tableManager.getAll();
         if (!Verifier.isEffectiveList(classList) || classList.size() != 25) {
             tableManager.fixDao();
             classList = tableManager.getAll();
@@ -149,11 +197,13 @@ public class ClassFragment extends BaseFragment {
         if (tableGv.getAdapter() == null) {
             int classContentWidth = tableWidth - timeLayout.getLayoutParams().width;
             int classContentHeight = tableHeight - titleLayout.getLayoutParams().height;
-            tableGv.setAdapter(new ClassTableAdapter(getActivity(), classList, classContentWidth, classContentHeight));
+            tableGv.setAdapter(new ClassTableAdapter(getActivity(), classList, currentClassId, isInClass,
+                            classContentWidth, classContentHeight));
         }
         else {
             ClassTableAdapter adapter = (ClassTableAdapter) tableGv.getAdapter();
             adapter.setData(classList);
+            adapter.setCurrentClass(currentClassId, isInClass);
             adapter.notifyDataSetChanged();
         }
     }
@@ -164,13 +214,13 @@ public class ClassFragment extends BaseFragment {
                     @Override
                     public void onResponse(String response) {
                         try {
-//                            showLongToast(response);
                             List<ClassBean> classList = new ArrayList<>();
                             JSONArray jsonArray = new JSONArray(response);
                             for (int i=0;i<jsonArray.length();i++) {
                                 ClassBean classBean = new ClassBean();
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 if (!"".equals(jsonObject.getString(Server.RES_CLASS_NAME))) {
+                                    classBean.setSubjectId(jsonObject.getInt(Server.RES_SUBJECT_ID));
                                     classBean.setClassName(jsonObject.getString(Server.RES_CLASS_NAME));
                                     classBean.setClassRoom(jsonObject.getString(Server.RES_CLASS_ROOM));
                                     classBean.setTeacher(jsonObject.getString(Server.RES_TEACHER));
@@ -208,12 +258,19 @@ public class ClassFragment extends BaseFragment {
         for (int i=0;i<beanList.size();i++) {
             ClassTableEntity entity = entityList.get(i);
             if (Verifier.isEffectiveStr(beanList.get(i).getClassName())) {
-                entity.setClassName(beanList.get(i).getClassName());
+                String className = beanList.get(i).getClassName();
+                entity.setClassName(className);
                 entity.setClassRoom(beanList.get(i).getClassRoom());
                 entity.setTeacher(beanList.get(i).getTeacher());
                 entity.setStartWeek(beanList.get(i).getStartWeek());
                 entity.setEndWeek(beanList.get(i).getEndWeek());
+                long subjectId = beanList.get(i).getSubjectId();
+                entity.setSubjectId(subjectId);
                 tableManager.update(entity);
+                if (!subjectManager.hasKey(subjectId)) {
+                    SubjectEntity subjectEntity = new SubjectEntity(subjectId, className);
+                    subjectManager.addData(subjectEntity);
+                }
             }
             else {
                 entity.setClassName("");
@@ -221,6 +278,7 @@ public class ClassFragment extends BaseFragment {
                 entity.setTeacher("");
                 entity.setStartWeek(0);
                 entity.setEndWeek(0);
+                entity.setSubjectId(0L);
                 tableManager.update(entity);
             }
         }
