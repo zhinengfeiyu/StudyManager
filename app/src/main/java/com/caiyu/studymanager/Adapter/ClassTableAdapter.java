@@ -13,11 +13,13 @@ import android.widget.TextView;
 
 import com.caiyu.entity.ClassTableEntity;
 import com.caiyu.studymanager.R;
+import com.caiyu.studymanager.activity.ClassDetailActivity;
 import com.caiyu.studymanager.activity.ClassSetActivity;
 import com.caiyu.studymanager.activity.ClassTableActivity;
 import com.caiyu.studymanager.activity.NoteActivity;
 import com.caiyu.studymanager.common.Verifier;
 import com.caiyu.studymanager.constant.ExtraKeys;
+import com.caiyu.studymanager.fragment.ClassFragment;
 
 import java.util.List;
 
@@ -163,7 +165,7 @@ public class ClassTableAdapter extends BaseAdapter {
     private void editClassDetail(long id) {
         Intent intent = new Intent(activity, ClassSetActivity.class);
         intent.putExtra(ExtraKeys.CLASS_TABLE_ENTITY_ID, id);
-        activity.startActivityForResult(intent, ClassTableActivity.REQ_TABLE);
+        activity.startActivityForResult(intent, ClassFragment.REQ_TABLE);
     }
 
     private void editNote(long subjectId) {
@@ -181,7 +183,10 @@ public class ClassTableAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View v) {
-            showDialog(tableEntity);
+//            showDialog(tableEntity);
+            Intent intent = new Intent(activity, ClassDetailActivity.class);
+            intent.putExtra(ExtraKeys.CLASS_TABLE_ENTITY_ID, tableEntity.getId());
+            activity.startActivityForResult(intent, ClassFragment.REQ_TABLE);
         }
     }
 }

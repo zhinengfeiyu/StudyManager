@@ -1,6 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/gray_light" />
+    <com.caiyu.studymanager.widget.SettingView
+        android:id="@+id/dayOfWeekView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        custom:textSize="16sp"
+        custom:leftText="星期几"
+        custom:rightText="未设置"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/gray_light" />
+    <com.caiyu.studymanager.widget.SettingView
+        android:id="@+id/orderOfDayView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        custom:textSize="16sp"
+        custom:leftText="第几节"
+        custom:rightText="未设置"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/gray_light" />
+    <com.caiyu.studymanager.widget.SettingView
+        android:id="@+id/classNameView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        custom:textSize="16sp"
+        custom:leftText="课程名"
+        custom:rightText="未设置"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/gray_light" />
+    <com.caiyu.studymanager.widget.SettingView
+        android:id="@+id/classRoomView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        custom:textSize="16sp"
+        custom:leftText="上课地点"
+        custom:rightText="未设置"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/gray_light" />
+    <com.caiyu.studymanager.widget.SettingView
+        android:id="@+id/teacherView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        custom:textSize="16sp"
+        custom:leftText="教师"
+        custom:rightText="未设置"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/gray_light" />
+    <com.caiyu.studymanager.widget.SettingView
+        android:id="@+id/startWeekView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        custom:textSize="16sp"
+        custom:leftText="起始周"
+        custom:rightText="未设置"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/gray_light" />
+    <com.caiyu.studymanager.widget.SettingView
+        android:id="@+id/endWeekView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        custom:textSize="16sp"
+        custom:leftText="结束周"
+        custom:rightText="未设置"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/gray_light" />
+    <com.caiyu.studymanager.widget.SettingView
+        android:id="@+id/noteView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        custom:textSize="16sp"
+        custom:leftText="课堂笔记"
+        custom:rightText="还没有"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/gray_light" />
+    <com.caiyu.studymanager.widget.SettingView
+        android:id="@+id/forumView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        custom:textSize="16sp"
+        custom:leftText="交流区"
+        custom:rightText="" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray_light" />
 
+    <Button
+        android:id="@+id/deleteBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:text="删除该课程"
+        android:background="@drawable/selector_red_pressed"/>
 </LinearLayout>

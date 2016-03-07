@@ -60,7 +60,7 @@ public class CreateTopicActivity extends BaseActivity {
             @Override
             public Map<String, String> getParams() {
                 Map<String, String> map = new HashMap<>();
-                map.put(Server.REQ_SUBJECT_ID, ""+getIntent().getIntExtra(ExtraKeys.SUBJECT_ID, 1));
+                map.put(Server.REQ_SUBJECT_ID, ""+getIntent().getLongExtra(ExtraKeys.SUBJECT_ID, 1L));
                 map.put(Server.REQ_USER_ID, ""+MyApplication.userId);
                 map.put(Server.REQ_TITLE, title);
                 map.put(Server.REQ_CONTENT, content);

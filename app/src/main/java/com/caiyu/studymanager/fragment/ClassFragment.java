@@ -17,6 +17,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.caiyu.entity.ClassTableEntity;
 import com.caiyu.entity.ClassTimeEntity;
 import com.caiyu.entity.SubjectEntity;
+import com.caiyu.entity.TeacherEntity;
 import com.caiyu.studymanager.Adapter.ClassTableAdapter;
 import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.activity.ClassTimeSetActivity;
@@ -27,6 +28,7 @@ import com.caiyu.studymanager.constant.Server;
 import com.caiyu.studymanager.manager.ClassTableManager;
 import com.caiyu.studymanager.manager.ClassTimeManager;
 import com.caiyu.studymanager.manager.SubjectManager;
+import com.caiyu.studymanager.manager.TeacherManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,6 +58,7 @@ public class ClassFragment extends BaseFragment {
     private ClassTableManager tableManager = ClassTableManager.getInstance();
     private ClassTimeManager timeManager = ClassTimeManager.getInstance();
     private SubjectManager subjectManager = SubjectManager.getInstance();
+    private TeacherManager teacherManager = TeacherManager.getInstance();
 
     public static int REQ_TIME = 1;
     public static int REQ_TABLE = 2;
@@ -216,7 +219,7 @@ public class ClassFragment extends BaseFragment {
                         try {
                             List<ClassBean> classList = new ArrayList<>();
                             JSONArray jsonArray = new JSONArray(response);
-                            for (int i=0;i<jsonArray.length();i++) {
+                            for (int i = 0; i < jsonArray.length(); i++) {
                                 ClassBean classBean = new ClassBean();
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 if (!"".equals(jsonObject.getString(Server.RES_CLASS_NAME))) {
@@ -226,6 +229,16 @@ public class ClassFragment extends BaseFragment {
                                     classBean.setTeacher(jsonObject.getString(Server.RES_TEACHER));
                                     classBean.setStartWeek(jsonObject.getInt(Server.RES_START_WEEK));
                                     classBean.setEndWeek(jsonObject.getInt(Server.RES_END_WEEK));
+                                    long teacherId = jsonObject.getInt(Server.RES_TEACHER_ID);
+                                    if (!teacherManager.hasKey(teacherId)) {
+                                        TeacherEntity teacherEntity = new TeacherEntity(teacherId,
+                                                jsonObject.getString(Server.RES_TEACHER),
+                                                jsonObject.getString(Server.RES_SEX),
+                                                jsonObject.getString(Server.RES_PHONE),
+                                                jsonObject.getString(Server.RES_ACADEMY),
+                                                jsonObject.getString(Server.RES_POSITION));
+                                        teacherManager.addData(teacherEntity);
+                                    }
                                 }
                                 classList.add(classBean);
                             }

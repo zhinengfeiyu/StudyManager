@@ -5,15 +5,17 @@
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
     android:gravity="center_vertical"
-    android:background="@drawable/selector_pressed"
-    android:clickable="true">
+    android:background="@drawable/selector_pressed">
     <TextView
         android:id="@+id/leftTv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:singleLine="true"/>
     <TextView
         android:id="@+id/rightTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:singleLine="true"
+        android:layout_marginLeft="150dp"/>
 </RelativeLayout>

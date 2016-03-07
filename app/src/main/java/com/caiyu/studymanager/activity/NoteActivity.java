@@ -40,9 +40,13 @@ public class NoteActivity extends BaseActivity {
     @OnClick(R.id.submitBtn)
     void click_submit() {
         String content = contentEt.getText().toString();
-        noteEntity.setContent(content);
-        noteEntity.setLastEditTime(System.currentTimeMillis());
-        noteManager.update(noteEntity);
+        if (!noteEntity.getContent().equals(content)) {
+            noteEntity.setContent(content);
+            noteEntity.setLastEditTime(System.currentTimeMillis());
+            noteManager.update(noteEntity);
+            showToast("笔记保存成功");
+            setResult(RESULT_OK);
+        }
         finish();
     }
 }

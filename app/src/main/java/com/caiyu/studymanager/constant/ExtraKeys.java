@@ -16,4 +16,11 @@ public interface ExtraKeys {
     String TOPIC_AUTHOR = "topic_author";   //主题作者
 
     String TOPIC_TIME = "topic_time";   //主题创建时间
+
+    String TEACHER_NAME = "teacher_name";   //教师姓名
+
+    String SEARCH_TYPE = "search_type";    //搜索类型
+
+    String UPDATE_RESULT = "update_result"; //信息更新返回的结果
+
 }

@@ -28,6 +28,7 @@ public class DaoLoader {
             ClassTimeManager.getInstance().resetDao();
             NoteManager.getInstance().resetDao();
             SubjectManager.getInstance().resetDao();
+            TeacherManager.getInstance().resetDao();
         }
     }
 

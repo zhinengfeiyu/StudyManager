@@ -29,6 +29,10 @@
         <activity android:name=".activity.SettingsActivity" />
         <activity android:name=".activity.ClassSetActivity" />
         <activity android:name=".activity.ClassTimeSetActivity" />
+        <activity android:name=".activity.ClassWeekActivity" />
+        <activity android:name=".activity.ForumActivity" />
+        <activity android:name=".activity.TeacherActivity" />
+        <activity android:name=".activity.SearchActivity" />
         <activity
             android:name=".activity.CreateTopicActivity"
             android:label="交流论坛"/>

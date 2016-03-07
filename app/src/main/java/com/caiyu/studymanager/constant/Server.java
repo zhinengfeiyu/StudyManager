@@ -45,7 +45,11 @@ public class Server {
     public static final String REQ_TOPIC_ID = "topic_id";
     public static final String REQ_REPLY_DISCUSS_ID = "reply_discuss_id";
     public static final String REQ_DISCUSS_ID = "discuss_id";
+    public static final String REQ_SEARCH_CLASS = "search_class";
+    public static final String REQ_SEARCH_CLASS_ROOM = "search_class_room";
+    public static final String REQ_SEARCH_TEACHER = "search_teacher";
 
+    public static final String RES_TEACHER_ID = "teacher_id";
     public static final String RES_LOGIN_RESULT = "login_result";
     public static final String RES_USER_ID = "user_id";
     public static final String RES_TOPIC_ID = "topic_id";
@@ -66,4 +70,7 @@ public class Server {
     public static final String RES_USER_NAME = "user_name";
     public static final String RES_SEX = "sex";
     public static final String RES_PROFESSION = "profession";
+    public static final String RES_PHONE = "phone";
+    public static final String RES_ACADEMY = "academy";
+    public static final String RES_POSITION = "position";
 }
