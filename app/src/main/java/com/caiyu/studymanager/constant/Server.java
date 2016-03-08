@@ -20,6 +20,7 @@ public class Server {
     public static String SHOW_TOPIC_DETAIL_URL;
     public static String GET_CLASS_URL;
     public static String USER_INFO_URL;
+    public static String SEARCH_URL;
 
     public static void initURLs(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PrefKeys.TABLE_USER, 0);
@@ -34,9 +35,11 @@ public class Server {
         SHOW_TOPIC_DETAIL_URL = BASE_URL + "/getTopicDetail";
         GET_CLASS_URL = BASE_URL + "/getClasses";
         USER_INFO_URL = BASE_URL + "/userInfo";
+        SEARCH_URL = BASE_URL + "/search";
     }
 
     public static final String REQ_USER_NAME = "user_name";
+    public static final String REQ_STUDY_NO = "study_no";
     public static final String REQ_PSW = "psw";
     public static final String REQ_SUBJECT_ID = "subject_id";
     public static final String REQ_USER_ID = "user_id";
@@ -45,9 +48,8 @@ public class Server {
     public static final String REQ_TOPIC_ID = "topic_id";
     public static final String REQ_REPLY_DISCUSS_ID = "reply_discuss_id";
     public static final String REQ_DISCUSS_ID = "discuss_id";
-    public static final String REQ_SEARCH_CLASS = "search_class";
-    public static final String REQ_SEARCH_CLASS_ROOM = "search_class_room";
-    public static final String REQ_SEARCH_TEACHER = "search_teacher";
+    public static final String REQ_SEARCH_TYPE = "search_type";
+    public static final String REQ_INPUT = "input";
 
     public static final String RES_TEACHER_ID = "teacher_id";
     public static final String RES_LOGIN_RESULT = "login_result";
@@ -73,4 +75,6 @@ public class Server {
     public static final String RES_PHONE = "phone";
     public static final String RES_ACADEMY = "academy";
     public static final String RES_POSITION = "position";
+
+    public static final String SUCCESS = "success";
 }

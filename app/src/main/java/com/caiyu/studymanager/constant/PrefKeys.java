@@ -11,4 +11,5 @@ public interface PrefKeys {
     String LAST_LOGIN_NAME = "last_login_name";
     String LAST_LOGIN_PSW = "last_login_psw";
     String SERVER_IP = "server_ip";
+    String USER_INFO = "user_%1$d_info";
 }

@@ -48,6 +48,18 @@
         android:hint="例如：1405120201"
         android:textSize="14sp" />
     <TextView
+        android:id="@+id/studyNoErrorTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/studyNoTv"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/studyNoTv"
+        android:layout_marginLeft="10dp"
+        android:textSize="12sp"
+        android:textColor="@color/red"
+        android:text="该学号已被注册"
+        android:visibility="gone"/>
+    <TextView
         android:id="@+id/passwordTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

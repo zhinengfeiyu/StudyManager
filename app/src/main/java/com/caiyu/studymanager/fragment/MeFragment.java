@@ -3,6 +3,7 @@ package com.caiyu.studymanager.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.caiyu.studymanager.activity.MyApplication;
 import com.caiyu.studymanager.bean.ClassBean;
 import com.caiyu.studymanager.bean.UserInfoBean;
 import com.caiyu.studymanager.common.Verifier;
+import com.caiyu.studymanager.constant.PrefKeys;
 import com.caiyu.studymanager.constant.Server;
 import com.caiyu.studymanager.widget.SettingView;
 
@@ -58,7 +60,15 @@ public class MeFragment extends BaseFragment {
 
     @Override
     public void afterViewCreated() {
-        requestMyInfo();
+        SharedPreferences pref = getActivity().getSharedPreferences(PrefKeys.TABLE_USER, 0);
+        String jsonInfo = pref.getString(String.format(PrefKeys.USER_INFO, MyApplication.userId), "");
+        if (Verifier.isEffectiveStr(jsonInfo)) {
+            UserInfoBean bean = jsonToBean(jsonInfo);
+            refreshShowMyInfo(bean);
+        }
+        else {
+            requestMyInfo();
+        }
     }
 
     @OnClick(R.id.logoutBtn)
@@ -88,18 +98,13 @@ public class MeFragment extends BaseFragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try {
-                            UserInfoBean bean = new UserInfoBean();
-                            JSONObject jsonObject = new JSONObject(response);
-                            bean.setName(jsonObject.getString(Server.RES_REAL_NAME));
-                            bean.setStudyNo(jsonObject.getString(Server.RES_STUDY_NO));
-                            bean.setNickName(jsonObject.getString(Server.RES_USER_NAME));
-                            bean.setSex(jsonObject.getString(Server.RES_SEX));
-                            bean.setProfession(jsonObject.getString(Server.RES_PROFESSION));
-                            refreshShowMyInfo(bean);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        UserInfoBean bean = jsonToBean(response);
+                        SharedPreferences.Editor editor =
+                                getActivity().getSharedPreferences(PrefKeys.TABLE_USER, 0).edit();
+                        editor.putString(String.format(PrefKeys.USER_INFO, MyApplication.userId)
+                                , response);
+                        editor.commit();
+                        refreshShowMyInfo(bean);
                     }
                 },
                 new Response.ErrorListener() {
@@ -130,5 +135,21 @@ public class MeFragment extends BaseFragment {
             sexView.setText(bean.getSex());
         if (Verifier.isEffectiveStr(bean.getProfession()))
             professionView.setText(bean.getProfession());
+    }
+
+    private UserInfoBean jsonToBean(String jsonStr) {
+        UserInfoBean bean = new UserInfoBean();
+        try {
+            JSONObject jsonObject = new JSONObject(jsonStr);
+            bean.setName(jsonObject.getString(Server.RES_REAL_NAME));
+            bean.setStudyNo(jsonObject.getString(Server.RES_STUDY_NO));
+            bean.setNickName(jsonObject.getString(Server.RES_USER_NAME));
+            bean.setSex(jsonObject.getString(Server.RES_SEX));
+            bean.setProfession(jsonObject.getString(Server.RES_PROFESSION));
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return bean;
     }
 }

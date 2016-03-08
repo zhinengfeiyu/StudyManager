@@ -1,13 +1,10 @@
 package com.caiyu.studymanager.activity;
 
-import android.app.Activity;
-import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -16,14 +13,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.constant.Server;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -37,6 +30,8 @@ public class RegisterActivity extends BaseActivity {
     EditText passwordEt;
     @Bind(R.id.repeatPasswordEt)
     EditText repeatPasswordEt;
+    @Bind(R.id.studyNoEt)
+    EditText studyNoEt;
     @Bind(R.id.userNameErrorTv)
     TextView userNameErrorTv;
     @Bind(R.id.passwordErrorTv)
@@ -69,7 +64,7 @@ public class RegisterActivity extends BaseActivity {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            if ("success".equals(response)) {
+                            if (Server.SUCCESS.equals(response)) {
                                 showToast("注册成功");
                                 finish();
                             }
@@ -89,6 +84,7 @@ public class RegisterActivity extends BaseActivity {
                     Map<String, String> map = new HashMap<>();
                     map.put(Server.REQ_USER_NAME, userNameEt.getText().toString());
                     map.put(Server.REQ_PSW, passwordEt.getText().toString());
+                    map.put(Server.REQ_STUDY_NO, studyNoEt.getText().toString());
                     return map;
                 }
             };
