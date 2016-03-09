@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="44dp"
+    android:background="@color/sky_blue">
+    <TextView
+        android:id="@+id/commonBackTv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:text="返回"
+        android:background="@drawable/selector_pressed" />
+    <TextView
+        android:id="@+id/commonTitleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:text="@string/app_name"/>
+    <TextView
+        android:id="@+id/commonRightTv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center_vertical"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:background="@drawable/selector_pressed" />
+</RelativeLayout>

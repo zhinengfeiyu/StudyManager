@@ -62,6 +62,7 @@ public class ClassDetailActivity extends BaseActivity {
 
     @Override
     public void afterViewCreated() {
+        setTitle(getString(R.string.title_class_detail));
         refreshShowInfo();
     }
 

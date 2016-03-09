@@ -94,9 +94,9 @@ public class ClassTableAdapter extends BaseAdapter {
                     convertView.setBackgroundColor(activity.getResources().getColor(R.color.red_light));
             }
             else if (position % 2 == 0)
-                convertView.setBackgroundColor(activity.getResources().getColor(R.color.table_color_1));
+                convertView.setBackgroundResource(R.drawable.selector_class_bg_1);
             else
-                convertView.setBackgroundColor(activity.getResources().getColor(R.color.table_color_2));
+                convertView.setBackgroundResource(R.drawable.selector_class_bg_2);
             holder = new ViewHolder();
             holder.classNameTv = (TextView) convertView.findViewById(R.id.classNameTv);
             holder.classRoomTv = (TextView) convertView.findViewById(R.id.classRoomTv);

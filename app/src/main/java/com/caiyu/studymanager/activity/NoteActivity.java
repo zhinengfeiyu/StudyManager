@@ -32,6 +32,7 @@ public class NoteActivity extends BaseActivity {
 
     @Override
     public void afterViewCreated() {
+        setTitle(getString(R.string.title_note));
         long subjectId = getIntent().getLongExtra(ExtraKeys.SUBJECT_ID, -1);
         noteEntity = noteManager.getDataBySubjectId(subjectId);
         contentEt.setText(noteEntity.getContent());

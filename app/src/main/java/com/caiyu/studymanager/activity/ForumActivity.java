@@ -54,6 +54,8 @@ public class ForumActivity extends BaseActivity {
 
     @Override
     public void afterViewCreated() {
+        setTitle(getString(R.string.title_discuss));
+        setTitleRightText("发帖");
         long subjectId = getIntent().getLongExtra(ExtraKeys.SUBJECT_ID, 1L);
         subjectEntity = subjectManager.getDataById(subjectId);
         String subjectName = subjectEntity.getName();
@@ -69,8 +71,8 @@ public class ForumActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.createTopicBtn)
-    void click_create_topic() {
+    @Override
+    public void onRightClick() {
         Intent intent = new Intent(this, CreateTopicActivity.class);
         intent.putExtra(ExtraKeys.SUBJECT_ID, subjectEntity.getId());
         startActivityForResult(intent, REQ_CODE_CREATE_TOPIC);

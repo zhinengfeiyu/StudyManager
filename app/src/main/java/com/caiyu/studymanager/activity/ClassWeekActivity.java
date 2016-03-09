@@ -38,6 +38,7 @@ public class ClassWeekActivity extends BaseActivity {
 
     @Override
     public void afterViewCreated() {
+        setTitle(getString(R.string.title_class_week));
         long classId = getIntent().getLongExtra(ExtraKeys.CLASS_TABLE_ENTITY_ID, 1L);
         classEntity = classManager.getDataById(classId);
         classNameTv.setText(classEntity.getClassName());

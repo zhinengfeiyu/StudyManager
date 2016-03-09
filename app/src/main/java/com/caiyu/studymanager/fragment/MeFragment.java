@@ -60,6 +60,7 @@ public class MeFragment extends BaseFragment {
 
     @Override
     public void afterViewCreated() {
+        setTitle(getString(R.string.title_me));
         SharedPreferences pref = getActivity().getSharedPreferences(PrefKeys.TABLE_USER, 0);
         String jsonInfo = pref.getString(String.format(PrefKeys.USER_INFO, MyApplication.userId), "");
         if (Verifier.isEffectiveStr(jsonInfo)) {

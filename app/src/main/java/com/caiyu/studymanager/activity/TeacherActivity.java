@@ -34,6 +34,7 @@ public class TeacherActivity extends BaseActivity {
 
     @Override
     public void afterViewCreated() {
+        setTitle(getString(R.string.title_teacher));
         String name = getIntent().getStringExtra(ExtraKeys.TEACHER_NAME);
         nameView.setText(name);
         teacherEntity = teacherManager.getDataByName(name);

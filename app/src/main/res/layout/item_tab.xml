@@ -3,7 +3,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/gray_cc">
 
     <TextView
         android:id="@+id/text"
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:textColor="@color/gray_99"
+        android:textColor="@drawable/selector_tab_text"
         android:textSize="20sp" />
 
 </LinearLayout>

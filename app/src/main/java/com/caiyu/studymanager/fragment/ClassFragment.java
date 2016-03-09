@@ -88,6 +88,7 @@ public class ClassFragment extends BaseFragment {
 
     @Override
     public void afterViewCreated() {
+        setTitle(getString(R.string.title_class_table));
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int screenWidth = metrics.widthPixels;
@@ -183,9 +184,9 @@ public class ClassFragment extends BaseFragment {
             textView.setTextSize(12);
             textView.setText(timeList.get(i * 2) + "\n-\n" + timeList.get(i * 2 + 1));
             if (i % 2 == 0)
-                textView.setBackgroundColor(getResources().getColor(R.color.table_color_2));
+                textView.setBackgroundResource(R.drawable.selector_class_bg_2);
             else
-                textView.setBackgroundColor(getResources().getColor(R.color.table_color_1));
+                textView.setBackgroundResource(R.drawable.selector_class_bg_1);
             timeLayout.addView(textView);
         }
     }

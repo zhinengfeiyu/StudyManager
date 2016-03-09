@@ -63,6 +63,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void afterViewCreated() {
+        setTitle(getString(R.string.title_login));
         SharedPreferences pref = getSharedPreferences(PrefKeys.TABLE_USER, 0);
         userNameEt.setText(pref.getString(PrefKeys.LAST_LOGIN_NAME, ""));
         passwordEt.setText(pref.getString(PrefKeys.LAST_LOGIN_PSW, ""));

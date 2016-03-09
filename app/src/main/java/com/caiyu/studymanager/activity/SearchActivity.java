@@ -65,6 +65,7 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     public void afterViewCreated() {
+        setTitle(getString(R.string.title_search));
         inputType = getIntent().getIntExtra(ExtraKeys.SEARCH_TYPE, 1);
         if (inputType == TYPE_TEACHER) {
             confirmBtn.setVisibility(View.GONE);

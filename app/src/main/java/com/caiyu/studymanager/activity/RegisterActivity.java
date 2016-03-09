@@ -1,6 +1,9 @@
 package com.caiyu.studymanager.activity;
 
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.Spannable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.caiyu.studymanager.R;
+import com.caiyu.studymanager.common.Verifier;
 import com.caiyu.studymanager.constant.Server;
 
 import java.util.HashMap;
@@ -18,6 +22,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import butterknife.OnFocusChange;
 
 /**
  * Created by 渝 on 2016/1/23.
@@ -48,12 +53,17 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     public void afterViewCreated() {
+        setTitle(getString(R.string.title_register));
         userNameEt.setFilters(new InputFilter[]{new InputFilter.LengthFilter(12)});
         passwordEt.setFilters(new InputFilter[]{new InputFilter.LengthFilter(18)});
         repeatPasswordEt.setFilters(new InputFilter[]{new InputFilter.LengthFilter(18)});
         userNameEt.setOnFocusChangeListener(new FocusChangeListener());
         passwordEt.setOnFocusChangeListener(new FocusChangeListener());
         repeatPasswordEt.setOnFocusChangeListener(new FocusChangeListener());
+        userNameEt.addTextChangedListener(new InfoValidWatcher());
+        studyNoEt.addTextChangedListener(new InfoValidWatcher());
+        passwordEt.addTextChangedListener(new InfoValidWatcher());
+        repeatPasswordEt.addTextChangedListener(new InfoValidWatcher());
         registerBtn.setEnabled(false);
     }
 
@@ -93,20 +103,33 @@ public class RegisterActivity extends BaseActivity {
         }
     }
 
-    /**
-     * 验证用户名
-     *
-     * @return
-     */
-    private boolean isUserNameValid() {
+    private boolean isAllInfoValid() {
+        if (!isUserNameValid())
+            return false;
+        if (!isStudyNoValid())
+            return false;
+        if (!isPasswordValid())
+            return false;
+        if (!isRepeatPasswordValid())
+            return false;
         return true;
     }
 
-    /**
-     * 验证密码
-     *
-     * @return
-     */
+    private boolean isUserNameValid() {
+        if (!Verifier.isEffectiveStr(userNameEt.getText().toString().trim())) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isStudyNoValid() {
+        String input = studyNoEt.getText().toString();
+        if (input.length() != 10) {
+            return false;
+        }
+        return true;
+    }
+
     private boolean isPasswordValid() {
         String input = passwordEt.getText().toString();
         if (input.length() < 6) {
@@ -115,30 +138,10 @@ public class RegisterActivity extends BaseActivity {
         return true;
     }
 
-    /**
-     * 验证二次输入的密码
-     *
-     * @return
-     */
     private boolean isRepeatPasswordValid() {
         String originInput = passwordEt.getText().toString();
         String againInput = repeatPasswordEt.getText().toString();
         if (!originInput.equals(againInput))
-            return false;
-        return true;
-    }
-
-    /**
-     * 验证所有信息
-     *
-     * @return
-     */
-    private boolean isAllInfoValid() {
-        if (!isUserNameValid())
-            return false;
-        if (!isPasswordValid())
-            return false;
-        if (!isRepeatPasswordValid())
             return false;
         return true;
     }
@@ -158,9 +161,6 @@ public class RegisterActivity extends BaseActivity {
                         if (!editText.getText().toString().equals("")) {
                             userNameErrorTv.setVisibility(View.VISIBLE);
                         }
-                        registerBtn.setEnabled(false);
-                    } else {
-                        registerBtn.setEnabled(isAllInfoValid());
                     }
                 }
             } else if (editText == passwordEt) {
@@ -172,9 +172,6 @@ public class RegisterActivity extends BaseActivity {
                             passwordErrorTv.setText("密码过短，至少6位");
                             passwordErrorTv.setVisibility(View.VISIBLE);
                         }
-                        registerBtn.setEnabled(false);
-                    } else {
-                        registerBtn.setEnabled(isAllInfoValid());
                     }
                 }
             } else if (editText == repeatPasswordEt) {
@@ -186,12 +183,23 @@ public class RegisterActivity extends BaseActivity {
                             repeatPasswordErrorTv.setText("两次输入的密码不一致");
                             repeatPasswordErrorTv.setVisibility(View.VISIBLE);
                         }
-                        registerBtn.setEnabled(false);
-                    } else {
-                        registerBtn.setEnabled(isAllInfoValid());
                     }
                 }
             }
+        }
+    }
+
+    private class InfoValidWatcher implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            registerBtn.setEnabled(isAllInfoValid());
         }
     }
 

@@ -32,6 +32,11 @@ public class CreateTopicActivity extends BaseActivity {
         return R.layout.activity_create_topic;
     }
 
+    @Override
+    public void afterViewCreated() {
+        setTitle(getString(R.string.title_create_topic));
+    }
+
     @OnClick(R.id.confirmBtn)
     void click_submit() {
         String titleStr = titleEt.getText().toString();

@@ -68,11 +68,18 @@ public class DiscussActivity extends BaseActivity {
 
     @Override
     public void afterViewCreated() {
+        setTitle(getString(R.string.title_discuss));
+        setTitleRightText("跟帖");
         topicId = getIntent().getIntExtra(ExtraKeys.TOPIC_ID, 1);
         showTopic();
         DiscussBean bean = new DiscussBean();
         bean.setTopicId(topicId);
         requestShowDiscuss(bean);
+    }
+
+    @Override
+    public void onRightClick() {
+        startDiscuss();
     }
 
     @Override

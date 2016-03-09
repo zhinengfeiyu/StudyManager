@@ -57,6 +57,7 @@ public class ClassTimeSetActivity extends BaseActivity {
 
     @Override
     public void afterViewCreated() {
+        setTitle(getString(R.string.title_class_time));
         btnList = new ArrayList<>(10);
         btnList.add(btn1);
         btnList.add(btn2);
