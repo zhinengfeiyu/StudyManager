@@ -49,6 +49,7 @@ public class CreateTopicActivity extends BaseActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        cancelDialog();
                         if ("success".equals(response)) {
                             showToast("帖子创建成功");
                             setResult(Activity.RESULT_OK);
@@ -59,6 +60,7 @@ public class CreateTopicActivity extends BaseActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        cancelDialog();
                         showToast("网络错误");
                     }
                 }){
@@ -74,5 +76,6 @@ public class CreateTopicActivity extends BaseActivity {
         };
         request.setTag("createTopic");
         MyApplication.getRequestQueue().add(request);
+        showDialog("加载中");
     }
 }

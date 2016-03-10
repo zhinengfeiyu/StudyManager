@@ -74,6 +74,7 @@ public class RegisterActivity extends BaseActivity {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
+                            cancelDialog();
                             if (Server.SUCCESS.equals(response)) {
                                 showToast("注册成功");
                                 finish();
@@ -86,6 +87,7 @@ public class RegisterActivity extends BaseActivity {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
+                            cancelDialog();
                             showToast("网络错误");
                         }
                     }){
@@ -100,6 +102,7 @@ public class RegisterActivity extends BaseActivity {
             };
             request.setTag("register");
             MyApplication.getRequestQueue().add(request);
+            showDialog("正在注册");
         }
     }
 

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/common_title" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/hintTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/gray_99"
+            android:textSize="14sp"/>
+        <EditText
+            style="@style/EditBg2"
+            android:id="@+id/inputEt"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/hintTv"
+            android:layout_margin="5dp"
+            android:singleLine="true" />
+        <Button
+            android:id="@+id/cancelBtn"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/inputEt"
+            android:layout_alignRight="@id/inputEt"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:text="取消"
+            android:background="@drawable/selector_red_pressed"/>
+        <Button
+            android:id="@+id/confirmBtn"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/inputEt"
+            android:layout_toLeftOf="@id/cancelBtn"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:text="确定"
+            android:background="@drawable/selector_green_pressed"/>
+    </RelativeLayout>
+</LinearLayout>

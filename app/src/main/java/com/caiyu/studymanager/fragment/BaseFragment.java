@@ -1,5 +1,6 @@
 package com.caiyu.studymanager.fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,6 +18,8 @@ import butterknife.ButterKnife;
  * Created by 渝 on 2016/2/26.
  */
 public abstract class BaseFragment extends Fragment {
+
+    protected ProgressDialog progressDialog;
 
     protected View rootView;
 
@@ -67,6 +70,20 @@ public abstract class BaseFragment extends Fragment {
 
     protected void onRightClick() {
 
+    }
+
+    protected void showDialog(String hint) {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage(hint);
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
+        progressDialog.show();
+    }
+
+    protected void cancelDialog() {
+        if (progressDialog != null)
+            progressDialog.cancel();
     }
 
     protected void showToast(String msg) {

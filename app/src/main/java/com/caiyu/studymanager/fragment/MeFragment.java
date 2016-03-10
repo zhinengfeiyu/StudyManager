@@ -1,5 +1,6 @@
 package com.caiyu.studymanager.fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,11 +17,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.caiyu.studymanager.R;
+import com.caiyu.studymanager.activity.InputActivity;
 import com.caiyu.studymanager.activity.LoginActivity;
 import com.caiyu.studymanager.activity.MyApplication;
 import com.caiyu.studymanager.bean.ClassBean;
 import com.caiyu.studymanager.bean.UserInfoBean;
 import com.caiyu.studymanager.common.Verifier;
+import com.caiyu.studymanager.constant.ExtraKeys;
 import com.caiyu.studymanager.constant.PrefKeys;
 import com.caiyu.studymanager.constant.Server;
 import com.caiyu.studymanager.widget.SettingView;
@@ -61,15 +64,43 @@ public class MeFragment extends BaseFragment {
     @Override
     public void afterViewCreated() {
         setTitle(getString(R.string.title_me));
-        SharedPreferences pref = getActivity().getSharedPreferences(PrefKeys.TABLE_USER, 0);
-        String jsonInfo = pref.getString(String.format(PrefKeys.USER_INFO, MyApplication.userId), "");
-        if (Verifier.isEffectiveStr(jsonInfo)) {
-            UserInfoBean bean = jsonToBean(jsonInfo);
-            refreshShowMyInfo(bean);
+        refreshInfo();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (resultCode == Activity.RESULT_OK) {
+            refreshInfo();
         }
-        else {
-            requestMyInfo();
-        }
+    }
+
+    @OnClick(R.id.nameView)
+    void click_real_name() {
+        Intent intent = new Intent(getActivity(), InputActivity.class);
+        intent.putExtra(ExtraKeys.UPDATE_TYPE, InputActivity.TYPE_REAL_NAME);
+        startActivityForResult(intent, 0);
+    }
+
+    @OnClick(R.id.nickNameView)
+    void click_nick_name() {
+        Intent intent = new Intent(getActivity(), InputActivity.class);
+        intent.putExtra(ExtraKeys.UPDATE_TYPE, InputActivity.TYPE_NICK_NAME);
+        startActivityForResult(intent, 0);
+    }
+
+    @OnClick(R.id.sexView)
+    void click_sex() {
+        Intent intent = new Intent(getActivity(), InputActivity.class);
+        intent.putExtra(ExtraKeys.UPDATE_TYPE, InputActivity.TYPE_SEX);
+        startActivityForResult(intent, 0);
+    }
+
+    @OnClick(R.id.passwordView)
+    void click_psw() {
+        Intent intent = new Intent(getActivity(), InputActivity.class);
+        intent.putExtra(ExtraKeys.UPDATE_TYPE, InputActivity.TYPE_OLD_PSW);
+        startActivity(intent);
     }
 
     @OnClick(R.id.logoutBtn)
@@ -86,6 +117,18 @@ public class MeFragment extends BaseFragment {
             .show();
     }
 
+    private void refreshInfo() {
+        SharedPreferences pref = getActivity().getSharedPreferences(PrefKeys.TABLE_USER, 0);
+        String jsonInfo = pref.getString(String.format(PrefKeys.USER_INFO, MyApplication.userId), "");
+        if (Verifier.isEffectiveStr(jsonInfo)) {
+            UserInfoBean bean = jsonToBean(jsonInfo);
+            refreshShowMyInfo(bean);
+        }
+        else {
+            requestMyInfo();
+        }
+    }
+
     private void logout() {
         MyApplication.userId = 0;
         MyApplication.userName = null;
@@ -99,6 +142,7 @@ public class MeFragment extends BaseFragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        cancelDialog();
                         UserInfoBean bean = jsonToBean(response);
                         SharedPreferences.Editor editor =
                                 getActivity().getSharedPreferences(PrefKeys.TABLE_USER, 0).edit();
@@ -111,7 +155,8 @@ public class MeFragment extends BaseFragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("Error", "网络错误");
+                        cancelDialog();
+                        showToast("网络错误");
                     }
                 }){
             @Override
@@ -121,8 +166,9 @@ public class MeFragment extends BaseFragment {
                 return map;
             }
         };
-        request.setTag("getClass");
+        request.setTag("getMyInfo");
         MyApplication.getRequestQueue().add(request);
+        showDialog("获取中");
     }
 
     private void refreshShowMyInfo(UserInfoBean bean) {

@@ -1,6 +1,7 @@
 package com.caiyu.studymanager.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,8 @@ import butterknife.ButterKnife;
  * Created by 渝 on 2016/1/31.
  */
 public abstract class BaseActivity extends Activity {
+
+    protected ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +39,17 @@ public abstract class BaseActivity extends Activity {
     protected void initTitle() {
         TextView backTv = (TextView) findViewById(R.id.commonBackTv);
         if (backTv == null) return;
-        backTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        if (showBack()) {
+            backTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();    //保证与按下物理返回键效果相同
+                }
+            });
+        }
+        else {
+            backTv.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -49,6 +57,10 @@ public abstract class BaseActivity extends Activity {
         TextView titleTv = (TextView) findViewById(R.id.commonTitleTv);
         if (titleTv == null) return;
         titleTv.setText(title);
+    }
+
+    protected boolean showBack() {
+        return true;
     }
 
     protected void setTitleRightText(CharSequence rightText) {
@@ -73,6 +85,20 @@ public abstract class BaseActivity extends Activity {
 
     protected void showLongToast(String msg) {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+    }
+
+    protected void showDialog(String hint) {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage(hint);
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
+        progressDialog.show();
+    }
+
+    protected void cancelDialog() {
+        if (progressDialog != null)
+            progressDialog.cancel();
     }
 
     //强制隐藏键盘

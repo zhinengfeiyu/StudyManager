@@ -100,6 +100,7 @@ public class ForumActivity extends BaseActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            cancelDialog();
                             List<TopicBean> topicList = new ArrayList<>();
                             JSONArray jsonArray = new JSONArray(response);
                             for (int i=0;i<jsonArray.length();i++) {
@@ -120,6 +121,7 @@ public class ForumActivity extends BaseActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        cancelDialog();
                         showToast("网络错误");
                     }
                 }){
@@ -132,5 +134,6 @@ public class ForumActivity extends BaseActivity {
         };
         request.setTag("getTopic");
         MyApplication.getRequestQueue().add(request);
+        showDialog("加载中");
     }
 }

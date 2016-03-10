@@ -155,6 +155,7 @@ public class DiscussActivity extends BaseActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        cancelDialog();
                         topicContentTv.setText(response);
                     }
                 },
@@ -162,6 +163,7 @@ public class DiscussActivity extends BaseActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         showToast("网络错误");
+                        cancelDialog();
                     }
                 }){
             @Override
@@ -173,6 +175,7 @@ public class DiscussActivity extends BaseActivity {
         };
         request.setTag("showTopicDetail");
         MyApplication.getRequestQueue().add(request);
+        showDialog("加载中");
     }
 
     private void requestShowDiscuss(final DiscussBean discussBean) {
@@ -180,6 +183,7 @@ public class DiscussActivity extends BaseActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        cancelDialog();
                         try {
                             List<DiscussBean> discussList = new ArrayList<>();
                             JSONArray jsonArray = new JSONArray(response);
@@ -203,6 +207,7 @@ public class DiscussActivity extends BaseActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        cancelDialog();
                         showToast("网络错误");
                     }
                 }){
@@ -215,6 +220,7 @@ public class DiscussActivity extends BaseActivity {
         };
         request.setTag("showDiscuss");
         MyApplication.getRequestQueue().add(request);
+        showDialog("加载中");
     }
 
     private void requestSendDiscuss(final DiscussBean discussBean) {

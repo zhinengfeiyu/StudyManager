@@ -3,6 +3,7 @@ package com.caiyu.studymanager.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,10 +65,21 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void afterViewCreated() {
         setTitle(getString(R.string.title_login));
+        setTitleRightText("退出");
         SharedPreferences pref = getSharedPreferences(PrefKeys.TABLE_USER, 0);
         userNameEt.setText(pref.getString(PrefKeys.LAST_LOGIN_NAME, ""));
         passwordEt.setText(pref.getString(PrefKeys.LAST_LOGIN_PSW, ""));
         userNameEt.setSelection(userNameEt.getText().length());
+    }
+
+    @Override
+    public boolean showBack() {
+        return false;
+    }
+
+    @Override
+    public void onRightClick() {
+        finish();
     }
 
     @OnClick(R.id.loginBtn)
@@ -79,6 +91,7 @@ public class LoginActivity extends BaseActivity {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
+                            cancelDialog();
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
                                 String loginResult = jsonObject.getString(Server.RES_LOGIN_RESULT);
@@ -100,6 +113,7 @@ public class LoginActivity extends BaseActivity {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
+                            cancelDialog();
                             showToast("网络错误");
                         }
                     }){
@@ -113,6 +127,7 @@ public class LoginActivity extends BaseActivity {
             };
             request.setTag("login");
             MyApplication.getRequestQueue().add(request);
+            showDialog("登录中");
         }
     }
 

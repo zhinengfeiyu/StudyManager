@@ -21,6 +21,8 @@ public interface ExtraKeys {
 
     String SEARCH_TYPE = "search_type";    //搜索类型
 
+    String UPDATE_TYPE = "update_type";     //个人信息更新类型
+
     String UPDATE_RESULT = "update_result"; //信息更新返回的结果
 
 }

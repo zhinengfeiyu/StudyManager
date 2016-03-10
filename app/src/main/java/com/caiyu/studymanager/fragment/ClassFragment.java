@@ -253,7 +253,7 @@ public class ClassFragment extends BaseFragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("Error", "网络错误");
+                        showToast("网络错误");
                     }
                 }){
             @Override

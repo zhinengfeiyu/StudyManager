@@ -1,5 +1,7 @@
 package com.caiyu.studymanager.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -38,16 +40,50 @@ public class NoteActivity extends BaseActivity {
         contentEt.setText(noteEntity.getContent());
     }
 
+    @Override
+    public void onBackPressed() {
+        final String input = contentEt.getText().toString();
+        if (!input.equals(noteEntity.getContent())) {
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setTitle("提示")
+                    .setMessage("笔记内容已修改，是否保存？")
+                    .setPositiveButton("保存", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            saveNote(input);
+                            setResult(RESULT_OK);
+                            finish();
+                            showToast("笔记保存成功");
+                        }
+                    })
+                    .setNegativeButton("不保存", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .create();
+            dialog.show();
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
+
     @OnClick(R.id.submitBtn)
     void click_submit() {
         String content = contentEt.getText().toString();
         if (!noteEntity.getContent().equals(content)) {
-            noteEntity.setContent(content);
-            noteEntity.setLastEditTime(System.currentTimeMillis());
-            noteManager.update(noteEntity);
+            saveNote(content);
             showToast("笔记保存成功");
             setResult(RESULT_OK);
         }
         finish();
+    }
+
+    private void saveNote(String content) {
+        noteEntity.setContent(content);
+        noteEntity.setLastEditTime(System.currentTimeMillis());
+        noteManager.update(noteEntity);
     }
 }

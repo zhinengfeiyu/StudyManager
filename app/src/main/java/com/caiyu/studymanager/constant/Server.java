@@ -20,6 +20,7 @@ public class Server {
     public static String SHOW_TOPIC_DETAIL_URL;
     public static String GET_CLASS_URL;
     public static String USER_INFO_URL;
+    public static String UPDATE_USER_INFO_URL;
     public static String SEARCH_URL;
 
     public static void initURLs(Context context) {
@@ -35,12 +36,15 @@ public class Server {
         SHOW_TOPIC_DETAIL_URL = BASE_URL + "/getTopicDetail";
         GET_CLASS_URL = BASE_URL + "/getClasses";
         USER_INFO_URL = BASE_URL + "/userInfo";
+        UPDATE_USER_INFO_URL = BASE_URL + "/updateUserInfo";
         SEARCH_URL = BASE_URL + "/search";
     }
 
     public static final String REQ_USER_NAME = "user_name";
     public static final String REQ_STUDY_NO = "study_no";
     public static final String REQ_PSW = "psw";
+    public static final String REQ_REAL_NAME = "real_name";
+    public static final String REQ_SEX = "sex";
     public static final String REQ_SUBJECT_ID = "subject_id";
     public static final String REQ_USER_ID = "user_id";
     public static final String REQ_TITLE = "title";
@@ -77,4 +81,5 @@ public class Server {
     public static final String RES_POSITION = "position";
 
     public static final String SUCCESS = "success";
+    public static final String FAILURE = "failure";
 }

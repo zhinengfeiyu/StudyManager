@@ -94,6 +94,7 @@ public class ForumFragment extends BaseFragment {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            cancelDialog();
                             List<TopicBean> topicList = new ArrayList<>();
                             JSONArray jsonArray = new JSONArray(response);
                             for (int i=0;i<jsonArray.length();i++) {
@@ -115,6 +116,7 @@ public class ForumFragment extends BaseFragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         showToast("网络错误");
+                        cancelDialog();
                     }
                 }){
             @Override
@@ -126,6 +128,7 @@ public class ForumFragment extends BaseFragment {
         };
         request.setTag("getTopic");
         MyApplication.getRequestQueue().add(request);
+        showDialog("加载中");
     }
 
 }

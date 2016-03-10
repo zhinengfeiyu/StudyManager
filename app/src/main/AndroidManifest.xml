@@ -33,6 +33,7 @@
         <activity android:name=".activity.ForumActivity" />
         <activity android:name=".activity.TeacherActivity" />
         <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.InputActivity" />
         <activity
             android:name=".activity.CreateTopicActivity"
             android:label="交流论坛"/>

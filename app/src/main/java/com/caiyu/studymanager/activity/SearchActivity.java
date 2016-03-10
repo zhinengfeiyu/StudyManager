@@ -2,8 +2,13 @@ package com.caiyu.studymanager.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -65,14 +70,30 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     public void afterViewCreated() {
-        setTitle(getString(R.string.title_search));
         inputType = getIntent().getIntExtra(ExtraKeys.SEARCH_TYPE, 1);
+        String titleStr;
+        switch (inputType) {
+            case TYPE_CLASS_ROOM:
+                titleStr = "设置教室";
+                break;
+            case TYPE_TEACHER:
+                titleStr = "设置教师";
+                break;
+            default:
+                titleStr = "设置";
+        }
+        setTitle(titleStr);
         if (inputType == TYPE_TEACHER) {
             confirmBtn.setVisibility(View.GONE);
         }
         classId = getIntent().getLongExtra(ExtraKeys.CLASS_TABLE_ENTITY_ID, 1L);
         listResult("");
         initInputChange();
+    }
+
+    @Override
+    public boolean showBack() {
+        return false;
     }
 
     @OnClick(R.id.cancelBtn)
@@ -89,7 +110,8 @@ public class SearchActivity extends BaseActivity {
 
     @OnItemClick(R.id.choiceLv)
     void choose_item(int position) {
-        String inputStr = (String) choiceLv.getAdapter().getItem(position);
+        String inputStr = ((ArrayAdapter<SpannableString>) choiceLv.getAdapter())
+                        .getItem(position).toString();
         saveResult(inputStr);
         returnResult(inputStr);
     }
@@ -127,9 +149,17 @@ public class SearchActivity extends BaseActivity {
                         else {
                             try {
                                 JSONArray jsonArray = new JSONArray(response);
-                                List<String> data = new ArrayList<>(jsonArray.length());
+                                List<SpannableString> data = new ArrayList<>(jsonArray.length());
                                 for (int i = 0; i < jsonArray.length(); i++) {
-                                    data.add(jsonArray.getString(i));
+                                    String rawText = jsonArray.getString(i);
+                                    int firstIndex = rawText.indexOf(inputStr);
+                                    int lastIndex = firstIndex + inputStr.length();
+                                    SpannableString ss = new SpannableString(rawText);
+                                    ss.setSpan(new ForegroundColorSpan(Color.BLUE),
+                                            firstIndex,
+                                            lastIndex,
+                                            Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                                    data.add(ss);
                                 }
                                 choiceLv.setAdapter(new ArrayAdapter<>(SearchActivity.this,
                                         android.R.layout.simple_list_item_1, data));

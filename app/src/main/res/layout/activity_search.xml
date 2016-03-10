@@ -6,38 +6,40 @@
     <include layout="@layout/common_title" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="50dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
         <EditText
-            style="@style/EditBg"
+            style="@style/EditBg2"
             android:id="@+id/inputEt"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:hint="在此输入搜索内容" />
         <Button
             android:id="@+id/confirmBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginLeft="5dp"
-            android:textSize="14sp"
-            android:textColor="@color/gray_33"
+            android:textSize="16sp"
+            android:textColor="@color/white"
             android:text="确定"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:background="@drawable/selector_green_pressed"/>
         <Button
             android:id="@+id/cancelBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:textSize="14sp"
-            android:textColor="@color/gray_33"
-            android:text="取消"/>
+            android:layout_height="40dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="3dp"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:text="取消"
+            android:background="@drawable/selector_red_pressed"/>
     </LinearLayout>
     <ListView
         android:id="@+id/choiceLv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"/>
+        android:layout_height="wrap_content" />
 </LinearLayout>

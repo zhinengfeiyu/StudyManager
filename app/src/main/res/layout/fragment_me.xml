@@ -73,6 +73,17 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/gray_light" />
+    <com.caiyu.studymanager.widget.SettingView
+        android:id="@+id/passwordView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        custom:textSize="16sp"
+        custom:textColor="@color/red"
+        custom:leftText="修改密码" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray_light" />
     <Button
         android:id="@+id/logoutBtn"
         android:layout_width="match_parent"
