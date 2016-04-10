@@ -13,6 +13,8 @@ public class NoteEntity {
 
     private long lastEditTime; //上次修改时间，以毫秒为单位
 
+    public NoteEntity() {}
+
     public NoteEntity(Long id, String content, long subjectId, long lastEditTime) {
         this.id = id;
         this.content = content;

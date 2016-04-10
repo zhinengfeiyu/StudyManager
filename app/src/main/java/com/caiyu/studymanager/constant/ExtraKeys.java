@@ -11,6 +11,8 @@ public interface ExtraKeys {
 
     String TOPIC_ID = "topic_id";   //主题ID
 
+    String NOTE_ID = "note_id";     //笔记ID
+
     String TOPIC_TITLE = "topic_title"; //主题标题
 
     String TOPIC_AUTHOR = "topic_author";   //主题作者

@@ -94,6 +94,12 @@ public class SubjectManager implements IDaoManager<SubjectEntity>{
         }
     }
 
+    /**
+     * 通过课程名称获取课程ID
+     * @param subjectName
+     * @return
+     *    对应的课程ID，如果找不到该课程返回-1
+     */
     public long getIdByName(String subjectName) {
         QueryBuilder<SubjectEntity> qb = subjectDao.queryBuilder();
         qb.where(SubjectDao.Properties.Name.eq(subjectName));

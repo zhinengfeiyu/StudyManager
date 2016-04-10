@@ -75,7 +75,24 @@ public abstract class BaseActivity extends Activity {
         });
     }
 
+    protected void setTitleRightText2(CharSequence rightText2) {
+        TextView rightTv2 = (TextView) findViewById(R.id.commonRightTv2);
+        if (rightTv2 == null) return;
+        rightTv2.setText(rightText2);
+        rightTv2.setVisibility(View.VISIBLE);
+        rightTv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRightClick2();
+            }
+        });
+    }
+
     protected void onRightClick() {
+
+    }
+
+    protected void onRightClick2() {
 
     }
 

@@ -33,4 +33,15 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         android:background="@drawable/selector_pressed" />
+    <TextView
+        android:id="@+id/commonRightTv2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:layout_toLeftOf="@id/commonRightTv"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:background="@drawable/selector_pressed"
+        android:visibility="gone"/>
 </RelativeLayout>

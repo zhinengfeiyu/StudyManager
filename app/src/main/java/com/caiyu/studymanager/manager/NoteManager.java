@@ -94,7 +94,7 @@ public class NoteManager implements IDaoManager<NoteEntity>{
         }
     }
 
-    public NoteEntity getDataBySubjectId(long subjectId) {
+    public List<NoteEntity> getDataBySubjectId(long subjectId) {
         if(noteDao == null) {
             return null;
         }
@@ -102,12 +102,19 @@ public class NoteManager implements IDaoManager<NoteEntity>{
         qb.where(NoteDao.Properties.Subject_id.eq(subjectId));
         List<NoteEntity> list = qb.list();
         if (Verifier.isEffectiveList(list))
-            return list.get(0);
-        else {
-            NoteEntity entity = new NoteEntity(null, "", subjectId, System.currentTimeMillis());
-            this.addData(entity);
-            return getDataBySubjectId(subjectId);
+            return list;
+        else
+            return null;
+    }
+
+    public List<NoteEntity> getNoteBySubjectId(long subjectId) {
+        if(noteDao == null) {
+            return null;
         }
+        QueryBuilder<NoteEntity> qb = noteDao.queryBuilder();
+        qb.where(NoteDao.Properties.Subject_id.eq(subjectId));
+        List<NoteEntity> list = qb.list();
+        return list;
     }
 
     public void update(NoteEntity entity) {

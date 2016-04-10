@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import com.caiyu.entity.ClassTableEntity;
@@ -16,6 +14,8 @@ import com.caiyu.studymanager.constant.ExtraKeys;
 import com.caiyu.studymanager.manager.ClassTableManager;
 import com.caiyu.studymanager.manager.NoteManager;
 import com.caiyu.studymanager.widget.SettingView;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -106,7 +106,7 @@ public class ClassDetailActivity extends BaseActivity {
 
     @OnClick(R.id.noteView)
     void click_note() {
-        Intent intent = new Intent(this, NoteActivity.class);
+        Intent intent = new Intent(this, NoteListActivity.class);
         intent.putExtra(ExtraKeys.SUBJECT_ID, classEntity.getSubjectId());
         startActivityForResult(intent, REQ_NOTE);
     }
@@ -155,9 +155,9 @@ public class ClassDetailActivity extends BaseActivity {
         teacherView.setText(classEntity.getTeacher());
         startWeekView.setText(classEntity.getStartWeek() + "");
         endWeekView.setText(classEntity.getEndWeek() + "");
-        NoteEntity noteEntity = noteManager.getDataBySubjectId(classEntity.getSubjectId());
-        noteView.setText(Verifier.isEffectiveStr(noteEntity.getContent())
-                        ? noteEntity.getContent() : "暂无笔记");
+        List<NoteEntity> noteEntityList = noteManager.getDataBySubjectId(classEntity.getSubjectId());
+        noteView.setText(Verifier.isEffectiveList(noteEntityList)
+                        ? noteEntityList.get(0).getContent() : "暂无笔记");//取该科目笔记列表的第一条笔记
         if (classEntity.getClassName().equals(""))
             deleteBtn.setEnabled(false);
     }

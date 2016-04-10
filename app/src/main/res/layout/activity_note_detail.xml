@@ -4,18 +4,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <include layout="@layout/common_title" />
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"/>
     <EditText
         android:id="@+id/noteContentEt"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:layout_weight="1"
+        android:padding="5dp"
         android:hint="在此输入笔记内容"
         android:background="@drawable/bg_black_border"/>
-    <Button
-        android:id="@+id/submitBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="保存笔记"/>
 </LinearLayout>

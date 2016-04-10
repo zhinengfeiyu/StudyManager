@@ -4,4 +4,32 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <include layout="@layout/common_title" />
+    <Button
+        android:id="@+id/noteBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textSize="18sp"
+        android:text="查看笔记" />
+    <Button
+        android:id="@+id/findClassRoomBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textSize="18sp"
+        android:text="查找空余教室" />
+    <Button
+        android:id="@+id/stealClassBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textSize="18sp"
+        android:text="蹭课" />
+    <Button
+        android:id="@+id/autoSilenceBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textSize="18sp"
+        android:text="上课自动静音" />
 </LinearLayout>
