@@ -89,18 +89,7 @@ public class ClassFragment extends BaseFragment {
     @Override
     public void afterViewCreated() {
         setTitle(getString(R.string.title_class_table));
-        DisplayMetrics metrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        int screenWidth = metrics.widthPixels;
-        tableWidth = screenWidth;
-        int screenHeight = metrics.heightPixels;
-        //获取状态栏高度
-        int statusBarHeight = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            statusBarHeight = getResources().getDimensionPixelSize(resourceId);
-        }
-        tableHeight = screenHeight - statusBarHeight;
+
         initWeekdayTitle();
         refreshShowTime();
     }
@@ -116,6 +105,32 @@ public class ClassFragment extends BaseFragment {
     void click_class_time() {
         Intent intent = new Intent(getActivity(), ClassTimeSetActivity.class);
         startActivityForResult(intent, REQ_TIME);
+    }
+
+    /**
+     * 计算tableWidth和tableHeight
+     */
+    private void initTableSize() {
+        //获取手机参数
+        DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int screenWidth = metrics.widthPixels;  //屏幕宽度
+        int screenHeight = metrics.heightPixels;    //屏幕高度
+        float density = metrics.density; // px与dp的比值，等于dpi/160
+        float scaledDensity = metrics.scaledDensity; // px与sp的比值
+        //获取状态栏高度
+        int statusBarHeight = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+        }
+        //获取标题栏高度
+        int titleBarHeight = (int) (44 * density);
+        //获取TabHost高度
+        int tabHostHeight = (int) (20 * density + 20 * scaledDensity);
+
+        tableWidth = screenWidth;
+        tableHeight = screenHeight - statusBarHeight - titleBarHeight - tabHostHeight - 10;
     }
 
     private void refreshCurrentClass() {

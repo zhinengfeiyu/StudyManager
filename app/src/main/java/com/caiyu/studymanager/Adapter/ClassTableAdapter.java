@@ -100,7 +100,7 @@ public class ClassTableAdapter extends BaseAdapter {
             holder.classNameTv = (TextView) convertView.findViewById(R.id.classNameTv);
             holder.classRoomTv = (TextView) convertView.findViewById(R.id.classRoomTv);
             holder.teacherTv = (TextView) convertView.findViewById(R.id.teacherTv);
-            holder.weeksTv = (TextView) convertView.findViewById(R.id.weeksTv);
+//            holder.weeksTv = (TextView) convertView.findViewById(R.id.weeksTv);
             convertView.setTag(holder);
         }
         else {
@@ -111,14 +111,14 @@ public class ClassTableAdapter extends BaseAdapter {
             holder.classNameTv.setText(data.getClassName());
             holder.classRoomTv.setText(data.getClassRoom());
             holder.teacherTv.setText(data.getTeacher());
-            String weeksFormatStr = "第%1$d-%2$d周";
-            holder.weeksTv.setText(String.format(weeksFormatStr, data.getStartWeek(), data.getEndWeek()));
+//            String weeksFormatStr = "第%1$d-%2$d周";
+//            holder.weeksTv.setText(String.format(weeksFormatStr, data.getStartWeek(), data.getEndWeek()));
         }
         else {
             holder.classNameTv.setText("");
             holder.classRoomTv.setText("");
             holder.teacherTv.setText("");
-            holder.weeksTv.setText("");
+//            holder.weeksTv.setText("");
         }
         convertView.setOnClickListener(new ClickListener(data));
         return convertView;
@@ -134,7 +134,7 @@ public class ClassTableAdapter extends BaseAdapter {
         TextView classNameTv;
         TextView classRoomTv;
         TextView teacherTv;
-        TextView weeksTv;
+//        TextView weeksTv;
     }
 
     private void showDialog(final ClassTableEntity tableEntity) {
