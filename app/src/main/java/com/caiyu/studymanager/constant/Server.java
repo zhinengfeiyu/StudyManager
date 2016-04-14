@@ -79,6 +79,7 @@ public class Server {
     public static final String RES_PHONE = "phone";
     public static final String RES_ACADEMY = "academy";
     public static final String RES_POSITION = "position";
+    public static final String RES_SUBJECT_NAME = "subject_name";
 
     public static final String SUCCESS = "success";
     public static final String FAILURE = "failure";

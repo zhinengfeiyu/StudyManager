@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +41,8 @@ public abstract class BaseFragment extends Fragment {
     protected void afterViewCreated() {}
 
     protected void initTitle() {
-        TextView backTv = (TextView) rootView.findViewById(R.id.commonBackTv);
+//        TextView backTv = (TextView) rootView.findViewById(R.id.commonBackTv);
+        ImageView backTv = (ImageView) rootView.findViewById(R.id.commonBackImg);
         if (backTv == null) return;
         backTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +63,19 @@ public abstract class BaseFragment extends Fragment {
         if (rightTv == null) return;
         rightTv.setText(rightText);
         rightTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRightClick();
+            }
+        });
+    }
+
+    protected void setTitleRightIcon(int resId) {
+        ImageView rightImg = (ImageView) rootView.findViewById(R.id.commonRightImg);
+        if (rightImg == null) return;
+        rightImg.setImageResource(resId);
+        rightImg.setVisibility(View.VISIBLE);
+        rightImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onRightClick();

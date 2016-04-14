@@ -14,14 +14,92 @@
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="40dp"
-            android:orientation="horizontal" />
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/MondayTv"
+                style="@style/TimeText"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="星期一"
+                android:background="@drawable/selector_class_bg_2"/>
+            <TextView
+                android:id="@+id/TuesdayTv"
+                style="@style/TimeText"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="星期二"
+                android:background="@drawable/selector_class_bg_1"/>
+            <TextView
+                android:id="@+id/WednesdayTv"
+                style="@style/TimeText"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="星期三"
+                android:background="@drawable/selector_class_bg_2"/>
+            <TextView
+                android:id="@+id/ThursdayTv"
+                style="@style/TimeText"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="星期四"
+                android:background="@drawable/selector_class_bg_1"/>
+            <TextView
+                android:id="@+id/FridayTv"
+                style="@style/TimeText"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="星期五"
+                android:background="@drawable/selector_class_bg_2"/>
+        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/timeLayout"
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
             android:layout_marginTop="30dp"
-            android:orientation="vertical" />
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/am1TimeTv"
+                style="@style/TimeText"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_class_bg_2"/>
+            <TextView
+                android:id="@+id/am2TimeTv"
+                style="@style/TimeText"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_class_bg_1"/>
+            <TextView
+                android:id="@+id/pm1TimeTv"
+                style="@style/TimeText"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_class_bg_2"/>
+            <TextView
+                android:id="@+id/pm2TimeTv"
+                style="@style/TimeText"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_class_bg_1"/>
+            <TextView
+                android:id="@+id/nightTimeTv"
+                style="@style/TimeText"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_class_bg_2"/>
+        </LinearLayout>
+
         <GridView
             android:id="@+id/tableGv"
             android:layout_width="match_parent"
@@ -30,5 +108,6 @@
             android:layout_toRightOf="@id/timeLayout"
             android:numColumns="5"
             android:stretchMode="columnWidth" />
+
     </RelativeLayout>
 </LinearLayout>

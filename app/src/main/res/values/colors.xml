@@ -13,8 +13,11 @@
     <color name="blue_common">#0099ff</color>
     <color name="sky_blue">#33ccff</color>
     <color name="gray_33">#333333</color>
+    <color name="gray_66">#666666</color>
     <color name="gray_99">#999999</color>
     <color name="gray_cc">#cccccc</color>
+    <color name="gray_dd">#dddddd</color>
+    <color name="gray_ee">#eeeeee</color>
 
     <color name="selector_common">#33000000</color>
     <color name="gray_light">#22333333</color>

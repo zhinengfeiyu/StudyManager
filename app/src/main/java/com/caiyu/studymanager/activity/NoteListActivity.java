@@ -49,7 +49,7 @@ public class NoteListActivity extends BaseActivity {
     @Override
     public void afterViewCreated() {
         setTitle(getString(R.string.title_note));
-        setTitleRightText("新建");
+        setTitleRightIcon(R.mipmap.pencil);
         refreshShowNote(getIntent().getLongExtra(ExtraKeys.SUBJECT_ID, -1L));
     }
 

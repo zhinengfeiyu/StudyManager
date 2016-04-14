@@ -39,4 +39,16 @@
         <item name="android:background">@drawable/selector_pressed</item>
     </style>
 
+    <style name="TimeText" parent="@style/ClickableBg">
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!--<style name="MeSet">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="custom:leftTextSize">16sp</item>
+        <item name="custom:rightTextSize">15sp</item>
+    </style>-->
+
 </resources>

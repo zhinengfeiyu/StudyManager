@@ -16,16 +16,13 @@ import com.caiyu.studymanager.R;
  */
 public class SettingView extends FrameLayout {
 
-    private int textSize;
-
-    private int textColor;
-
+    private int leftTextSize;
+    private int rightTextSize;
+    private int leftTextColor;
+    private int rightTextColor;
     private String leftText;
-
     private String rightText;
-
     private TextView leftTv;
-
     private TextView rightTv;
 
     public SettingView(Context context) {
@@ -39,8 +36,12 @@ public class SettingView extends FrameLayout {
     public SettingView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.SettingView, defStyle, 0);
-        textSize = arr.getDimensionPixelSize(R.styleable.SettingView_textSize, 20);
-        textColor = arr.getColor(R.styleable.SettingView_textColor, getResources().getColor(R.color.gray_99));
+        leftTextSize = arr.getDimensionPixelSize(R.styleable.SettingView_leftTextSize, 20);
+        rightTextSize = arr.getDimensionPixelSize(R.styleable.SettingView_rightTextSize, 20);
+        leftTextColor = arr.getColor(R.styleable.SettingView_leftTextColor,
+                            getResources().getColor(R.color.gray_33));
+        rightTextColor = arr.getColor(R.styleable.SettingView_rightTextColor,
+                getResources().getColor(R.color.gray_99));
         leftText = arr.getString(R.styleable.SettingView_leftText);
         rightText = arr.getString(R.styleable.SettingView_rightText);
         arr.recycle();
@@ -52,10 +53,10 @@ public class SettingView extends FrameLayout {
         super.onFinishInflate();
         leftTv = (TextView) findViewById(R.id.leftTv);
         rightTv = (TextView) findViewById(R.id.rightTv);
-        leftTv.setTextColor(textColor);
-        rightTv.setTextColor(textColor);
-        leftTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
-        rightTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+        leftTv.setTextColor(leftTextColor);
+        rightTv.setTextColor(rightTextColor);
+        leftTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, leftTextSize);
+        rightTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, rightTextSize);
         leftTv.setText(leftText);
         rightTv.setText(rightText);
     }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="SettingView">
-        <attr name="textSize" format="dimension"/>
-        <attr name="textColor" format="color" />
+        <attr name="leftTextSize" format="dimension"/>
+        <attr name="rightTextSize" format="dimension" />
+        <attr name="leftTextColor" format="color" />
+        <attr name="rightTextColor" format="color" />
         <attr name="leftText" format="string"/>
         <attr name="rightText" format="string"/>
     </declare-styleable>

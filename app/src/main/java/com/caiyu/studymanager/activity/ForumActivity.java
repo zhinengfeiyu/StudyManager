@@ -35,8 +35,8 @@ import butterknife.OnItemClick;
  */
 public class ForumActivity extends BaseActivity {
 
-    @Bind(R.id.subjectTv)
-    TextView subjectTv;
+//    @Bind(R.id.subjectTv)
+//    TextView subjectTv;
     @Bind(R.id.topicList)
     ListView listView;
 
@@ -55,11 +55,11 @@ public class ForumActivity extends BaseActivity {
     @Override
     public void afterViewCreated() {
         setTitle(getString(R.string.title_discuss));
-        setTitleRightText("发帖");
-        long subjectId = getIntent().getLongExtra(ExtraKeys.SUBJECT_ID, 1L);
+        setTitleRightIcon(R.mipmap.pencil);
+        long subjectId = getIntent().getLongExtra(ExtraKeys.SUBJECT_ID, -1L);
         subjectEntity = subjectManager.getDataById(subjectId);
-        String subjectName = subjectEntity.getName();
-        subjectTv.setText(subjectName);
+//        String subjectName = subjectEntity.getName();
+//        subjectTv.setText(subjectName);
         requestTopics();
     }
 
@@ -74,7 +74,8 @@ public class ForumActivity extends BaseActivity {
     @Override
     public void onRightClick() {
         Intent intent = new Intent(this, CreateTopicActivity.class);
-        intent.putExtra(ExtraKeys.SUBJECT_ID, subjectEntity.getId());
+        if (subjectEntity != null)
+            intent.putExtra(ExtraKeys.SUBJECT_ID, subjectEntity.getId());
         startActivityForResult(intent, REQ_CODE_CREATE_TOPIC);
     }
 
@@ -83,7 +84,10 @@ public class ForumActivity extends BaseActivity {
         Intent intent = new Intent(this, DiscussActivity.class);
         TopicBean topicBean = adapter.getData().get(position);
         intent.putExtra(ExtraKeys.TOPIC_ID, topicBean.getTopicId());
+        intent.putExtra(ExtraKeys.TOPIC_SUBJECT_ID, topicBean.getSubjectId());
+        intent.putExtra(ExtraKeys.TOPIC_SUBJECT_NAME, topicBean.getSubjectName());
         intent.putExtra(ExtraKeys.TOPIC_TITLE, topicBean.getTitle());
+        intent.putExtra(ExtraKeys.TOPIC_CONTENT, topicBean.getContent());
         intent.putExtra(ExtraKeys.TOPIC_AUTHOR, topicBean.getAuthor());
         intent.putExtra(ExtraKeys.TOPIC_TIME, topicBean.getTime());
         startActivity(intent);
@@ -107,7 +111,10 @@ public class ForumActivity extends BaseActivity {
                                 TopicBean topicBean = new TopicBean();
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 topicBean.setTopicId(jsonObject.getInt(Server.RES_TOPIC_ID));
+                                topicBean.setSubjectId(jsonObject.getInt(Server.RES_SUBJECT_ID));
+                                topicBean.setSubjectName(jsonObject.getString(Server.RES_SUBJECT_NAME));
                                 topicBean.setTitle(jsonObject.getString(Server.RES_TITLE));
+                                topicBean.setContent(jsonObject.getString(Server.RES_CONTENT));
                                 topicBean.setAuthor(jsonObject.getString(Server.RES_AUTHOR));
                                 topicBean.setTime(jsonObject.getLong(Server.RES_TIME));
                                 topicList.add(topicBean);
@@ -128,7 +135,8 @@ public class ForumActivity extends BaseActivity {
             @Override
             public Map<String, String> getParams() {
                 Map<String, String> map = new HashMap<>();
-                map.put(Server.REQ_SUBJECT_ID, subjectEntity.getId() + "");
+                if (subjectEntity != null)
+                    map.put(Server.REQ_SUBJECT_ID, subjectEntity.getId() + "");
                 return map;
             }
         };

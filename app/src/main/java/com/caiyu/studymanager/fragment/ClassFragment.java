@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -90,8 +91,9 @@ public class ClassFragment extends BaseFragment {
     public void afterViewCreated() {
         setTitle(getString(R.string.title_class_table));
 
-        initWeekdayTitle();
+//        initWeekdayTitle();
         refreshShowTime();
+        initTableSize();
     }
 
     @Override
@@ -186,24 +188,22 @@ public class ClassFragment extends BaseFragment {
     }
 
     private void refreshShowTime() {
-        timeLayout.removeAllViews();
-        ViewGroup.MarginLayoutParams layoutParams =
-                (ViewGroup.MarginLayoutParams) timeLayout.getLayoutParams();
-        ViewGroup.LayoutParams childParams = new ViewGroup.LayoutParams(
-                layoutParams.width, (tableHeight - layoutParams.topMargin) / 5);
+        TextView am1Tv = (TextView) timeLayout.findViewById(R.id.am1TimeTv);
+        TextView am2Tv = (TextView) timeLayout.findViewById(R.id.am2TimeTv);
+        TextView pm1Tv = (TextView) timeLayout.findViewById(R.id.pm1TimeTv);
+        TextView pm2Tv = (TextView) timeLayout.findViewById(R.id.pm2TimeTv);
+        TextView nightTv = (TextView) timeLayout.findViewById(R.id.nightTimeTv);
         List<String> timeList = timeManager.getAllByString();
-        for (int i = 0; i < 5; i++) {
-            TextView textView = new TextView(getActivity());
-            textView.setLayoutParams(childParams);
-            textView.setGravity(Gravity.CENTER);
-            textView.setTextSize(12);
-            textView.setText(timeList.get(i * 2) + "\n-\n" + timeList.get(i * 2 + 1));
-            if (i % 2 == 0)
-                textView.setBackgroundResource(R.drawable.selector_class_bg_2);
-            else
-                textView.setBackgroundResource(R.drawable.selector_class_bg_1);
-            timeLayout.addView(textView);
-        }
+        am1Tv.setText(timeList.get(0) + "\n-\n" + timeList.get(1));
+        am2Tv.setText(timeList.get(2) + "\n-\n" + timeList.get(3));
+        pm1Tv.setText(timeList.get(4) + "\n-\n" + timeList.get(5));
+        pm2Tv.setText(timeList.get(6) + "\n-\n" + timeList.get(7));
+        nightTv.setText(timeList.get(8) + "\n-\n" + timeList.get(9));
+        am1Tv.setOnClickListener(new ClickTimeListener());
+        am2Tv.setOnClickListener(new ClickTimeListener());
+        pm1Tv.setOnClickListener(new ClickTimeListener());
+        pm2Tv.setOnClickListener(new ClickTimeListener());
+        nightTv.setOnClickListener(new ClickTimeListener());
     }
 
     private void refreshShowTable() {
@@ -310,6 +310,14 @@ public class ClassFragment extends BaseFragment {
                 entity.setSubjectId(0L);
                 tableManager.update(entity);
             }
+        }
+    }
+
+    private class ClickTimeListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getActivity(), ClassTimeSetActivity.class);
+            startActivityForResult(intent, REQ_TIME);
         }
     }
 }

@@ -4,87 +4,112 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/gray_cc">
+    android:background="@color/gray_ee">
     <include layout="@layout/common_title" />
-    <View
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@color/gray_light" />
-    <com.caiyu.studymanager.widget.SettingView
-        android:id="@+id/nameView"
+        android:orientation="vertical"
+        android:background="@color/white">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray_light" />
+        <com.caiyu.studymanager.widget.SettingView
+            android:id="@+id/nameView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            custom:leftTextSize="16sp"
+            custom:rightTextSize="15sp"
+            custom:leftText="姓名"
+            custom:rightText="未设置"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/gray_light" />
+        <com.caiyu.studymanager.widget.SettingView
+            android:id="@+id/studyNoView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            custom:leftTextSize="16sp"
+            custom:rightTextSize="15sp"
+            custom:leftText="学号"
+            custom:rightText="未设置"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/gray_light" />
+        <com.caiyu.studymanager.widget.SettingView
+            android:id="@+id/nickNameView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            custom:leftTextSize="16sp"
+            custom:rightTextSize="15sp"
+            custom:leftText="昵称"
+            custom:rightText="未设置"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/gray_light" />
+        <com.caiyu.studymanager.widget.SettingView
+            android:id="@+id/sexView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            custom:leftTextSize="16sp"
+            custom:rightTextSize="15sp"
+            custom:leftText="性别"
+            custom:rightText="未设置"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/gray_light" />
+        <com.caiyu.studymanager.widget.SettingView
+            android:id="@+id/professionView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            custom:leftTextSize="16sp"
+            custom:rightTextSize="15sp"
+            custom:leftText="专业"
+            custom:rightText="未设置"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray_light" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        custom:textSize="16sp"
-        custom:leftText="姓名"
-        custom:rightText="未设置"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@color/gray_light" />
-    <com.caiyu.studymanager.widget.SettingView
-        android:id="@+id/studyNoView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        custom:textSize="16sp"
-        custom:leftText="学号"
-        custom:rightText="未设置"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@color/gray_light" />
-    <com.caiyu.studymanager.widget.SettingView
-        android:id="@+id/nickNameView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        custom:textSize="16sp"
-        custom:leftText="昵称"
-        custom:rightText="未设置"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@color/gray_light" />
-    <com.caiyu.studymanager.widget.SettingView
-        android:id="@+id/sexView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        custom:textSize="16sp"
-        custom:leftText="性别"
-        custom:rightText="未设置"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@color/gray_light" />
-    <com.caiyu.studymanager.widget.SettingView
-        android:id="@+id/professionView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        custom:textSize="16sp"
-        custom:leftText="专业"
-        custom:rightText="未设置"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/gray_light" />
-    <com.caiyu.studymanager.widget.SettingView
-        android:id="@+id/passwordView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        custom:textSize="16sp"
-        custom:textColor="@color/red"
-        custom:leftText="修改密码" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/gray_light" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:background="@color/white">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray_light" />
+        <com.caiyu.studymanager.widget.SettingView
+            android:id="@+id/passwordView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            custom:leftTextSize="16sp"
+            custom:leftTextColor="@color/red"
+            custom:leftText="修改密码" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray_light" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/logoutBtn"
         android:layout_width="match_parent"

@@ -14,7 +14,8 @@
         android:id="@+id/dayOfWeekView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        custom:textSize="16sp"
+        custom:leftTextSize="16sp"
+        custom:rightTextSize="15sp"
         custom:leftText="星期几"
         custom:rightText="未设置"/>
     <View
@@ -27,7 +28,8 @@
         android:id="@+id/orderOfDayView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        custom:textSize="16sp"
+        custom:leftTextSize="16sp"
+        custom:rightTextSize="15sp"
         custom:leftText="第几节"
         custom:rightText="未设置"/>
     <View
@@ -40,7 +42,8 @@
         android:id="@+id/classNameView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        custom:textSize="16sp"
+        custom:leftTextSize="16sp"
+        custom:rightTextSize="15sp"
         custom:leftText="课程名"
         custom:rightText="未设置"/>
     <View
@@ -53,7 +56,8 @@
         android:id="@+id/classRoomView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        custom:textSize="16sp"
+        custom:leftTextSize="16sp"
+        custom:rightTextSize="15sp"
         custom:leftText="上课地点"
         custom:rightText="未设置"/>
     <View
@@ -66,7 +70,8 @@
         android:id="@+id/teacherView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        custom:textSize="16sp"
+        custom:leftTextSize="16sp"
+        custom:rightTextSize="15sp"
         custom:leftText="教师"
         custom:rightText="未设置"/>
     <View
@@ -79,7 +84,8 @@
         android:id="@+id/startWeekView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        custom:textSize="16sp"
+        custom:leftTextSize="16sp"
+        custom:rightTextSize="15sp"
         custom:leftText="起始周"
         custom:rightText="未设置"/>
     <View
@@ -92,7 +98,8 @@
         android:id="@+id/endWeekView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        custom:textSize="16sp"
+        custom:leftTextSize="16sp"
+        custom:rightTextSize="15sp"
         custom:leftText="结束周"
         custom:rightText="未设置"/>
     <View
@@ -105,7 +112,8 @@
         android:id="@+id/noteView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        custom:textSize="16sp"
+        custom:leftTextSize="16sp"
+        custom:rightTextSize="15sp"
         custom:leftText="课堂笔记"
         custom:rightText="还没有"/>
     <View
@@ -118,7 +126,8 @@
         android:id="@+id/forumView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        custom:textSize="16sp"
+        custom:leftTextSize="16sp"
+        custom:rightTextSize="15sp"
         custom:leftText="交流区"
         custom:rightText="" />
     <View

@@ -62,24 +62,24 @@ public class TopicAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView.getTag() == null) {
             holder = new ViewHolder();
+            holder.subjectTv = (TextView) convertView.findViewById(R.id.subjectTv);
             holder.titleTv = (TextView) convertView.findViewById(R.id.titleTv);
-            holder.authorTv = (TextView) convertView.findViewById(R.id.authorTv);
-            holder.timeTv = (TextView) convertView.findViewById(R.id.timeTv);
+            holder.contentTv = (TextView) convertView.findViewById(R.id.contentTv);
             convertView.setTag(holder);
         }
         else {
             holder = (ViewHolder) convertView.getTag();
         }
         TopicBean topicBean = (TopicBean) getItem(position);
+        holder.subjectTv.setText(topicBean.getSubjectName());
         holder.titleTv.setText(topicBean.getTitle());
-        holder.authorTv.setText(topicBean.getAuthor());
-        holder.timeTv.setText(sdf.format(new Date(topicBean.getTime())));
+        holder.contentTv.setText(topicBean.getContent());
         return convertView;
     }
 
     class ViewHolder {
+        TextView subjectTv;
         TextView titleTv;
-        TextView authorTv;
-        TextView timeTv;
+        TextView contentTv;
     }
 }

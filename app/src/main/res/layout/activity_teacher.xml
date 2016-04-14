@@ -14,7 +14,8 @@
         android:id="@+id/nameView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        custom:textSize="16sp"
+        custom:leftTextSize="16sp"
+        custom:rightTextSize="15sp"
         custom:leftText="姓名"
         custom:rightText="未设置"/>
     <View
@@ -27,7 +28,8 @@
         android:id="@+id/sexView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        custom:textSize="16sp"
+        custom:leftTextSize="16sp"
+        custom:rightTextSize="15sp"
         custom:leftText="性别"
         custom:rightText="未设置"/>
     <View
@@ -40,7 +42,8 @@
         android:id="@+id/academyView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        custom:textSize="16sp"
+        custom:leftTextSize="16sp"
+        custom:rightTextSize="15sp"
         custom:leftText="学院"
         custom:rightText="未设置"/>
     <View
@@ -53,7 +56,8 @@
         android:id="@+id/positionView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        custom:textSize="16sp"
+        custom:leftTextSize="16sp"
+        custom:rightTextSize="15sp"
         custom:leftText="职称"
         custom:rightText="未设置"/>
     <View
@@ -66,7 +70,8 @@
         android:id="@+id/phoneView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        custom:textSize="16sp"
+        custom:leftTextSize="16sp"
+        custom:rightTextSize="15sp"
         custom:leftText="联系方式"
         custom:rightText="未设置"/>
     <View

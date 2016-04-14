@@ -40,8 +40,8 @@ import butterknife.OnItemClick;
  */
 public class DiscussActivity extends BaseActivity {
 
-    @Bind(R.id.topicAuthorTimeTv)
-    TextView topicAuthorTimeTv;
+//    @Bind(R.id.topicAuthorTimeTv)
+//    TextView topicAuthorTimeTv;
     @Bind(R.id.topicTitleTv)
     TextView topicTitleTv;
     @Bind(R.id.topicContentTv)
@@ -69,7 +69,7 @@ public class DiscussActivity extends BaseActivity {
     @Override
     public void afterViewCreated() {
         setTitle(getString(R.string.title_discuss));
-        setTitleRightText("跟帖");
+        setTitleRightIcon(R.mipmap.pencil);
         topicId = getIntent().getIntExtra(ExtraKeys.TOPIC_ID, 1);
         showTopic();
         DiscussBean bean = new DiscussBean();
@@ -138,11 +138,12 @@ public class DiscussActivity extends BaseActivity {
     }
 
     private void showTopic() {
-        topicAuthorTimeTv.setText(String.format("发帖人：%1$s   %2$s",
-                getIntent().getStringExtra(ExtraKeys.TOPIC_AUTHOR),
-                "1月1日"));
+//        topicAuthorTimeTv.setText(String.format("发帖人：%1$s   %2$s",
+//                getIntent().getStringExtra(ExtraKeys.TOPIC_AUTHOR),
+//                "1月1日"));
         topicTitleTv.setText(getIntent().getStringExtra(ExtraKeys.TOPIC_TITLE));
-        requestTopicDetail(topicId);
+//        requestTopicDetail(topicId);
+        topicContentTv.setText(getIntent().getStringExtra(ExtraKeys.TOPIC_CONTENT));
     }
 
     private void refreshShowList(List<DiscussBean> discussList) {

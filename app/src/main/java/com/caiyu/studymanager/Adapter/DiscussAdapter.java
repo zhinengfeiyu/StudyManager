@@ -30,7 +30,7 @@ public class DiscussAdapter extends BaseAdapter {
     public DiscussAdapter(Context context, List<DiscussBean> discussList) {
         this.context = context;
         this.discussList = discussList;
-        sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        sdf = new SimpleDateFormat("yyyy年MM月dd日");
     }
 
     public List<DiscussBean> getData() {
@@ -64,9 +64,8 @@ public class DiscussAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView.getTag() == null) {
             holder = new ViewHolder();
-            holder.replyToTv = (TextView) convertView.findViewById(R.id.replyToTv);
-            holder.contentTv = (TextView) convertView.findViewById(R.id.contentTv);
             holder.authorTv = (TextView) convertView.findViewById(R.id.authorTv);
+            holder.contentTv = (TextView) convertView.findViewById(R.id.contentTv);
             holder.timeTv = (TextView) convertView.findViewById(R.id.timeTv);
             convertView.setTag(holder);
         }
@@ -74,24 +73,19 @@ public class DiscussAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         DiscussBean discussBean = (DiscussBean) getItem(position);
-        if (Verifier.isEffectiveStr(discussBean.getReplyTo())) {
-            holder.replyToTv.setVisibility(View.VISIBLE);
-            holder.replyToTv.setText(String.format("回复%1$s：", discussBean.getReplyTo()));
-        }
-        else {
-            holder.replyToTv.setText("");
-            holder.replyToTv.setVisibility(View.GONE);
-        }
-        holder.contentTv.setText(discussBean.getContent());
         holder.authorTv.setText(discussBean.getAuthor());
+        String replyStr = "";
+        if (Verifier.isEffectiveStr(discussBean.getReplyTo())) {
+            replyStr = String.format("回复 %1$s：", discussBean.getReplyTo());
+        }
+        holder.contentTv.setText(replyStr + discussBean.getContent());
         holder.timeTv.setText(sdf.format(new Date(discussBean.getTime())));
         return convertView;
     }
 
     class ViewHolder {
-        TextView replyToTv;
-        TextView contentTv;
         TextView authorTv;
+        TextView contentTv;
         TextView timeTv;
     }
 }

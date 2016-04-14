@@ -88,9 +88,9 @@ public class ClassTableAdapter extends BaseAdapter {
             convertView.setLayoutParams(params);
             if (position == currentClassShowPosition) {
                 if (isInClass)
-                    convertView.setBackgroundColor(activity.getResources().getColor(R.color.green_light));
+                    convertView.setBackgroundResource(R.drawable.selector_green_light_pressed);
                 else
-                    convertView.setBackgroundColor(activity.getResources().getColor(R.color.red_light));
+                    convertView.setBackgroundResource(R.drawable.selector_red_light_pressed);
             }
             else if (position % 2 == 0)
                 convertView.setBackgroundResource(R.drawable.selector_class_bg_1);

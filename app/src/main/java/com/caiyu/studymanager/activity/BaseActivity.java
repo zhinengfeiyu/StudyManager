@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +38,7 @@ public abstract class BaseActivity extends Activity {
     protected void afterViewCreated() {}
 
     protected void initTitle() {
-        TextView backTv = (TextView) findViewById(R.id.commonBackTv);
+        ImageView backTv = (ImageView) findViewById(R.id.commonBackImg);
         if (backTv == null) return;
         if (showBack()) {
             backTv.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +85,19 @@ public abstract class BaseActivity extends Activity {
             @Override
             public void onClick(View v) {
                 onRightClick2();
+            }
+        });
+    }
+
+    protected void setTitleRightIcon(int resId) {
+        ImageView rightImg = (ImageView) findViewById(R.id.commonRightImg);
+        if (rightImg == null) return;
+        rightImg.setImageResource(resId);
+        rightImg.setVisibility(View.VISIBLE);
+        rightImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRightClick();
             }
         });
     }
