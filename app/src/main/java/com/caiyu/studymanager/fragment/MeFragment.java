@@ -5,16 +5,19 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.activity.InputActivity;
@@ -45,6 +48,8 @@ import butterknife.OnClick;
  */
 public class MeFragment extends BaseFragment {
 
+    @Bind(R.id.headImg)
+    ImageView headImg;
     @Bind(R.id.nameView)
     SettingView nameView;
     @Bind(R.id.studyNoView)
@@ -127,6 +132,7 @@ public class MeFragment extends BaseFragment {
         else {
             requestMyInfo();
         }
+        requestHeadImage();
     }
 
     private void logout() {
@@ -138,7 +144,7 @@ public class MeFragment extends BaseFragment {
     }
 
     private void requestMyInfo() {
-        StringRequest request = new StringRequest(Request.Method.POST, Server.USER_INFO_URL,
+        final StringRequest request = new StringRequest(Request.Method.POST, Server.USER_INFO_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -169,6 +175,25 @@ public class MeFragment extends BaseFragment {
         request.setTag("getMyInfo");
         MyApplication.getRequestQueue().add(request);
         showDialog("获取中");
+    }
+
+    private void requestHeadImage() {
+        headImg.setImageResource(R.mipmap.head);
+        ImageRequest imageRequest = new ImageRequest(
+                String.format(Server.IMAGE_URL + "/user%1$d.jpg", MyApplication.userId),
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap response) {
+                        headImg.setImageBitmap(response);
+                    }
+                }, 100, 100, Bitmap.Config.RGB_565, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        imageRequest.setTag("showMyHeadImage");
+        MyApplication.getRequestQueue().add(imageRequest);
     }
 
     private void refreshShowMyInfo(UserInfoBean bean) {

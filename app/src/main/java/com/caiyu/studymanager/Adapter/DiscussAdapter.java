@@ -1,16 +1,23 @@
 package com.caiyu.studymanager.Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.caiyu.studymanager.R;
+import com.caiyu.studymanager.activity.MyApplication;
 import com.caiyu.studymanager.bean.DiscussBean;
 import com.caiyu.studymanager.bean.TopicBean;
 import com.caiyu.studymanager.common.Verifier;
+import com.caiyu.studymanager.constant.Server;
+import com.caiyu.studymanager.widget.CircleImageView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -64,6 +71,7 @@ public class DiscussAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView.getTag() == null) {
             holder = new ViewHolder();
+            holder.headImg = (CircleImageView) convertView.findViewById(R.id.headImg);
             holder.authorTv = (TextView) convertView.findViewById(R.id.authorTv);
             holder.contentTv = (TextView) convertView.findViewById(R.id.contentTv);
             holder.timeTv = (TextView) convertView.findViewById(R.id.timeTv);
@@ -80,10 +88,30 @@ public class DiscussAdapter extends BaseAdapter {
         }
         holder.contentTv.setText(replyStr + discussBean.getContent());
         holder.timeTv.setText(sdf.format(new Date(discussBean.getTime())));
+        requestHeadImage(holder.headImg, discussBean.getAuthorId());
         return convertView;
     }
 
+    private void requestHeadImage(final CircleImageView headImg, int userId) {
+        ImageRequest imageRequest = new ImageRequest(
+                String.format(Server.IMAGE_URL + "/user%1$d.jpg", userId),
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap response) {
+                        headImg.setImageBitmap(response);
+                    }
+                }, 100, 100, Bitmap.Config.RGB_565, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        imageRequest.setTag("showUserHeadImage");
+        MyApplication.getRequestQueue().add(imageRequest);
+    }
+
     class ViewHolder {
+        CircleImageView headImg;
         TextView authorTv;
         TextView contentTv;
         TextView timeTv;

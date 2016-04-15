@@ -22,6 +22,7 @@ public class Server {
     public static String USER_INFO_URL;
     public static String UPDATE_USER_INFO_URL;
     public static String SEARCH_URL;
+    public static String IMAGE_URL;
 
     public static void initURLs(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PrefKeys.TABLE_USER, 0);
@@ -38,6 +39,7 @@ public class Server {
         USER_INFO_URL = BASE_URL + "/userInfo";
         UPDATE_USER_INFO_URL = BASE_URL + "/updateUserInfo";
         SEARCH_URL = BASE_URL + "/search";
+        IMAGE_URL = BASE_URL + "/images";
     }
 
     public static final String REQ_USER_NAME = "user_name";
@@ -61,6 +63,7 @@ public class Server {
     public static final String RES_TOPIC_ID = "topic_id";
     public static final String RES_DISCUSS_ID = "discuss_id";
     public static final String RES_SUBJECT_ID = "subject_id";
+    public static final String RES_AUTHOR_ID = "author_id";
     public static final String RES_TITLE = "title";
     public static final String RES_AUTHOR = "author";
     public static final String RES_TIME = "time";

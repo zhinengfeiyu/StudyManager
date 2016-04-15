@@ -193,6 +193,7 @@ public class DiscussActivity extends BaseActivity {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 bean.setId(jsonObject.getInt(Server.RES_DISCUSS_ID));
                                 bean.setContent(jsonObject.getString(Server.RES_CONTENT));
+                                bean.setAuthorId(jsonObject.getInt(Server.RES_AUTHOR_ID));
                                 bean.setAuthor(jsonObject.getString(Server.RES_AUTHOR));
                                 bean.setReplyTo(jsonObject.getString(Server.RES_REPLY_TO));
                                 bean.setTime(jsonObject.getLong(Server.RES_TIME));

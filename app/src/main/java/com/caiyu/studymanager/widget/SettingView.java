@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -64,4 +65,5 @@ public class SettingView extends FrameLayout {
     public void setText(String text) {
         rightTv.setText(text);
     }
+
 }

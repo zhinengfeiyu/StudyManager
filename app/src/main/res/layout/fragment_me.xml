@@ -17,6 +17,33 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/gray_light" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="@drawable/selector_pressed">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="@color/gray_33"
+                android:textSize="16sp"
+                android:text="头像" />
+            <ImageView
+                android:id="@+id/headImg"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitCenter" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/gray_light" />
         <com.caiyu.studymanager.widget.SettingView
             android:id="@+id/nameView"
             android:layout_width="match_parent"
