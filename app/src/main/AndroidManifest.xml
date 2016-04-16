@@ -23,7 +23,6 @@
         </activity>
         <activity android:name=".activity.TabActivity" />
         <activity android:name=".activity.ClassDetailActivity" />
-        <activity android:name=".activity.ClassTableActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.NoteListActivity" />
         <activity android:name=".activity.NoteDetailActivity" />
@@ -35,6 +34,9 @@
         <activity android:name=".activity.TeacherActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.InputActivity" />
+        <activity android:name=".activity.AutoSilenceActivity" />
+        <activity android:name=".activity.LessonStealChooseActivity" />
+        <activity android:name=".activity.StealDetailActivity" />
         <activity
             android:name=".activity.CreateTopicActivity"
             android:label="交流论坛"/>

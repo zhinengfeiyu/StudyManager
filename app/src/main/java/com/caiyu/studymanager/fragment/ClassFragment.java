@@ -1,7 +1,10 @@
 package com.caiyu.studymanager.fragment;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -64,12 +67,14 @@ public class ClassFragment extends BaseFragment {
     public static int REQ_TIME = 1;
     public static int REQ_TABLE = 2;
 
-    private int tableWidth;
-    private int tableHeight;
+    private int tableWidth;     //课程表宽度，包括时间、星期栏
+    private int tableHeight;    //课程表高度，包括时间、星期栏
 
     private List<ClassTableEntity> classList;
     private int currentClassId;
     private boolean isInClass;
+
+    private TimechangeReceiver timeTickReceiver;
 
     @Override
     public int getContentViewId() {
@@ -80,33 +85,31 @@ public class ClassFragment extends BaseFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == REQ_TABLE)
+            if (requestCode == REQ_TABLE)   //更改课程信息，刷新
                 refreshShowTable();
-            else if (requestCode == REQ_TIME)
+            else if (requestCode == REQ_TIME) { //更改上课时间，刷新
                 refreshShowTime();
+                if (refreshCurrentClass() == true)
+                    refreshShowTable();
+            }
         }
     }
 
     @Override
     public void afterViewCreated() {
         setTitle(getString(R.string.title_class_table));
-
-//        initWeekdayTitle();
         refreshShowTime();
         initTableSize();
+        refreshCurrentClass();
+        refreshShowTable();
+        timeTickReceiver = new TimechangeReceiver();
+        getActivity().registerReceiver(timeTickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        refreshCurrentClass();
-        refreshShowTable();
-    }
-
-    @OnClick(R.id.timeLayout)
-    void click_class_time() {
-        Intent intent = new Intent(getActivity(), ClassTimeSetActivity.class);
-        startActivityForResult(intent, REQ_TIME);
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(timeTickReceiver);
     }
 
     /**
@@ -135,13 +138,21 @@ public class ClassFragment extends BaseFragment {
         tableHeight = screenHeight - statusBarHeight - titleBarHeight - tabHostHeight - 10;
     }
 
-    private void refreshCurrentClass() {
+    /**
+     * 判断现在或即将上的课，即刷新currentClassId和isInClass的值
+     * @return
+     *      如果当前上课信息有修改，返回true，否则返回false
+     */
+    private boolean refreshCurrentClass() {
+//        showToast("刷新当前课程信息\n原来的classId="+currentClassId+"\n原来的isInClass="+isInClass);
+        int originClassId = currentClassId;
+        boolean originIsInClass = isInClass;
         Calendar calendar = Calendar.getInstance();
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) {
             currentClassId = 1;
             isInClass = false;
-            return;
+            return currentClassId != originClassId || isInClass != originIsInClass;
         }
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
@@ -155,36 +166,18 @@ public class ClassFragment extends BaseFragment {
                 order = (int) timeEntity.getOrder();
                 isInClass = false;
                 currentClassId = (dayOfWeek - Calendar.MONDAY) * 5 + order;
-                return;
+                return currentClassId != originClassId || isInClass != originIsInClass;
             }
             else if (startMinutes <= curMinutes && curMinutes <= endMinutes) {
                 order = (int) timeEntity.getOrder();
                 isInClass = true;
                 currentClassId = (dayOfWeek - Calendar.MONDAY) * 5 + order;
-                return;
+                return currentClassId != originClassId || isInClass != originIsInClass;
             }
         }
         isInClass = false;
-        currentClassId = (dayOfWeek + 1 - Calendar.MONDAY) * 5 + 1;
-    }
-
-    private void initWeekdayTitle() {
-        ViewGroup.MarginLayoutParams layoutParams =
-                (ViewGroup.MarginLayoutParams) titleLayout.getLayoutParams();
-        ViewGroup.LayoutParams childParams = new ViewGroup.LayoutParams(
-                (tableWidth - layoutParams.leftMargin) / 5, layoutParams.height);
-        for (int i = 0; i < 5; i++) {
-            TextView textView = new TextView(getActivity());
-            textView.setLayoutParams(childParams);
-            textView.setGravity(Gravity.CENTER);
-            textView.setTextSize(12);
-            textView.setText(tableManager.getShowWeekday(i + 1));
-            if (i % 2 == 0)
-                textView.setBackgroundColor(getResources().getColor(R.color.table_color_2));
-            else
-                textView.setBackgroundColor(getResources().getColor(R.color.table_color_1));
-            titleLayout.addView(textView);
-        }
+        currentClassId = ((dayOfWeek + 1 - Calendar.MONDAY) * 5 + 1) % 25;
+        return currentClassId != originClassId || isInClass != originIsInClass;
     }
 
     private void refreshShowTime() {
@@ -207,24 +200,25 @@ public class ClassFragment extends BaseFragment {
     }
 
     private void refreshShowTable() {
+//        showToast("刷新table");
         classList = tableManager.getAll();
         if (!Verifier.isEffectiveList(classList) || classList.size() != 25) {
             tableManager.fixDao();
             classList = tableManager.getAll();
             loadFromServer();
         }
-        if (tableGv.getAdapter() == null) {
+//        if (tableGv.getAdapter() == null) {
             int classContentWidth = tableWidth - timeLayout.getLayoutParams().width;
             int classContentHeight = tableHeight - titleLayout.getLayoutParams().height;
             tableGv.setAdapter(new ClassTableAdapter(getActivity(), classList, currentClassId, isInClass,
                             classContentWidth, classContentHeight));
-        }
-        else {
-            ClassTableAdapter adapter = (ClassTableAdapter) tableGv.getAdapter();
-            adapter.setData(classList);
-            adapter.setCurrentClass(currentClassId, isInClass);
-            adapter.notifyDataSetChanged();
-        }
+//        }
+//        else {
+//            ClassTableAdapter adapter = (ClassTableAdapter) tableGv.getAdapter();
+//            adapter.setData(classList);
+//            adapter.setCurrentClass(currentClassId, isInClass);
+//            adapter.notifyDataSetChanged();
+//        }
     }
 
     private void loadFromServer() {
@@ -309,6 +303,15 @@ public class ClassFragment extends BaseFragment {
                 entity.setEndWeek(0);
                 entity.setSubjectId(0L);
                 tableManager.update(entity);
+            }
+        }
+    }
+
+    private class TimechangeReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (refreshCurrentClass() == true) {
+                refreshShowTable();
             }
         }
     }

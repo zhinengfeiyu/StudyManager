@@ -17,9 +17,11 @@ import android.widget.TextView;
 
 import com.caiyu.entity.ClassTableEntity;
 import com.caiyu.studymanager.R;
+import com.caiyu.studymanager.activity.AutoSilenceActivity;
 import com.caiyu.studymanager.activity.ClassDetailActivity;
 import com.caiyu.studymanager.activity.ClassSetActivity;
 import com.caiyu.studymanager.activity.ForumActivity;
+import com.caiyu.studymanager.activity.LessonStealChooseActivity;
 import com.caiyu.studymanager.activity.NoteDetailActivity;
 import com.caiyu.studymanager.activity.NoteListActivity;
 import com.caiyu.studymanager.common.Verifier;
@@ -86,13 +88,23 @@ public class ExploreFragment extends BaseFragment {
             map = new HashMap<>();
             map.put("img", R.mipmap.steal_class);
             map.put("txt", "蹭课");
-            map.put("listener", null);
+            map.put("listener", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mContext.startActivity(new Intent(mContext, LessonStealChooseActivity.class));
+                }
+            });
             data.add(map);
 
             map = new HashMap<>();
             map.put("img", R.mipmap.auto_silence);
             map.put("txt", "自动静音");
-            map.put("listener", null);
+            map.put("listener", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mContext.startActivity(new Intent(mContext, AutoSilenceActivity.class));
+                }
+            });
             data.add(map);
 
             map = new HashMap<>();

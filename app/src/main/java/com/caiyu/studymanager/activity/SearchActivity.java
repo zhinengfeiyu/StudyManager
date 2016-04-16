@@ -1,17 +1,14 @@
 package com.caiyu.studymanager.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.text.Editable;
-import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +20,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.caiyu.entity.ClassTableEntity;
 import com.caiyu.studymanager.R;
-import com.caiyu.studymanager.bean.UserInfoBean;
 import com.caiyu.studymanager.common.Verifier;
 import com.caiyu.studymanager.constant.ExtraKeys;
 import com.caiyu.studymanager.constant.Server;
@@ -31,7 +27,6 @@ import com.caiyu.studymanager.manager.ClassTableManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -23,6 +23,7 @@ public class Server {
     public static String UPDATE_USER_INFO_URL;
     public static String SEARCH_URL;
     public static String IMAGE_URL;
+    public static String STEAL_CLASS_URL;
 
     public static void initURLs(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PrefKeys.TABLE_USER, 0);
@@ -40,6 +41,7 @@ public class Server {
         UPDATE_USER_INFO_URL = BASE_URL + "/updateUserInfo";
         SEARCH_URL = BASE_URL + "/search";
         IMAGE_URL = BASE_URL + "/images";
+        STEAL_CLASS_URL = BASE_URL + "/stealClass";
     }
 
     public static final String REQ_USER_NAME = "user_name";
@@ -83,6 +85,7 @@ public class Server {
     public static final String RES_ACADEMY = "academy";
     public static final String RES_POSITION = "position";
     public static final String RES_SUBJECT_NAME = "subject_name";
+    public static final String RES_CLASS_ORDER = "class_order";
 
     public static final String SUCCESS = "success";
     public static final String FAILURE = "failure";

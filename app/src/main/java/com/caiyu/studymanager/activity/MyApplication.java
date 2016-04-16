@@ -5,6 +5,7 @@ import android.app.Application;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.caiyu.studymanager.constant.Server;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * Created by 渝 on 2016/2/21.
@@ -22,6 +23,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        LeakCanary.install(this);
         Server.initURLs(this);
         queue = Volley.newRequestQueue(getApplicationContext());
     }
