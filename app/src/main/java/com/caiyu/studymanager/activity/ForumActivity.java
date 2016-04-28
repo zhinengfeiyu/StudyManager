@@ -2,6 +2,7 @@ package com.caiyu.studymanager.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.view.View;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -33,10 +34,10 @@ import butterknife.OnItemClick;
  */
 public class ForumActivity extends BaseActivity {
 
-//    @Bind(R.id.subjectTv)
-//    TextView subjectTv;
     @Bind(R.id.topicList)
     ListView listView;
+    @Bind(R.id.emptyView)
+    View emptyView;
 
     private SubjectManager subjectManager = SubjectManager.getInstance();
     private SubjectEntity subjectEntity;
@@ -101,8 +102,9 @@ public class ForumActivity extends BaseActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        cancelDialog();
+                        listView.setEmptyView(emptyView);
                         try {
-                            cancelDialog();
                             List<TopicBean> topicList = new ArrayList<>();
                             JSONArray jsonArray = new JSONArray(response);
                             for (int i=0;i<jsonArray.length();i++) {

@@ -6,8 +6,6 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.caiyu.studymanager.R;
@@ -46,7 +44,7 @@ public class SettingView extends FrameLayout {
         leftText = arr.getString(R.styleable.SettingView_leftText);
         rightText = arr.getString(R.styleable.SettingView_rightText);
         arr.recycle();
-        LayoutInflater.from(context).inflate(R.layout.setting, this);
+        LayoutInflater.from(context).inflate(R.layout.view_setting, this);
     }
 
     @Override

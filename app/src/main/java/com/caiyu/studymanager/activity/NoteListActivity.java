@@ -1,6 +1,7 @@
 package com.caiyu.studymanager.activity;
 
 import android.content.Intent;
+import android.view.View;
 import android.widget.ListView;
 
 import com.caiyu.entity.NoteEntity;
@@ -23,6 +24,8 @@ public class NoteListActivity extends BaseActivity {
 
     @Bind(R.id.noteLv)
     ListView listView;
+    @Bind(R.id.emptyView)
+    View emptyView;
 
     private SubjectManager subjectManager = SubjectManager.getInstance();
     private NoteManager noteManager = NoteManager.getInstance();
@@ -38,6 +41,7 @@ public class NoteListActivity extends BaseActivity {
     public void afterViewCreated() {
         setTitle(getString(R.string.title_note));
         setTitleRightIcon(R.mipmap.pencil);
+        listView.setEmptyView(emptyView);
         refreshShowNote(getIntent().getLongExtra(ExtraKeys.SUBJECT_ID, -1L));
     }
 
@@ -98,9 +102,6 @@ public class NoteListActivity extends BaseActivity {
             data = noteManager.getDataBySubjectId(subjectId);
         if (Verifier.isEffectiveList(data)) {
             listView.setAdapter(new NoteAdapter(this, data));
-        }
-        else {
-            showToast("暂无笔记");
         }
     }
 }

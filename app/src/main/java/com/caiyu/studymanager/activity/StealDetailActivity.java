@@ -1,5 +1,6 @@
 package com.caiyu.studymanager.activity;
 
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.bean.StealDetailBean;
 import com.caiyu.studymanager.constant.ExtraKeys;
 import com.caiyu.studymanager.constant.Server;
+import com.caiyu.studymanager.widget.EmptyView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +36,8 @@ public class StealDetailActivity extends BaseActivity {
     TextView lessonTv;
     @Bind(R.id.stealDetailLv)
     ListView stealDetailLv;
+    @Bind(R.id.emptyView)
+    View emptyView;
 
     @Override
     public int getContentViewId() {
@@ -51,6 +55,7 @@ public class StealDetailActivity extends BaseActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        stealDetailLv.setEmptyView(emptyView);
                         cancelDialog();
                         try {
                             List<StealDetailBean> stealDetailList = new ArrayList<>();

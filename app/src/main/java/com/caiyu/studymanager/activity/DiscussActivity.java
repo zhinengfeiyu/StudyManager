@@ -47,6 +47,8 @@ public class DiscussActivity extends BaseActivity {
     TextView topicContentTv;
     @Bind(R.id.discussList)
     ListView listView;
+    @Bind(R.id.emptyView)
+    View emptyView;
     @Bind(R.id.inputLayout)
     View inputLayout;
     @Bind(R.id.hintTv)
@@ -184,6 +186,7 @@ public class DiscussActivity extends BaseActivity {
                     @Override
                     public void onResponse(String response) {
                         cancelDialog();
+                        listView.setEmptyView(emptyView);
                         try {
                             List<DiscussBean> discussList = new ArrayList<>();
                             JSONArray jsonArray = new JSONArray(response);
@@ -294,8 +297,7 @@ public class DiscussActivity extends BaseActivity {
             }
             requestSendDiscuss(bean);
             inputLayout.setVisibility(View.GONE);
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(v.getWindowToken(), 0); //强制隐藏键盘
+            hideSoftInput(v);
         }
     }
 
