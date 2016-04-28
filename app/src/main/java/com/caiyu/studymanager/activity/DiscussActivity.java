@@ -15,7 +15,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.caiyu.studymanager.Adapter.DiscussAdapter;
+import com.caiyu.studymanager.adapter.DiscussAdapter;
 import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.bean.DiscussBean;
 import com.caiyu.studymanager.common.Verifier;
@@ -32,7 +32,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 import butterknife.OnItemClick;
 
 /**

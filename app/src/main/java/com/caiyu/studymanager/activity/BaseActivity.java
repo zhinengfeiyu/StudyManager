@@ -53,6 +53,10 @@ public abstract class BaseActivity extends Activity {
         }
     }
 
+    /**
+     * 设置标题栏的标题文字
+     * @param title
+     */
     @Override
     public void setTitle(CharSequence title) {
         TextView titleTv = (TextView) findViewById(R.id.commonTitleTv);
@@ -60,6 +64,10 @@ public abstract class BaseActivity extends Activity {
         titleTv.setText(title);
     }
 
+    /**
+     * 标题栏左侧是否显示返回按钮
+     * @return
+     */
     protected boolean showBack() {
         return true;
     }
@@ -110,14 +118,27 @@ public abstract class BaseActivity extends Activity {
 
     }
 
+    /**
+     * 显示短时间的Toast
+     * @param msg
+     */
     public void showToast(String msg) {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * 显示长时间的Toast
+     * @param msg
+     */
     protected void showLongToast(String msg) {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * 显示转圈效果的进度条
+     * @param hint
+     *       显示进度条提示信息
+     */
     protected void showDialog(String hint) {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(this);
@@ -127,12 +148,17 @@ public abstract class BaseActivity extends Activity {
         progressDialog.show();
     }
 
+    /**
+     * 取消进度条
+     */
     protected void cancelDialog() {
         if (progressDialog != null)
             progressDialog.cancel();
     }
 
-    //强制隐藏键盘
+    /**
+     * 强制隐藏键盘
+     */
     protected void hideSoftInput(View v) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);

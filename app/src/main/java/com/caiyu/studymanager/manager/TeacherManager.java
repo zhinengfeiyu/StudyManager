@@ -82,7 +82,6 @@ public class TeacherManager implements IDaoManager<TeacherEntity>{
         if(teacherDao == null) {
             return 0;
         }
-
         QueryBuilder<TeacherEntity> qb = teacherDao.queryBuilder();
         return qb.buildCount().count();
     }

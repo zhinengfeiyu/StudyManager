@@ -1,29 +1,17 @@
 package com.caiyu.studymanager.activity;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.caiyu.entity.NoteEntity;
-import com.caiyu.entity.SubjectEntity;
-import com.caiyu.studymanager.Adapter.NoteAdapter;
+import com.caiyu.studymanager.adapter.NoteAdapter;
 import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.common.Verifier;
 import com.caiyu.studymanager.constant.ExtraKeys;
 import com.caiyu.studymanager.manager.NoteManager;
 import com.caiyu.studymanager.manager.SubjectManager;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnItemClick;

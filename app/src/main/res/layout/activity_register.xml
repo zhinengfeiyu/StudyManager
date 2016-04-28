@@ -145,7 +145,6 @@
             android:text="两次输入的密码不一致"
             android:visibility="gone"/>
 
-
         <Button
             android:id="@+id/registerBtn"
             android:layout_width="match_parent"
@@ -155,7 +154,8 @@
             android:layout_marginRight="40dp"
             android:layout_gravity="center_horizontal"
             android:textSize="20sp"
-            android:text="确认注册"/>
+            android:text="确认注册"
+            android:background="@drawable/selector_login_btn_pressed"/>
 
     </LinearLayout>
 </LinearLayout>

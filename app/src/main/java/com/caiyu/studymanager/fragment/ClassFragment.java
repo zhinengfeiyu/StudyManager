@@ -6,10 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,7 +19,7 @@ import com.caiyu.entity.ClassTableEntity;
 import com.caiyu.entity.ClassTimeEntity;
 import com.caiyu.entity.SubjectEntity;
 import com.caiyu.entity.TeacherEntity;
-import com.caiyu.studymanager.Adapter.ClassTableAdapter;
+import com.caiyu.studymanager.adapter.ClassTableAdapter;
 import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.activity.ClassTimeSetActivity;
 import com.caiyu.studymanager.activity.MyApplication;
@@ -45,7 +42,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Created by 渝 on 2016/2/26.

@@ -11,6 +11,7 @@
     <color name="indigo">#00ffff</color>
     <color name="green_cc">#00cc00</color>
     <color name="blue_common">#0099ff</color>
+    <color name="blue_login_btn">#44cef6</color>
     <color name="sky_blue">#33ccff</color>
     <color name="gray_33">#333333</color>
     <color name="gray_66">#666666</color>

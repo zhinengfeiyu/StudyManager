@@ -59,7 +59,8 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:textSize="20sp"
-            android:text="登录"/>
+            android:text="登录"
+            android:background="@drawable/selector_login_btn_pressed"/>
         <TextView
             style="@style/ClickableBg"
             android:id="@+id/registerTv"

@@ -1,4 +1,4 @@
-package com.caiyu.studymanager.Adapter;
+package com.caiyu.studymanager.adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;

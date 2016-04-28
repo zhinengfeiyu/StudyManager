@@ -1,6 +1,5 @@
 package com.caiyu.studymanager.activity;
 
-import android.content.Intent;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 

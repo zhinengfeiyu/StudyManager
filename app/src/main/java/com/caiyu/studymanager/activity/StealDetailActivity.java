@@ -1,6 +1,5 @@
 package com.caiyu.studymanager.activity;
 
-import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -8,9 +7,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.caiyu.studymanager.Adapter.StealDetailAdapter;
+import com.caiyu.studymanager.adapter.StealDetailAdapter;
 import com.caiyu.studymanager.R;
-import com.caiyu.studymanager.bean.DiscussBean;
 import com.caiyu.studymanager.bean.StealDetailBean;
 import com.caiyu.studymanager.constant.ExtraKeys;
 import com.caiyu.studymanager.constant.Server;
@@ -25,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Created by 渝 on 2016/4/16.

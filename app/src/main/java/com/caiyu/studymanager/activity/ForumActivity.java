@@ -3,14 +3,13 @@ package com.caiyu.studymanager.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.caiyu.entity.SubjectEntity;
-import com.caiyu.studymanager.Adapter.TopicAdapter;
+import com.caiyu.studymanager.adapter.TopicAdapter;
 import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.bean.TopicBean;
 import com.caiyu.studymanager.constant.ExtraKeys;
@@ -27,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 import butterknife.OnItemClick;
 
 /**

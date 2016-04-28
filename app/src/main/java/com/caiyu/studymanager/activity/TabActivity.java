@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -13,8 +11,6 @@ import android.widget.TextView;
 import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.fragment.ClassFragment;
 import com.caiyu.studymanager.fragment.ExploreFragment;
-import com.caiyu.studymanager.fragment.ForumFragment;
-import com.caiyu.studymanager.fragment.HomeFragment;
 import com.caiyu.studymanager.fragment.MeFragment;
 
 /**

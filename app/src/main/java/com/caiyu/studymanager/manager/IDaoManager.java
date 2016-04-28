@@ -7,18 +7,18 @@ import java.util.List;
  */
 public interface IDaoManager<T> {
 
-    public void addData(T t);
+    void addData(T t);
 
-    public void deleteByKey(long id);
+    void deleteByKey(long id);
 
-    public void deleteAll();
+    void deleteAll();
 
-    public T getDataById(long id);
+    T getDataById(long id);
 
-    public List<T> getAll();
+    List<T> getAll();
 
-    public long getTotalCount();
+    long getTotalCount();
 
-    public boolean hasKey(long id);
+    boolean hasKey(long id);
 
 }

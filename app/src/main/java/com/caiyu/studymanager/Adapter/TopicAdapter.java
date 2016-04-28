@@ -1,4 +1,4 @@
-package com.caiyu.studymanager.Adapter;
+package com.caiyu.studymanager.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,6 @@ import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.bean.TopicBean;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**

@@ -41,8 +41,6 @@ public class ClassDetailActivity extends BaseActivity {
     SettingView endWeekView;
     @Bind(R.id.noteView)
     SettingView noteView;
-    @Bind(R.id.forumView)
-    SettingView forumView;
     @Bind(R.id.deleteBtn)
     Button deleteBtn;
 

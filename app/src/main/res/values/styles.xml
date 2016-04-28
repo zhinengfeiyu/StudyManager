@@ -20,6 +20,12 @@
     <style name="BtnClassTimeSet">
         <item name="android:textColor">@color/blue</item>
         <item name="android:textSize">15sp</item>
+        <item name="android:background">@drawable/selector_green_light_round_pressed</item>
+    </style>
+
+    <style name="TvClassTimeSet">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="MyTheme" parent="android:style/Theme.Holo.Light.NoActionBar" />

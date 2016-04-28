@@ -1,6 +1,8 @@
 package com.caiyu.studymanager.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.SpannableString;
@@ -42,12 +44,6 @@ public class LoginActivity extends BaseActivity {
     EditText userNameEt;
     @Bind(R.id.passwordEt)
     EditText passwordEt;
-    @Bind(R.id.loginBtn)
-    Button loginBtn;
-    @Bind(R.id.registerTv)
-    TextView registerTv;
-    @Bind(R.id.offlineUseTv)
-    TextView offlineUseTv;
 
     @Override
     public int getContentViewId() {
@@ -149,36 +145,28 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.changeIpTv)
     void click_ip() {
-        final View ipInputView = LayoutInflater.from(this).inflate(R.layout.view_ip_address, null);
-        ((ViewGroup) findViewById(R.id.loginContentView)).addView(ipInputView);
-        Button cancelBtn = (Button) ipInputView.findViewById(R.id.cancelBtn);
-        Button confirmBtn = (Button) ipInputView.findViewById(R.id.confirmIpBtn);
-        final EditText ipEt = (EditText) ipInputView.findViewById(R.id.ipEt);
-        ipEt.setText(Server.IP);
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0); //强制隐藏键盘
-                ((ViewGroup) findViewById(R.id.loginContentView)).removeView(ipInputView);
-            }
-        });
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String input = ipEt.getText().toString().trim();
-                if (!input.equals(Server.IP)) {
-                    SharedPreferences.Editor editor = getSharedPreferences(PrefKeys.TABLE_USER, 0).edit();
-                    editor.putString(PrefKeys.SERVER_IP, input);
-                    editor.commit();
-                    Server.initURLs(LoginActivity.this);
-                    showToast("IP地址修改成功");
-                }
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0); //强制隐藏键盘
-                ((ViewGroup) findViewById(R.id.loginContentView)).removeView(ipInputView);
-            }
-        });
+        final EditText editText = new EditText(this);
+        editText.setText(Server.IP);
+        editText.setHint("在此输入新IP");
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("更改服务端IP地址")
+                .setView(editText)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String input = editText.getText().toString().trim();
+                        if (!input.equals(Server.IP)) {
+                            SharedPreferences.Editor editor = getSharedPreferences(PrefKeys.TABLE_USER, 0).edit();
+                            editor.putString(PrefKeys.SERVER_IP, input);
+                            editor.commit();
+                            Server.initURLs(LoginActivity.this);
+                            showToast("IP地址修改成功");
+                        }
+                    }
+                })
+                .setNegativeButton("取消", null)
+                .create();
+        dialog.show();
     }
 
     private boolean isUserInfoCorrect() {

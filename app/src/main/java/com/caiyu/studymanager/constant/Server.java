@@ -27,7 +27,7 @@ public class Server {
 
     public static void initURLs(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PrefKeys.TABLE_USER, 0);
-        IP = prefs.getString(PrefKeys.SERVER_IP, "10.1.81.88");
+        IP = prefs.getString(PrefKeys.SERVER_IP, "192.168.137.1");
         BASE_URL = "http://" + IP + ":8080/StudyManager";
         LOGIN_URL = BASE_URL + "/login";
         REGISTER_URL = BASE_URL + "/register";

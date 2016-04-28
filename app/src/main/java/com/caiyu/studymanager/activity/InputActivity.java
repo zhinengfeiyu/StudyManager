@@ -1,6 +1,5 @@
 package com.caiyu.studymanager.activity;
 
-import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.text.InputType;
 import android.util.Log;

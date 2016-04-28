@@ -23,7 +23,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        LeakCanary.install(this);
+//        LeakCanary.install(this);
         Server.initURLs(this);
         queue = Volley.newRequestQueue(getApplicationContext());
     }
@@ -32,7 +32,4 @@ public class MyApplication extends Application {
         return queue;
     }
 
-    public static int getUserId() {
-        return userId;
-    }
 }

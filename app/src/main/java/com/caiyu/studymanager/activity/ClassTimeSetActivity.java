@@ -82,7 +82,7 @@ public class ClassTimeSetActivity extends BaseActivity {
         if (verifyTimeInput() == true) {
             saveTimeInput();
             showToast("设置成功");
-            setResult(Activity.RESULT_OK);
+            setResult(RESULT_OK);
             finish();
         }
         else {
