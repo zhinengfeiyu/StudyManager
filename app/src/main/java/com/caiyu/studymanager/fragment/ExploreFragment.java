@@ -20,6 +20,7 @@ import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.activity.AutoSilenceActivity;
 import com.caiyu.studymanager.activity.ClassDetailActivity;
 import com.caiyu.studymanager.activity.ClassSetActivity;
+import com.caiyu.studymanager.activity.EmptyClassroomActivity;
 import com.caiyu.studymanager.activity.ForumActivity;
 import com.caiyu.studymanager.activity.LessonStealChooseActivity;
 import com.caiyu.studymanager.activity.NoteDetailActivity;
@@ -82,7 +83,12 @@ public class ExploreFragment extends BaseFragment {
             map = new HashMap<>();
             map.put("img", R.mipmap.classroom);
             map.put("txt", "空余教室");
-            map.put("listener", null);
+            map.put("listener", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mContext.startActivity(new Intent(mContext, EmptyClassroomActivity.class));
+                }
+            });
             data.add(map);
 
             map = new HashMap<>();

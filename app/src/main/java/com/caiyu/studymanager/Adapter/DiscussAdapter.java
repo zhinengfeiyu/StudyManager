@@ -103,7 +103,7 @@ public class DiscussAdapter extends BaseAdapter {
                 }, 100, 100, Bitmap.Config.RGB_565, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                headImg.setImageResource(R.mipmap.head);
             }
         });
         imageRequest.setTag("showUserHeadImage");

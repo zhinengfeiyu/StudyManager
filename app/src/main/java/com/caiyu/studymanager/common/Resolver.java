@@ -1,5 +1,7 @@
 package com.caiyu.studymanager.common;
 
+import java.util.Calendar;
+
 /**
  * Created by 渝 on 2016/4/16.
  */
@@ -51,5 +53,33 @@ public class Resolver {
     public static String resolveClassWeek(int startWeek, int endWeek) {
         String result = "第%1$d周-第%2$d周";
         return String.format(result, startWeek, endWeek);
+    }
+
+    public static String resolveWeekday(int weekday) {
+        String result = "";
+        switch (weekday) {
+            case Calendar.MONDAY:
+                result = "星期一";
+                break;
+            case Calendar.TUESDAY:
+                result = "星期二";
+                break;
+            case Calendar.WEDNESDAY:
+                result = "星期三";
+                break;
+            case Calendar.THURSDAY:
+                result = "星期四";
+                break;
+            case Calendar.FRIDAY:
+                result = "星期五";
+                break;
+            case Calendar.SATURDAY:
+                result = "星期六";
+                break;
+            case Calendar.SUNDAY:
+                result = "星期日";
+                break;
+        }
+        return result;
     }
 }

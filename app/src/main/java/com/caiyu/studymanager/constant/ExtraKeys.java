@@ -33,4 +33,14 @@ public interface ExtraKeys {
 
     String UPDATE_RESULT = "update_result"; //信息更新返回的结果
 
+    String WEEKDAY = "weekday";     //星期几
+
+    String START_HOUR = "start_hour";   //起始小时数
+
+    String START_MINUTE = "start_minute";   //起始分钟数
+
+    String END_HOUR = "end_hour";   //截止小时数
+
+    String END_MINUTE = "end_minute";   //截止分钟数
+
 }

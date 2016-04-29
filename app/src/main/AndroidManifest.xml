@@ -37,6 +37,8 @@
         <activity android:name=".activity.AutoSilenceActivity" />
         <activity android:name=".activity.LessonStealChooseActivity" />
         <activity android:name=".activity.StealDetailActivity" />
+        <activity android:name=".activity.EmptyClassroomActivity" />
+        <activity android:name=".activity.EmptyClassroomResultActivity" />
         <activity
             android:name=".activity.CreateTopicActivity"
             android:label="交流论坛"/>

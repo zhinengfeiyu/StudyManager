@@ -19,11 +19,14 @@ public class Server {
     public static String SEND_DISCUSS_URL;
     public static String SHOW_TOPIC_DETAIL_URL;
     public static String GET_CLASS_URL;
+    public static String GET_SUBJECT_URL;
+    public static String GET_TEACHER_URL;
     public static String USER_INFO_URL;
     public static String UPDATE_USER_INFO_URL;
     public static String SEARCH_URL;
     public static String IMAGE_URL;
     public static String STEAL_CLASS_URL;
+    public static String GET_EMPTY_CLASSROOM_URL;
 
     public static void initURLs(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PrefKeys.TABLE_USER, 0);
@@ -37,11 +40,14 @@ public class Server {
         SEND_DISCUSS_URL = BASE_URL + "/sendDiscuss";
         SHOW_TOPIC_DETAIL_URL = BASE_URL + "/getTopicDetail";
         GET_CLASS_URL = BASE_URL + "/getClasses";
+        GET_SUBJECT_URL = BASE_URL + "getSubject";
+        GET_TEACHER_URL = BASE_URL + "getTeacher";
         USER_INFO_URL = BASE_URL + "/userInfo";
         UPDATE_USER_INFO_URL = BASE_URL + "/updateUserInfo";
         SEARCH_URL = BASE_URL + "/search";
         IMAGE_URL = BASE_URL + "/images";
         STEAL_CLASS_URL = BASE_URL + "/stealClass";
+        GET_EMPTY_CLASSROOM_URL = BASE_URL + "/getEmptyClassRoom";
     }
 
     public static final String REQ_USER_NAME = "user_name";
@@ -58,6 +64,10 @@ public class Server {
     public static final String REQ_DISCUSS_ID = "discuss_id";
     public static final String REQ_SEARCH_TYPE = "search_type";
     public static final String REQ_INPUT = "input";
+    public static final String REQ_TEACHER_NAME = "teacher_name";
+    public static final String REQ_SUBJECT_NAME = "subject_name";
+    public static final String REQ_START_CLASS_ORDER = "start_class_order";
+    public static final String REQ_END_CLASS_ORDER = "end_class_order";
 
     public static final String RES_TEACHER_ID = "teacher_id";
     public static final String RES_LOGIN_RESULT = "login_result";

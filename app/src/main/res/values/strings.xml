@@ -19,4 +19,5 @@
     <string name="title_auto_silence">自动静音设置</string>
     <string name="title_choose_lesson">选择课程</string>
     <string name="title_steal_class">蹭课</string>
+    <string name="title_search_empty_classroom">查找空教室</string>
 </resources>
