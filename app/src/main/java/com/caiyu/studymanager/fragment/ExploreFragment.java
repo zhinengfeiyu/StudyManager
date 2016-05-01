@@ -25,6 +25,7 @@ import com.caiyu.studymanager.activity.ForumActivity;
 import com.caiyu.studymanager.activity.LessonStealChooseActivity;
 import com.caiyu.studymanager.activity.NoteDetailActivity;
 import com.caiyu.studymanager.activity.NoteListActivity;
+import com.caiyu.studymanager.activity.TaskListActivity;
 import com.caiyu.studymanager.common.Verifier;
 import com.caiyu.studymanager.constant.ExtraKeys;
 
@@ -127,7 +128,13 @@ public class ExploreFragment extends BaseFragment {
             map = new HashMap<>();
             map.put("img", R.mipmap.study);
             map.put("txt", "学霸模式");
-            map.put("listener", null);
+            map.put("listener", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, TaskListActivity.class);
+                    mContext.startActivity(intent);
+                }
+            });
             data.add(map);
         }
 

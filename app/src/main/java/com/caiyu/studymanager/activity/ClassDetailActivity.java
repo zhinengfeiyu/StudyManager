@@ -72,6 +72,12 @@ public class ClassDetailActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK);
+        finish();
+    }
+
     @OnClick(R.id.classNameView)
     void click_class_name() {
         Intent intent = new Intent(this, SearchActivity.class);
@@ -129,8 +135,7 @@ public class ClassDetailActivity extends BaseActivity {
                         classEntity.setStartWeek(0);
                         classEntity.setEndWeek(0);
                         tableManager.update(classEntity);
-                        setResult(Activity.RESULT_OK);
-                        finish();
+                        onBackPressed();
                         showToast("该课程已被删除");
                     }
                 })

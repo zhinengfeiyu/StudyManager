@@ -39,6 +39,8 @@
         <activity android:name=".activity.StealDetailActivity" />
         <activity android:name=".activity.EmptyClassroomActivity" />
         <activity android:name=".activity.EmptyClassroomResultActivity" />
+        <activity android:name=".activity.TaskListActivity" />
+        <activity android:name=".activity.TaskSetActivity" />
         <activity
             android:name=".activity.CreateTopicActivity"
             android:label="交流论坛"/>

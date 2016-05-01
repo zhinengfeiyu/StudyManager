@@ -34,7 +34,7 @@ public class EmptyClassroomActivity extends BaseActivity {
 
     @Override
     public void afterViewCreated() {
-        setTitle("查找空教室");
+        setTitle(getString(R.string.title_search_empty_classroom));
         initWeekdayPicker();
         initTimePickers();
     }

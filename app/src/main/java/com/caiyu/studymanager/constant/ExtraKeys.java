@@ -43,4 +43,9 @@ public interface ExtraKeys {
 
     String END_MINUTE = "end_minute";   //截止分钟数
 
+    String HOUR = "hour";   //小时
+
+    String MINUTE = "minute";   //分钟
+
+    String REMIND_CONTENT = "remind_content";  //提醒事项
 }

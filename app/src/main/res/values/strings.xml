@@ -20,4 +20,6 @@
     <string name="title_choose_lesson">选择课程</string>
     <string name="title_steal_class">蹭课</string>
     <string name="title_search_empty_classroom">查找空教室</string>
+    <string name="title_study_pattern">学霸模式</string>
+    <string name="title_task_set">任务设置</string>
 </resources>

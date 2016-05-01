@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.GridView;
@@ -24,6 +25,8 @@ import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.activity.ClassTimeSetActivity;
 import com.caiyu.studymanager.activity.MyApplication;
 import com.caiyu.studymanager.bean.ClassBean;
+import com.caiyu.studymanager.bean.ClassOffsetBean;
+import com.caiyu.studymanager.common.Resolver;
 import com.caiyu.studymanager.common.Verifier;
 import com.caiyu.studymanager.constant.Server;
 import com.caiyu.studymanager.manager.ClassTableManager;
@@ -67,8 +70,7 @@ public class ClassFragment extends BaseFragment {
     private int tableHeight;    //课程表高度，包括时间、星期栏
 
     private List<ClassTableEntity> classList;
-    private int currentClassId;
-    private boolean isInClass;
+    private ClassOffsetBean currentOrNextClass;
 
     private TimechangeReceiver timeTickReceiver;
 
@@ -81,12 +83,14 @@ public class ClassFragment extends BaseFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == REQ_TABLE)   //更改课程信息，刷新
+            if (requestCode == REQ_TABLE) {  //更改课程信息，刷新
+                refreshCurrentClass();
                 refreshShowTable();
+            }
             else if (requestCode == REQ_TIME) { //更改上课时间，刷新
                 refreshShowTime();
-                if (refreshCurrentClass() == true)
-                    refreshShowTable();
+                refreshCurrentClass();
+                refreshShowTable();
             }
         }
     }
@@ -135,13 +139,11 @@ public class ClassFragment extends BaseFragment {
     }
 
     /**
-     * 判断现在或即将上的课，即刷新currentClassId和isInClass的值
-     * @return
-     *      如果当前上课信息有修改，返回true，否则返回false
+     * 判断现在或即将上的课
      */
-    private boolean refreshCurrentClass() {
+    private void refreshCurrentClass() {
 //        showToast("刷新当前课程信息\n原来的classId="+currentClassId+"\n原来的isInClass="+isInClass);
-        int originClassId = currentClassId;
+        /*int originClassId = currentClassId;
         boolean originIsInClass = isInClass;
         Calendar calendar = Calendar.getInstance();
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
@@ -173,7 +175,14 @@ public class ClassFragment extends BaseFragment {
         }
         isInClass = false;
         currentClassId = ((dayOfWeek + 1 - Calendar.MONDAY) * 5 + 1) % 25;
-        return currentClassId != originClassId || isInClass != originIsInClass;
+        return currentClassId != originClassId || isInClass != originIsInClass;*/
+        classList = tableManager.getAll();
+        if (!Verifier.isEffectiveList(classList) || classList.size() != 25) {
+            tableManager.fixDao();
+            classList = tableManager.getAll();
+            loadFromServer();
+        }
+        currentOrNextClass = Resolver.getCurrentOrNextClass();
     }
 
     private void refreshShowTime() {
@@ -197,16 +206,16 @@ public class ClassFragment extends BaseFragment {
 
     private void refreshShowTable() {
 //        showToast("刷新table");
-        classList = tableManager.getAll();
+        /*classList = tableManager.getAll();
         if (!Verifier.isEffectiveList(classList) || classList.size() != 25) {
             tableManager.fixDao();
             classList = tableManager.getAll();
             loadFromServer();
-        }
+        }*/
 //        if (tableGv.getAdapter() == null) {
             int classContentWidth = tableWidth - timeLayout.getLayoutParams().width;
             int classContentHeight = tableHeight - titleLayout.getLayoutParams().height;
-            tableGv.setAdapter(new ClassTableAdapter(getActivity(), classList, currentClassId, isInClass,
+            tableGv.setAdapter(new ClassTableAdapter(this, classList, currentOrNextClass,
                             classContentWidth, classContentHeight));
 //        }
 //        else {
@@ -249,7 +258,13 @@ public class ClassFragment extends BaseFragment {
                                 classList.add(classBean);
                             }
                             saveToLocal(classList);
-                            refreshShowTable();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    refreshCurrentClass();
+                                    refreshShowTable();
+                                }
+                            }, 500);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -306,9 +321,8 @@ public class ClassFragment extends BaseFragment {
     private class TimechangeReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (refreshCurrentClass() == true) {
-                refreshShowTable();
-            }
+            refreshCurrentClass();
+            refreshShowTable();
         }
     }
 
