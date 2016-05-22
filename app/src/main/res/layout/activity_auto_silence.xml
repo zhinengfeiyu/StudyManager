@@ -41,13 +41,12 @@
                 android:textSize="18sp"
                 android:text="下课时间手机恢复为原来的音量，不影响正常使用"/>
         </LinearLayout>
-        <ToggleButton
-            android:id="@+id/toggleBtn"
+        <CheckBox
+            android:id="@+id/checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
-            android:textOn="关闭自动静音功能"
-            android:textOff="打开自动静音功能"/>
+            android:layout_marginTop="20dp"
+            android:text="打开自动静音" />
     </LinearLayout>
 </LinearLayout>

@@ -47,6 +47,14 @@
         <activity
             android:name=".activity.DiscussActivity"
             android:label="交流论坛"/>
+        <receiver
+            android:name=".receiver.AutoSilenceReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="auto_silence_mode_change" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
