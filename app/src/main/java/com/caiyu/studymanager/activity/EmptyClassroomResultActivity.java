@@ -1,6 +1,7 @@
 package com.caiyu.studymanager.activity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,6 +37,8 @@ public class EmptyClassroomResultActivity extends BaseActivity {
     TextView timeChoiceTv;
     @Bind(R.id.listView)
     ListView listView;
+    @Bind(R.id.emptyView)
+    View emptyView;
 
     private int weekday;
     private int startHour;
@@ -62,9 +65,10 @@ public class EmptyClassroomResultActivity extends BaseActivity {
     }
 
     private void initTimeTv() {
-        String formatStr = "自习时间： %1$s 从 %2$d：%3$d 到 %4$d：%5$d";
+        String formatStr = "%1$s 从 %2$s：%3$s 到 %4$s：%5$s 的可用教室";
         timeChoiceTv.setText(String.format(formatStr, Resolver.resolveWeekday(weekday),
-                            startHour, startMinute, endHour, endMinute));
+                            doubleStr(startHour), doubleStr(startMinute), doubleStr(endHour),
+                            doubleStr(endMinute)));
     }
 
     private void requestResult() {
@@ -74,7 +78,7 @@ public class EmptyClassroomResultActivity extends BaseActivity {
 //        showToast("startClassOrder:" + startClassOrder);
 //        showToast("endClassOrder:" + endClassOrder);
         if (startClassOrder == 0 && endClassOrder == 0) {
-            showLongToast("该时间段不在上课期间，所有教室都是空哒~~");
+            listView.setEmptyView(emptyView);
         }
         else {
             StringRequest request = new StringRequest(Request.Method.POST, Server.GET_EMPTY_CLASSROOM_URL,
@@ -169,5 +173,14 @@ public class EmptyClassroomResultActivity extends BaseActivity {
             startClassOrder = endClassOrder = 0;
         }
         return startClassOrder * 100 + endClassOrder;
+    }
+
+    private String doubleStr(int num) {
+        if (num < 10) {
+            return "0" + num;
+        }
+        else {
+            return "" + num;
+        }
     }
 }

@@ -36,7 +36,7 @@ public class AutoSilenceActivity extends BaseActivity {
         SharedPreferences.Editor editor = getSharedPreferences(PrefKeys.TABLE_SETTING, 0).edit();
         editor.putBoolean(PrefKeys.AUTO_SILENCE_SET, checkBox.isChecked());
         editor.commit();
-        Toast.makeText(getApplicationContext(), "自动静音设置已被修改", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "自动静音设置已被修改", Toast.LENGTH_SHORT).show();
         sendBroadcast(new Intent("auto_silence_mode_change"));
     }
 

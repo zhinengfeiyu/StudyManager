@@ -7,18 +7,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="15dp"
         android:orientation="vertical">
         <TextView
             android:id="@+id/lessonTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:textSize="18sp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/gray_cc" />
         <ListView
             android:id="@+id/stealDetailLv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="10dp"/>
 
         <LinearLayout
             android:id="@+id/emptyView"
@@ -40,7 +45,7 @@
                 android:layout_marginTop="20dp"
                 android:textSize="18sp"
                 android:textColor="@color/gray_99"
-                android:text="暂无可蹭课程"/>
+                android:text="暂无可蹭的时间段"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

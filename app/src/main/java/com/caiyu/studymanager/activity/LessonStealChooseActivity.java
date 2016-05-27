@@ -19,12 +19,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.caiyu.entity.NoteEntity;
+import com.caiyu.entity.SubjectEntity;
 import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.bean.ClassBean;
 import com.caiyu.studymanager.bean.SubjectBean;
 import com.caiyu.studymanager.common.Verifier;
 import com.caiyu.studymanager.constant.ExtraKeys;
 import com.caiyu.studymanager.constant.Server;
+import com.caiyu.studymanager.manager.SubjectManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,6 +48,8 @@ public class LessonStealChooseActivity extends BaseActivity {
 
     @Bind(R.id.lessonChooseLv)
     ListView choiceLv;
+
+    private SubjectManager subjectManager = SubjectManager.getInstance();
 
     private static final int TYPE_CLASS = 1;
 
@@ -83,6 +87,11 @@ public class LessonStealChooseActivity extends BaseActivity {
                                     subjectBean.setSubjectId(jsonObject.getInt(Server.RES_SUBJECT_ID));
                                     subjectBean.setSubjectName(jsonObject.getString(Server.RES_SUBJECT_NAME));
                                     subjectList.add(subjectBean);
+                                    if (!subjectManager.hasKey(subjectBean.getSubjectId())) {
+                                        SubjectEntity subjectEntity = new SubjectEntity((long) subjectBean.getSubjectId(),
+                                                                    subjectBean.getSubjectName());
+                                        subjectManager.addData(subjectEntity);
+                                    }
                                 }
                                 choiceLv.setAdapter(new MyAdapter(subjectList));
                             } catch (JSONException e) {

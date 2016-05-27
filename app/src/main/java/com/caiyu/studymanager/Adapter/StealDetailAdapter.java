@@ -81,11 +81,11 @@ public class StealDetailAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         StealDetailBean bean = getItem(position);
-        holder.professionTv.setText(bean.profession);
-        holder.classOrderTv.setText(Resolver.resolveClassOrder(bean.classOrder));
-        holder.classRoomTv.setText(bean.classRoom);
-        holder.teacherTv.setText(bean.teacher);
-        holder.weeksTv.setText(Resolver.resolveClassWeek(bean.startWeek, bean.endWeek));
+        holder.professionTv.setText("专业： " + bean.profession);
+        holder.classOrderTv.setText("时间： " + Resolver.resolveClassOrder(bean.classOrder));
+        holder.classRoomTv.setText("教室： " + bean.classRoom);
+        holder.teacherTv.setText("教师： " + bean.teacher);
+        holder.weeksTv.setText("周数： " + Resolver.resolveClassWeek(bean.startWeek, bean.endWeek));
         holder.addToTableBtn.setOnClickListener(new BtnClickListener(mContext, getItem(position)));
         return convertView;
     }

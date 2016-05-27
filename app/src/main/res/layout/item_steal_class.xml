@@ -40,5 +40,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:text="加入课程表"/>
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="加入课程表"
+        android:textSize="13sp"
+        android:textColor="@color/white"
+        android:background="@drawable/selector_green_pressed"/>
 </LinearLayout>

@@ -8,11 +8,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.caiyu.entity.SubjectEntity;
 import com.caiyu.studymanager.adapter.StealDetailAdapter;
 import com.caiyu.studymanager.R;
 import com.caiyu.studymanager.bean.StealDetailBean;
 import com.caiyu.studymanager.constant.ExtraKeys;
 import com.caiyu.studymanager.constant.Server;
+import com.caiyu.studymanager.manager.SubjectManager;
 import com.caiyu.studymanager.widget.EmptyView;
 
 import org.json.JSONArray;
@@ -47,6 +49,10 @@ public class StealDetailActivity extends BaseActivity {
     @Override
     public void afterViewCreated() {
         setTitle(getString(R.string.title_steal_class));
+        SubjectEntity subjectEntity = SubjectManager.getInstance().getDataById(
+                                getIntent().getIntExtra(ExtraKeys.SUBJECT_ID, 0));
+        if (subjectEntity != null)
+            lessonTv.setText("已选课程： " + subjectEntity.getName());
         listResult();
     }
 
