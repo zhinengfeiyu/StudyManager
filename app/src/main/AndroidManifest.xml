@@ -3,6 +3,12 @@
     package="com.caiyu.studymanager">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 往SDCard写入数据权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 录音权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 在SDCard中创建与删除文件权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
     <application
         android:name=".activity.MyApplication"
@@ -53,6 +59,13 @@
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="auto_silence_mode_change" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".receiver.TaskRemindReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="task_remind" />
             </intent-filter>
         </receiver>
     </application>

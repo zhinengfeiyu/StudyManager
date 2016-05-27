@@ -23,5 +23,16 @@
             android:textSize="18sp"
             android:text="添加任务"
             android:background="@drawable/selector_login_btn_pressed"/>
+        <Button
+            android:id="@+id/resetBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:text="重置任务列表"
+            android:background="@drawable/selector_login_btn_pressed"/>
     </LinearLayout>
 </LinearLayout>

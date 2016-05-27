@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.provider.Settings;
 import android.widget.Toast;
 
 import com.caiyu.studymanager.bean.ClassOffsetBean;
@@ -62,12 +63,12 @@ public class AutoSilenceReceiver extends BroadcastReceiver {
         else {
             switchToNoisyMode(context);
         }
-//        long passedMilliseconds = ((classOffsetBean.dayOffset * 24 + classOffsetBean.hoursOffset) * 60
-//                                    + classOffsetBean.minutesOffset) * 60 * 1000;
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0
-//                                , new Intent(context, AutoSilenceReceiver.class), 0);
-//        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-//        alarmManager.set(AlarmManager.RTC_WAKEUP, passedMilliseconds, pendingIntent);
+        long passedMilliseconds = (((classOffsetBean.dayOffset * 24 + classOffsetBean.hoursOffset) * 60
+                                    + classOffsetBean.minutesOffset) * 60 * 1000) + System.currentTimeMillis();
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0
+                                , new Intent(context, AutoSilenceReceiver.class), 0);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, passedMilliseconds, pendingIntent);
     }
 
     private void switchToNoisyMode(Context context) {
@@ -83,7 +84,7 @@ public class AutoSilenceReceiver extends BroadcastReceiver {
 
     private void switchToSilentMode(Context context) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        if (audioManager.getRingerMode()!=AudioManager.RINGER_MODE_VIBRATE) {
+        if (audioManager.getRingerMode() != AudioManager.RINGER_MODE_VIBRATE) {
             SharedPreferences.Editor editor = context.getSharedPreferences(PrefKeys.TABLE_SETTING, 0).edit();
             editor.putInt(PrefKeys.LAST_VOLUMN, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
             editor.commit();

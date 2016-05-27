@@ -5,7 +5,6 @@ import android.app.Application;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.caiyu.studymanager.constant.Server;
-import com.squareup.leakcanary.LeakCanary;
 
 /**
  * Created by 渝 on 2016/2/21.

@@ -48,4 +48,8 @@ public interface ExtraKeys {
     String MINUTE = "minute";   //分钟
 
     String REMIND_CONTENT = "remind_content";  //提醒事项
+
+    String VOICE_PATH = "voice_path";   //录音路径
+
+    String NEXT_INDEX = "next_index";   //待添加的下个索引
 }

@@ -32,6 +32,9 @@ public class MyDevOpenHelper extends DaoMaster.OpenHelper {
                 NoteDao.createTable(db, true);
                 TeacherDao.createTable(db, true);
                 break;
+            case 4:
+                TaskDao.createTable(db, true);
+                break;
         }
     }
 }
