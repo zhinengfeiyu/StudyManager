@@ -27,6 +27,7 @@ import com.caiyu.studymanager.manager.ClassTableManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -146,7 +147,13 @@ public class SearchActivity extends BaseActivity {
                                 JSONArray jsonArray = new JSONArray(response);
                                 List<SpannableString> data = new ArrayList<>(jsonArray.length());
                                 for (int i = 0; i < jsonArray.length(); i++) {
-                                    String rawText = jsonArray.getString(i);
+                                    String rawText = "";
+                                    if (inputType == TYPE_CLASS_ROOM)
+                                        rawText = jsonArray.getString(i);
+                                    else if (inputType == TYPE_CLASS) {
+                                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                        rawText = jsonObject.getString(Server.RES_SUBJECT_NAME);
+                                    }
                                     int firstIndex = rawText.indexOf(inputStr);
                                     int lastIndex = firstIndex + inputStr.length();
                                     SpannableString ss = new SpannableString(rawText);
@@ -184,7 +191,9 @@ public class SearchActivity extends BaseActivity {
 
     private void saveResult(String inputStr) {
         if (inputType == TYPE_CLASS) {
-
+            ClassTableEntity classEntity = classManager.getDataById(classId);
+            classEntity.setClassName(inputStr);
+            classManager.update(classEntity);
         }
         else if (inputType == TYPE_CLASS_ROOM) {
             ClassTableEntity classEntity = classManager.getDataById(classId);

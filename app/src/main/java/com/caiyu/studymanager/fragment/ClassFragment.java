@@ -82,7 +82,7 @@ public class ClassFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        /*if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQ_TABLE) {  //更改课程信息，刷新
                 refreshCurrentClass();
                 refreshShowTable();
@@ -92,7 +92,7 @@ public class ClassFragment extends BaseFragment {
                 refreshCurrentClass();
                 refreshShowTable();
             }
-        }为了暂时避免bug注释掉*/
+        }
     }
 
     @Override
@@ -100,16 +100,16 @@ public class ClassFragment extends BaseFragment {
         setTitle(getString(R.string.title_class_table));
         refreshShowTime();
         initTableSize();
-/*        refreshCurrentClass();
+        refreshCurrentClass();
         refreshShowTable();
         timeTickReceiver = new TimechangeReceiver();
-        getActivity().registerReceiver(timeTickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));为了暂时避免bug注释掉*/
+        getActivity().registerReceiver(timeTickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        /*getActivity().unregisterReceiver(timeTickReceiver);为了暂时避免bug注释掉*/
+        getActivity().unregisterReceiver(timeTickReceiver);
     }
 
     /**

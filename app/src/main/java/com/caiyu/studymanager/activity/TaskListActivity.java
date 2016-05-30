@@ -65,8 +65,8 @@ public class TaskListActivity extends BaseActivity {
             taskEntity.setMinute(intent.getIntExtra(ExtraKeys.MINUTE, 0));
             taskEntity.setTaskInfo(intent.getStringExtra(ExtraKeys.REMIND_CONTENT));
             taskEntity.setVoicePath(intent.getStringExtra(ExtraKeys.VOICE_PATH));
-            taskManager.addData(taskEntity);
-            taskList.add(taskEntity);
+            addCurrentData(taskEntity);
+            refreshDbData();
             refreshShowList();
             addAlarm(taskEntity);
         }
@@ -130,6 +130,28 @@ public class TaskListActivity extends BaseActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void addCurrentData(TaskEntity taskEntity) {
+        int totalMinutes = taskEntity.getHour() * 60 + taskEntity.getMinute();
+        int index = 0;
+        for (;;) {
+            if (index >= taskList.size())
+                break;
+            TaskEntity te = taskList.get(index);
+            if (te.getHour() * 60 + te.getMinute() < totalMinutes)
+                index++;
+            else
+                break;
+        }
+        taskList.add(index, taskEntity);
+    }
+
+    private void refreshDbData() {
+        taskManager.deleteAll();
+        for (TaskEntity taskEntity : taskList) {
+            taskManager.addData(taskEntity);
         }
     }
 
@@ -205,12 +227,21 @@ public class TaskListActivity extends BaseActivity {
                 holder = (ViewHolder) convertView.getTag();
             }
             TaskEntity taskEntity = getItem(position);
-            holder.timeTv.setText(taskEntity.getHour()+"："+taskEntity.getMinute());
+            holder.timeTv.setText(doubleStr(taskEntity.getHour())+"："+doubleStr(taskEntity.getMinute()));
             holder.taskTv.setText(taskEntity.getTaskInfo());
             if (!Verifier.isEffectiveStr(taskEntity.getVoicePath())) {
                 holder.voiceImg.setVisibility(View.GONE);
             }
             return convertView;
+        }
+
+        private String doubleStr(int num) {
+            if (num < 10) {
+                return "0" + num;
+            }
+            else {
+                return "" + num;
+            }
         }
 
         class ViewHolder {

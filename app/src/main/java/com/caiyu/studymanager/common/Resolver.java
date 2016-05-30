@@ -1,5 +1,7 @@
 package com.caiyu.studymanager.common;
 
+import android.util.Log;
+
 import com.caiyu.entity.ClassTableEntity;
 import com.caiyu.entity.ClassTimeEntity;
 import com.caiyu.studymanager.bean.ClassOffsetBean;
@@ -92,13 +94,19 @@ public class Resolver {
 
     public static ClassOffsetBean getCurrentOrNextClass() {
         ClassOffsetBean result = new ClassOffsetBean();
+
         Calendar calendar = Calendar.getInstance();
         int curWeekday = calendar.get(Calendar.DAY_OF_WEEK);
         int curHour = calendar.get(Calendar.HOUR_OF_DAY);
         int curMinute = calendar.get(Calendar.MINUTE);
+//        int curWeekday = Calendar.FRIDAY;
+//        int curHour = 10;
+//        int curMinute = 30;
         int curTotalMinutes = curHour * 60 + curMinute;
+
         ClassTimeManager classTimeManager = ClassTimeManager.getInstance();
         ClassTableManager classTableManager = ClassTableManager.getInstance();
+
         int timeOrder = 0;
         boolean isInClass = false;
         int searchStartClassId;
@@ -129,6 +137,8 @@ public class Resolver {
                 }
             }
             searchStartClassId = (curWeekday - Calendar.MONDAY) * 5 + timeOrder;
+            if (searchStartClassId > 25)
+                searchStartClassId %= 25;
         }
         ClassTableEntity searchStartClassEntity = classTableManager.getDataById(searchStartClassId);
 
@@ -159,11 +169,12 @@ public class Resolver {
                 }
             }
             else {
+                timeOrder %= 5;
                 ClassTimeEntity timeEntity = classTimeManager.getDataById(timeOrder);
                 int timeEntityMinutes = getTotalMinutes(timeEntity.getStartHour(), timeEntity.getStartMinute());
                 int zeroMinutes = 24 * 60;
                 int minutesOffset = zeroMinutes - curTotalMinutes + timeEntityMinutes;
-                result.dayOffset = 0;
+                result.dayOffset = (curWeekday == Calendar.FRIDAY ? 2 : 0);
                 result.hoursOffset = getHours(minutesOffset);
                 result.minutesOffset = getMinutes(minutesOffset);
             }
@@ -213,7 +224,7 @@ public class Resolver {
     }
 
     public static int getHours(int minutes) {
-        return minutes / 60;
+        return minutes / 60 % 24;
     }
 
     public static int getMinutes(int minutes) {
@@ -241,7 +252,7 @@ public class Resolver {
             weekdayOffset = targetWeekday - curWeekday - 1;
             minutesOffsetInDay = zeroMinutes - curTotalMinutes + targetTotalMinutes;
         }
-        else if (targetWeekday < targetWeekday) {
+        else if (targetWeekday < curWeekday) {
             weekdayOffset = (Calendar.FRIDAY - curWeekday) + (targetWeekday - Calendar.MONDAY) + 2;
             minutesOffsetInDay = zeroMinutes - curTotalMinutes + targetTotalMinutes;
         }
@@ -269,14 +280,24 @@ public class Resolver {
             if (classOffsetBean.dayOffset > 0) {
                 sb.append(classOffsetBean.dayOffset);
                 sb.append('天');
+                if (classOffsetBean.hoursOffset > 0) {
+                    sb.append(classOffsetBean.hoursOffset);
+                    sb.append("小时");
+                }
             }
-            if (classOffsetBean.hoursOffset > 0) {
-                sb.append(classOffsetBean.hoursOffset);
-                sb.append("小时");
-            }
-            if (classOffsetBean.dayOffset == 0 && classOffsetBean.minutesOffset > 0) {
-                sb.append(classOffsetBean.minutesOffset);
-                sb.append("分钟");
+            else {
+                if (classOffsetBean.hoursOffset > 0) {
+                    sb.append(classOffsetBean.hoursOffset);
+                    sb.append("小时");
+                    if (classOffsetBean.minutesOffset > 0) {
+                        sb.append(classOffsetBean.minutesOffset);
+                        sb.append("分钟");
+                    }
+                }
+                else {
+                    sb.append(classOffsetBean.minutesOffset);
+                    sb.append("分钟");
+                }
             }
             sb.append("上课");
             result = sb.toString();

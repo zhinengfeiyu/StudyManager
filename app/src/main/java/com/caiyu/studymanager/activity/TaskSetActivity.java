@@ -15,6 +15,7 @@ import com.caiyu.studymanager.constant.ExtraKeys;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import butterknife.Bind;
@@ -44,6 +45,7 @@ public class TaskSetActivity extends BaseActivity {
     public void afterViewCreated() {
         setTitle(getString(R.string.title_task_set));
         timePicker.setIs24HourView(true);
+        timePicker.setCurrentHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
         recordVoiceBtn.setOnTouchListener(new TouchRecordListener());
     }
 
